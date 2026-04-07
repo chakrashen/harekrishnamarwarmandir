@@ -1,0 +1,51 @@
+.hero { position: relative; min-height: 45vh; display: flex; align-items: center; justify-content: center; }
+.heroBg { position: absolute; inset: 0; overflow: hidden; }
+.heroImage { object-fit: cover; object-position: center; filter: blur(2px); }
+.overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,251,245,0.3), rgba(230,126,34,0.25)); }
+.heroContent { position: relative; z-index: 10; text-align: center; padding: 7rem 1rem 4rem; }
+.heroTitle { font-size: clamp(2rem, 5vw, 3.5rem); color: white; font-weight: 900; text-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+.eventsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+.eventCard { overflow: hidden; }
+.eventImg { position: relative; height: 180px; overflow: hidden; background: var(--bg-secondary); }
+.eventImage { object-fit: cover; object-position: center; }
+.daysLeftBadge {
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	z-index: 2;
+	padding: 0.45rem 0.75rem;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.92);
+	color: var(--saffron);
+	font-family: var(--font-ui);
+	font-size: 0.72rem;
+	font-weight: 800;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	box-shadow: 0 8px 20px rgba(44, 44, 44, 0.12);
+}
+.eventBody { padding: 1.25rem; }
+.eventMeta { display: flex; gap: 1rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.eventDate, .eventTime { display: flex; align-items: center; gap: 0.3rem; font-family: var(--font-ui); font-size: 0.75rem; font-weight: 600; color: var(--saffron); text-transform: uppercase; letter-spacing: 0.05em; }
+.eventTitle { font-family: var(--font-heading); font-size: 1.1rem; color: var(--saffron); margin-bottom: 0.4rem; }
+.eventDesc { font-family: var(--font-body); font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+.emptyState {
+	grid-column: 1 / -1;
+	padding: 1.5rem;
+	text-align: center;
+	border: 1px dashed var(--border-light);
+	border-radius: var(--radius-lg);
+	background: var(--bg-card);
+	color: var(--text-secondary);
+	font-family: var(--font-ui);
+	font-weight: 600;
+}
+.programsBg { background: var(--bg-secondary); }
+.programsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+.programCard { display: flex; gap: 1rem; padding: 1.25rem; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); transition: var(--transition); }
+.programCard:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.programIcon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.programTitle { font-family: var(--font-ui); font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.15rem; }
+.programSchedule { font-family: var(--font-ui); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--saffron); display: block; margin-bottom: 0.4rem; }
+.programDesc { font-family: var(--font-ui); font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+@media (max-width: 640px) { .eventsGrid { grid-template-columns: 1fr; } .programsGrid { grid-template-columns: 1fr; } }

@@ -1,0 +1,8 @@
+Add the uploaded photos in this folder with the exact names below:
+
+1) gallery-anna-daan-serving.jpg
+2) gallery-gau-seva-monks.jpg
+3) gallery-gau-seva-volunteer.jpg
+4) gallery-anna-daan-students.jpg
+
+The gallery page reads files from /gallery/<filename>.

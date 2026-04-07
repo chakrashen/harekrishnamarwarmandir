@@ -1,0 +1,40 @@
+.loaderOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at center, #fff5eb 0%, #fffbf5 45%, #f6ecdd 100%);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 450ms ease, visibility 450ms ease;
+}
+
+.fadeOut {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loaderVideo {
+  width: min(62vw, 360px);
+  height: auto;
+  max-height: 42vh;
+  border-radius: 1rem;
+  object-fit: contain;
+}
+
+.mainHidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mainVisible {
+  visibility: visible;
+}
+
+@media (max-width: 768px) {
+  .loaderVideo {
+    width: min(76vw, 300px);
+  }
+}

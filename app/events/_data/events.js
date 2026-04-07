@@ -1,0 +1,51 @@
+export const events = [
+  {
+    title: 'Gaura Purnima',
+    date: '2026-03-03',
+    time: '5:00 AM - 9:00 PM',
+    description: 'Celebrate the divine appearance of Sri Chaitanya Mahaprabhu with kirtan, abhishek, and prasadam.',
+    image: '/srila-prabhupada.jpg',
+  },
+  {
+    title: 'Ram Navami',
+    date: '2026-03-27',
+    time: '6:00 AM - 8:00 PM',
+    description: 'Grand celebration of Lord Rama\'s appearance day with special darshan, chanting, and feast.',
+    image: '/about-mission.png',
+  },
+  {
+    title: 'Akshaya Tritiya',
+    date: '2026-04-19',
+    time: '7:00 AM - 7:00 PM',
+    description: 'An auspicious day for new beginnings with special seva, blessings, and donation opportunities.',
+    image: '/gallery/gallery-anna-daan-serving.jpg',
+  },
+  {
+    title: 'Narasimha Jayanti',
+    date: '2026-04-30',
+    time: '5:30 PM - 8:30 PM',
+    description: 'Observe the appearance of Lord Narasimha with powerful prayers, kirtan, and evening arati.',
+    image: '/gallery/gallery-gau-seva-volunteer.jpg',
+  },
+  {
+    title: 'Ratha Yatra',
+    date: '2026-07-16',
+    time: '4:00 PM - 9:00 PM',
+    description: 'Join the grand chariot procession through the city with devotees, chanting, and prasadam.',
+    image: '/temple-hero-bg.png',
+  },
+  {
+    title: 'Janmashtami',
+    date: '2026-09-04',
+    time: '12:00 AM - 12:30 AM',
+    description: 'Celebrate the birth of Lord Krishna with midnight darshan, bhajans, and a festive feast.',
+    image: '/temple-intro-video-thumbnail.jpg',
+  },
+  {
+    title: 'Radhashtami',
+    date: '2026-09-19',
+    time: '10:57 AM - 1:23 PM',
+    description: 'Honor the appearance of Srimati Radharani with special worship, kirtan, and prasadam.',
+    image: '/gallery/gallery-gau-seva-monks.jpg',
+  },
+];

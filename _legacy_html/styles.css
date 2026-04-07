@@ -1,0 +1,832 @@
+/* ═══════════════════════════════════════════
+   HARE KRISHNA MARWAR — Design System
+   Dark Theme | Saffron & Gold
+═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap');
+
+:root {
+  --deep: #1C0505;
+  --maroon: #3B0A0A;
+  --gold: #C8961E;
+  --gold-bright: #F0B429;
+  --saffron: #E05C00;
+  --saffron-light: #FF7A1A;
+  --cream: #FFF8EE;
+  --white: #FFFFFF;
+  --glass: rgba(59, 10, 10, 0.6);
+  --glass-border: rgba(200, 150, 30, 0.15);
+  --shadow-gold: 0 0 30px rgba(200, 150, 30, 0.15);
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--deep);
+  color: var(--cream);
+  line-height: 1.7;
+  overflow-x: hidden;
+  padding-bottom: 70px; /* space for bottom nav on mobile */
+}
+
+h1, h2, h3, h4 { font-family: 'Cinzel Decorative', serif; line-height: 1.3; }
+p, li, span, a, input, textarea, select, button { font-family: 'EB Garamond', serif; }
+.ui-text { font-family: 'Nunito', sans-serif; }
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 32px; border-radius: 50px; font-weight: 700;
+  font-size: 1rem; cursor: pointer; transition: var(--transition);
+  border: none; font-family: 'Nunito', sans-serif; letter-spacing: 0.5px;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  color: var(--deep); box-shadow: 0 4px 20px rgba(224, 92, 0, 0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(224, 92, 0, 0.6);
+}
+.btn-secondary {
+  background: transparent; color: var(--gold);
+  border: 2px solid var(--gold);
+}
+.btn-secondary:hover {
+  background: var(--gold); color: var(--deep);
+  transform: translateY(-3px);
+}
+.btn-small {
+  padding: 10px 20px; font-size: 0.85rem;
+}
+
+/* ─── Section Headers ─── */
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-label {
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 4px;
+  color: var(--saffron); margin-bottom: 1rem; display: block;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold), var(--saffron));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 1rem;
+}
+.section-divider {
+  width: 80px; height: 3px; margin: 1.5rem auto;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.section-desc {
+  color: rgba(255, 248, 238, 0.7); font-size: 1.15rem;
+  max-width: 650px; margin: 0 auto;
+}
+
+/* ─── Navbar ─── */
+.navbar {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  padding: 20px 0; transition: var(--transition);
+  background: transparent;
+}
+.navbar.scrolled {
+  background: rgba(28, 5, 5, 0.95);
+  backdrop-filter: blur(20px); padding: 12px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.logo { display: flex; flex-direction: column; }
+.logo-title {
+  font-family: 'Cinzel Decorative', serif; font-size: 1.4rem;
+  font-weight: 700; color: var(--gold-bright);
+  text-shadow: 0 0 20px rgba(240, 180, 41, 0.3);
+}
+.logo-sub {
+  font-family: 'Nunito', sans-serif; font-size: 0.7rem;
+  letter-spacing: 3px; text-transform: uppercase; color: rgba(255,248,238,0.5);
+}
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-link {
+  font-family: 'Nunito', sans-serif; font-size: 0.9rem;
+  font-weight: 600; color: rgba(255,248,238,0.7);
+  transition: var(--transition); position: relative;
+}
+.nav-link::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 2px; background: var(--gold);
+  transition: var(--transition);
+}
+.nav-link:hover, .nav-link.active { color: var(--gold-bright); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+.donate-nav-btn {
+  padding: 10px 24px; border-radius: 50px;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  color: var(--deep); font-weight: 700; font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem; animation: pulse-glow 2.5s infinite;
+  transition: var(--transition); border: none; cursor: pointer;
+}
+.donate-nav-btn:hover { transform: scale(1.05); }
+
+/* ─── Hamburger ─── */
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px; z-index: 1001;
+}
+.hamburger span {
+  width: 24px; height: 2px; background: var(--cream);
+  transition: var(--transition); border-radius: 2px;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ─── Mobile Menu ─── */
+.mobile-menu {
+  position: fixed; inset: 0; background: rgba(28, 5, 5, 0.98);
+  backdrop-filter: blur(20px); z-index: 999;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  opacity: 0; pointer-events: none; transition: var(--transition);
+}
+.mobile-menu.active { opacity: 1; pointer-events: all; }
+.mobile-menu a {
+  font-family: 'Cinzel Decorative', serif; font-size: 1.5rem;
+  color: var(--cream); padding: 1rem; transition: var(--transition);
+}
+.mobile-menu a:hover { color: var(--gold-bright); }
+
+/* ─── Mobile Bottom Nav (GVD-inspired) ─── */
+.bottom-nav {
+  display: none; position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(28, 5, 5, 0.98); backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border); z-index: 1000;
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
+}
+.bottom-nav-items {
+  display: flex; justify-content: space-around; align-items: center;
+}
+.bottom-nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  font-family: 'Nunito', sans-serif; font-size: 0.65rem;
+  color: rgba(255,248,238,0.5); text-decoration: none; padding: 4px 8px;
+  transition: var(--transition); border: none; background: none; cursor: pointer;
+}
+.bottom-nav-item.active, .bottom-nav-item:hover { color: var(--gold-bright); }
+.bottom-nav-icon { font-size: 1.3rem; }
+
+/* ─── Hero ─── */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; overflow: hidden;
+  background: linear-gradient(180deg, var(--deep) 0%, var(--maroon) 50%, var(--deep) 100%);
+}
+.hero-bg-pattern {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(200,150,30,0.08) 0%, transparent 60%);
+}
+.hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; }
+.hero-greeting {
+  font-family: 'EB Garamond', serif; font-size: 1.3rem;
+  color: var(--saffron-light); letter-spacing: 3px; margin-bottom: 1rem;
+  opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+}
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900;
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold), var(--saffron-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: 0.5rem;
+  text-shadow: none; opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero-location {
+  font-family: 'Nunito', sans-serif; font-size: 1.1rem;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: rgba(255,248,238,0.6); margin-bottom: 2rem;
+  opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+}
+.hero-verse {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 1.2rem; color: rgba(255,248,238,0.7);
+  margin-bottom: 0.5rem; opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+}
+.hero-verse-ref {
+  font-family: 'Nunito', sans-serif; font-size: 0.8rem;
+  color: var(--gold); letter-spacing: 2px; margin-bottom: 2.5rem;
+  opacity: 0; animation: fadeUp 0.8s 1s forwards;
+}
+.hero-cta {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 4rem; opacity: 0; animation: fadeUp 0.8s 1.2s forwards;
+}
+.hero-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+  opacity: 0; animation: fadeUp 0.8s 1.4s forwards;
+}
+.stat-item { text-align: center; }
+.stat-number {
+  font-family: 'Cinzel Decorative', serif; font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--gold-bright); font-weight: 700;
+}
+.stat-label {
+  font-family: 'Nunito', sans-serif; font-size: 0.8rem;
+  color: rgba(255,248,238,0.5); text-transform: uppercase; letter-spacing: 2px;
+}
+
+/* ─── Page Hero (for inner pages) ─── */
+.page-hero {
+  padding: 8rem 0 4rem; text-align: center;
+  background: linear-gradient(180deg, var(--deep) 0%, var(--maroon) 100%);
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(200,150,30,0.06) 0%, transparent 60%);
+}
+.page-hero .section-label { margin-bottom: 0.5rem; }
+.page-hero .section-title { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 0.5rem; }
+.page-hero .section-desc { font-size: 1.1rem; }
+
+/* ─── Aarti Ticker ─── */
+.aarti-ticker {
+  background: linear-gradient(90deg, var(--maroon), rgba(59,10,10,0.8), var(--maroon));
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 16px 0; overflow: hidden;
+}
+.ticker-content {
+  display: flex; align-items: center; justify-content: center;
+  gap: 2rem; flex-wrap: wrap;
+}
+.ticker-label {
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 2px; color: var(--saffron-light);
+}
+.ticker-aarti {
+  font-family: 'Cinzel Decorative', serif; font-size: 1.1rem;
+  color: var(--gold-bright);
+}
+.ticker-countdown {
+  font-family: 'Nunito', sans-serif; font-size: 1rem;
+  color: var(--cream); background: rgba(200,150,30,0.15);
+  padding: 4px 16px; border-radius: 20px;
+  border: 1px solid var(--glass-border);
+}
+
+/* ─── Explore Cards (GVD-inspired) ─── */
+.explore-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.explore-card {
+  position: relative; border-radius: 20px; overflow: hidden;
+  height: 220px; transition: var(--transition); cursor: pointer;
+}
+.explore-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-gold); }
+.explore-card-bg {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.explore-card-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-size: 4rem;
+}
+.explore-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(28,5,5,0.9) 100%);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 1.5rem;
+}
+.explore-card-icon {
+  position: absolute; top: 1rem; right: 1rem;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(200,150,30,0.2); backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; border: 1px solid var(--glass-border);
+}
+.explore-card-title {
+  font-family: 'Cinzel Decorative', serif; font-size: 1.1rem;
+  color: var(--white); font-weight: 700;
+}
+.explore-card-desc {
+  font-family: 'Nunito', sans-serif; font-size: 0.8rem;
+  color: rgba(255,248,238,0.6); margin-top: 0.3rem;
+}
+
+/* ─── Welcome Section ─── */
+.welcome-section {
+  padding: 6rem 0;
+  background: linear-gradient(180deg, var(--deep) 0%, var(--maroon) 100%);
+}
+.welcome-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+  align-items: center;
+}
+.welcome-text h5 {
+  font-family: 'Nunito', sans-serif; color: var(--saffron-light);
+  font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.welcome-text h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--gold-bright);
+  margin-bottom: 1rem; background: none; -webkit-text-fill-color: var(--gold-bright);
+}
+.welcome-text p {
+  color: rgba(255,248,238,0.7); font-size: 1.05rem; margin-bottom: 1rem;
+}
+.welcome-image {
+  border-radius: 20px; overflow: hidden;
+  border: 1px solid var(--glass-border);
+  height: 400px; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--maroon), var(--deep));
+  font-size: 5rem;
+}
+
+/* ─── Darshan / Timings ─── */
+.darshan-section { padding: 6rem 0; background: var(--deep); }
+.aarti-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem; margin-bottom: 3rem;
+}
+.aarti-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 16px; padding: 1.5rem; display: flex;
+  align-items: center; gap: 1.5rem; transition: var(--transition);
+}
+.aarti-card:hover {
+  transform: translateY(-4px); border-color: var(--gold);
+  box-shadow: var(--shadow-gold);
+}
+.aarti-icon {
+  font-size: 2rem; width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(200,150,30,0.1); border-radius: 50%;
+}
+.aarti-name { font-family: 'Cinzel Decorative', serif; font-size: 1rem; color: var(--gold-bright); }
+.aarti-time { font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--saffron-light); font-weight: 600; }
+.aarti-desc { font-size: 0.85rem; color: rgba(255,248,238,0.5); }
+
+.temple-hours {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  max-width: 600px; margin: 0 auto;
+}
+.hours-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 12px; padding: 1.5rem; text-align: center;
+}
+.hours-label { font-family: 'Nunito', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--saffron-light); margin-bottom: 0.5rem; }
+.hours-time { font-family: 'Cinzel Decorative', serif; font-size: 1.2rem; color: var(--gold-bright); }
+
+/* ─── About ─── */
+.about-section {
+  padding: 6rem 0;
+  background: linear-gradient(180deg, var(--maroon) 0%, var(--deep) 100%);
+}
+.about-content { max-width: 800px; margin: 0 auto 4rem; text-align: center; }
+.about-content p { font-size: 1.15rem; color: rgba(255,248,238,0.75); margin-bottom: 1.5rem; }
+
+.timeline { position: relative; max-width: 700px; margin: 0 auto; }
+.timeline::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px; background: linear-gradient(180deg, var(--gold), var(--saffron), var(--gold));
+  transform: translateX(-50%);
+}
+.timeline-item {
+  display: flex; align-items: center; margin-bottom: 2rem;
+  position: relative;
+}
+.timeline-item:nth-child(odd) { flex-direction: row-reverse; }
+.timeline-year {
+  font-family: 'Cinzel Decorative', serif; font-size: 1.3rem;
+  color: var(--gold-bright); min-width: 100px; text-align: center;
+}
+.timeline-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--gold); border: 3px solid var(--deep);
+  z-index: 1; flex-shrink: 0;
+}
+.timeline-text {
+  flex: 1; background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 12px; padding: 1rem 1.5rem; margin: 0 1rem;
+}
+.timeline-text h4 { font-family: 'Nunito', sans-serif; font-size: 1rem; color: var(--gold); margin-bottom: 0.2rem; }
+.timeline-text p { font-size: 0.9rem; color: rgba(255,248,238,0.6); }
+
+/* ─── Values Grid ─── */
+.values-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem; margin-top: 3rem;
+}
+.value-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 16px; padding: 2rem; text-align: center;
+  transition: var(--transition);
+}
+.value-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
+.value-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.value-name { font-family: 'Cinzel Decorative', serif; font-size: 0.95rem; color: var(--gold-bright); margin-bottom: 0.5rem; }
+.value-desc { font-size: 0.85rem; color: rgba(255,248,238,0.6); }
+
+/* ─── Mission/Vision Cards ─── */
+.mv-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;
+}
+.mv-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 20px; padding: 2.5rem; position: relative; overflow: hidden;
+}
+.mv-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold));
+}
+.mv-card h3 {
+  font-size: 1.2rem; color: var(--gold-bright); margin-bottom: 1rem;
+}
+.mv-card p { font-size: 1rem; color: rgba(255,248,238,0.7); }
+
+/* ─── Donation ─── */
+.donation-section {
+  padding: 6rem 0;
+  background: linear-gradient(180deg, var(--deep) 0%, var(--maroon) 50%, var(--deep) 100%);
+}
+.seva-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem; margin-bottom: 3rem;
+}
+.seva-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 20px; padding: 2rem; text-align: center;
+  transition: var(--transition); position: relative; overflow: hidden;
+}
+.seva-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, var(--saffron), var(--gold));
+  transform: scaleX(0); transition: var(--transition);
+}
+.seva-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
+.seva-card:hover::before { transform: scaleX(1); }
+.seva-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.seva-name { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold-bright); margin-bottom: 0.5rem; }
+.seva-amount { font-family: 'Nunito', sans-serif; font-size: 1.3rem; color: var(--saffron-light); font-weight: 700; margin-bottom: 0.5rem; }
+.seva-desc { font-size: 0.9rem; color: rgba(255,248,238,0.5); margin-bottom: 1.5rem; }
+.seva-btn {
+  display: inline-block; padding: 10px 24px; border-radius: 50px;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  color: var(--deep); font-weight: 700; font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem; transition: var(--transition); border: none; cursor: pointer;
+}
+.seva-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(224,92,0,0.4); }
+
+/* Custom donation */
+.custom-donation {
+  max-width: 500px; margin: 0 auto 3rem; background: var(--glass);
+  border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem;
+  text-align: center;
+}
+.custom-donation h3 { font-size: 1.2rem; color: var(--gold-bright); margin-bottom: 1.5rem; }
+.donation-input-group { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.donation-input-group select, .donation-input-group input {
+  padding: 12px 16px; border-radius: 12px; border: 1px solid var(--glass-border);
+  background: rgba(28,5,5,0.8); color: var(--cream);
+  font-family: 'Nunito', sans-serif; font-size: 1rem;
+}
+.donation-input-group select { width: 100px; }
+.donation-input-group input { flex: 1; }
+.donation-input-group input::placeholder { color: rgba(255,248,238,0.3); }
+
+/* UPI */
+.upi-section { text-align: center; margin-bottom: 2rem; }
+.upi-section h3 { font-size: 1.1rem; color: var(--gold-bright); margin-bottom: 1rem; }
+.upi-id {
+  display: inline-block; padding: 10px 24px; border-radius: 12px;
+  background: rgba(200,150,30,0.1); border: 1px solid var(--glass-border);
+  color: var(--cream); font-family: 'Nunito', sans-serif; font-size: 1rem;
+}
+
+/* Trust badges */
+.trust-badges { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+.trust-badge {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+  color: rgba(255,248,238,0.6);
+}
+.trust-icon { font-size: 1.2rem; }
+
+/* Donation Info Grid */
+.donation-info-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem; margin-bottom: 3rem;
+}
+.donation-info-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 16px; padding: 1.5rem; text-align: center;
+}
+.donation-info-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.donation-info-title { font-family: 'Nunito', sans-serif; font-size: 0.9rem; color: var(--gold-bright); font-weight: 700; margin-bottom: 0.3rem; }
+.donation-info-desc { font-size: 0.85rem; color: rgba(255,248,238,0.5); }
+
+/* ─── FAQ Accordion ─── */
+.faq-section { padding: 4rem 0; }
+.faq-list { max-width: 800px; margin: 0 auto; }
+.faq-item {
+  border: 1px solid var(--glass-border); border-radius: 12px;
+  margin-bottom: 1rem; overflow: hidden; background: var(--glass);
+  transition: var(--transition);
+}
+.faq-item:hover { border-color: rgba(200,150,30,0.3); }
+.faq-question {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.2rem 1.5rem; cursor: pointer; background: none; border: none;
+  color: var(--cream); width: 100%; text-align: left;
+  font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 600;
+}
+.faq-toggle {
+  font-size: 1.2rem; color: var(--gold); transition: var(--transition);
+  flex-shrink: 0; margin-left: 1rem;
+}
+.faq-item.active .faq-toggle { transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+}
+.faq-answer-inner {
+  padding: 0 1.5rem 1.2rem; font-size: 0.95rem;
+  color: rgba(255,248,238,0.65); line-height: 1.7;
+}
+
+/* ─── Events ─── */
+.events-section { padding: 6rem 0; background: var(--deep); }
+.events-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.event-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 16px; padding: 2rem; text-align: center;
+  transition: var(--transition);
+}
+.event-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
+.event-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.event-name { font-family: 'Cinzel Decorative', serif; font-size: 1rem; color: var(--gold-bright); margin-bottom: 0.3rem; }
+.event-desc { font-size: 0.9rem; color: rgba(255,248,238,0.5); }
+
+/* Programs section */
+.programs-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.program-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 16px; padding: 2rem; transition: var(--transition);
+}
+.program-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.program-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.program-title {
+  font-family: 'Cinzel Decorative', serif; font-size: 1rem;
+  color: var(--gold-bright); margin-bottom: 0.5rem;
+}
+.program-subtitle {
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+  color: var(--saffron-light); font-weight: 600; margin-bottom: 0.5rem;
+}
+.program-desc { font-size: 0.9rem; color: rgba(255,248,238,0.6); }
+
+/* ─── Prabhupada ─── */
+.prabhupada-section {
+  padding: 6rem 0;
+  background: linear-gradient(180deg, var(--deep) 0%, var(--maroon) 100%);
+}
+.prabhupada-content {
+  max-width: 800px; margin: 0 auto; text-align: center;
+}
+.prabhupada-quote {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 1.4rem; color: rgba(255,248,238,0.8);
+  padding: 2rem; border-left: 3px solid var(--gold);
+  background: var(--glass); border-radius: 0 16px 16px 0;
+  margin-bottom: 1.5rem; text-align: left;
+}
+.prabhupada-attr {
+  font-family: 'Nunito', sans-serif; font-size: 0.9rem;
+  color: var(--gold); letter-spacing: 2px;
+}
+
+/* ─── Visitor Info ─── */
+.visitor-section { padding: 6rem 0; background: var(--deep); }
+.visitor-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+}
+.visitor-info-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 16px; padding: 2rem;
+}
+.visitor-info-card h3 { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--gold-bright); margin-bottom: 1rem; }
+.visitor-info-card p, .visitor-info-card li { font-size: 1rem; color: rgba(255,248,238,0.7); margin-bottom: 0.5rem; }
+.map-container { border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-border); }
+.map-container iframe { width: 100%; height: 100%; min-height: 350px; border: none; filter: grayscale(0.5) contrast(1.1); }
+
+/* ─── Gallery ─── */
+.gallery-section { padding: 6rem 0; background: var(--deep); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.gallery-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 16px; overflow: hidden; transition: var(--transition);
+  height: 220px; display: flex; align-items: center; justify-content: center;
+  position: relative; cursor: pointer;
+}
+.gallery-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: var(--shadow-gold); }
+.gallery-placeholder {
+  font-size: 3rem; opacity: 0.3;
+}
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(28,5,5,0.8) 100%);
+  display: flex; align-items: flex-end; padding: 1rem;
+  opacity: 0; transition: var(--transition);
+}
+.gallery-card:hover .gallery-overlay { opacity: 1; }
+.gallery-overlay span {
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+  color: var(--cream);
+}
+
+/* ─── Testimonials ─── */
+.testimonials-section {
+  padding: 6rem 0;
+  background: linear-gradient(180deg, var(--maroon) 0%, var(--deep) 100%);
+}
+.testimonial-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.testimonial-card {
+  background: var(--glass); border: 1px solid var(--glass-border);
+  border-radius: 16px; padding: 2rem; transition: var(--transition);
+}
+.testimonial-card:hover { border-color: var(--gold); box-shadow: var(--shadow-gold); }
+.testimonial-quote-icon {
+  font-size: 2rem; color: var(--gold); opacity: 0.3; margin-bottom: 0.5rem;
+}
+.testimonial-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.05rem; color: rgba(255,248,238,0.75); margin-bottom: 1.5rem; }
+.testimonial-author { font-family: 'Nunito', sans-serif; font-weight: 700; color: var(--gold-bright); font-size: 0.95rem; }
+.testimonial-role { font-family: 'Nunito', sans-serif; font-size: 0.8rem; color: var(--saffron-light); }
+.testimonial-location { font-family: 'Nunito', sans-serif; font-size: 0.8rem; color: rgba(255,248,238,0.4); }
+
+/* ─── CTA Banner ─── */
+.cta-banner {
+  padding: 4rem 0; text-align: center;
+  background: linear-gradient(135deg, var(--maroon), var(--deep));
+  border-top: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+.cta-banner h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--gold-bright);
+  margin-bottom: 1rem; background: none; -webkit-text-fill-color: var(--gold-bright);
+}
+.cta-banner p {
+  color: rgba(255,248,238,0.65); font-size: 1.1rem;
+  max-width: 600px; margin: 0 auto 2rem;
+}
+
+/* ─── Contact ─── */
+.contact-section { padding: 6rem 0; background: var(--deep); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.contact-info-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 2rem; }
+.contact-icon { font-size: 1.5rem; color: var(--gold); }
+.contact-label { font-family: 'Nunito', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--saffron-light); margin-bottom: 0.3rem; }
+.contact-value { font-size: 1rem; color: rgba(255,248,238,0.8); }
+
+.contact-form { display: flex; flex-direction: column; gap: 1rem; }
+.contact-form input, .contact-form textarea, .contact-form select {
+  padding: 14px 18px; border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass); color: var(--cream);
+  font-family: 'EB Garamond', serif; font-size: 1rem;
+  transition: var(--transition);
+}
+.contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+  outline: none; border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(200,150,30,0.1);
+}
+.contact-form textarea { min-height: 120px; resize: vertical; }
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(255,248,238,0.3); }
+
+/* ─── Newsletter ─── */
+.newsletter-section {
+  padding: 4rem 0; text-align: center;
+  background: linear-gradient(180deg, var(--deep), var(--maroon));
+}
+.newsletter-form {
+  display: flex; gap: 0.5rem; max-width: 500px; margin: 1.5rem auto 0;
+}
+.newsletter-form input {
+  flex: 1; padding: 14px 18px; border-radius: 50px;
+  border: 1px solid var(--glass-border); background: var(--glass);
+  color: var(--cream); font-family: 'Nunito', sans-serif; font-size: 1rem;
+}
+.newsletter-form input::placeholder { color: rgba(255,248,238,0.3); }
+.newsletter-form input:focus { outline: none; border-color: var(--gold); }
+
+/* ─── Footer ─── */
+.footer {
+  padding: 4rem 0 2rem;
+  background: var(--maroon); border-top: 1px solid var(--glass-border);
+}
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem;
+  margin-bottom: 3rem;
+}
+.footer-brand .logo-title { margin-bottom: 0.5rem; }
+.footer-brand p { font-size: 0.9rem; color: rgba(255,248,238,0.5); max-width: 300px; }
+.footer-col h4 {
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: var(--gold); margin-bottom: 1rem;
+}
+.footer-col a {
+  display: block; font-family: 'Nunito', sans-serif; font-size: 0.9rem;
+  color: rgba(255,248,238,0.5); padding: 4px 0; transition: var(--transition);
+}
+.footer-col a:hover { color: var(--gold-bright); }
+.footer-social { display: flex; gap: 1rem; margin-top: 1rem; }
+.footer-social a {
+  font-size: 1.3rem; display: inline-block;
+}
+.footer-verse { text-align: center; margin-bottom: 2rem; }
+.footer-verse p { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.1rem; color: rgba(255,248,238,0.6); }
+.footer-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.footer-links a { font-family: 'Nunito', sans-serif; font-size: 0.9rem; color: rgba(255,248,238,0.5); transition: var(--transition); }
+.footer-links a:hover { color: var(--gold-bright); }
+.footer-bottom {
+  border-top: 1px solid var(--glass-border); padding-top: 1.5rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-copyright { font-family: 'Nunito', sans-serif; font-size: 0.85rem; color: rgba(255,248,238,0.3); }
+.footer-gita {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 0.9rem; color: rgba(255,248,238,0.4);
+}
+
+/* ─── Floating Buttons ─── */
+.floating-buttons { position: fixed; bottom: 90px; right: 24px; z-index: 900; display: flex; flex-direction: column; gap: 12px; }
+.fab {
+  width: 56px; height: 56px; border-radius: 50%; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.fab:hover { transform: scale(1.1); }
+.fab-whatsapp { background: #25D366; color: white; }
+.fab-donate { background: linear-gradient(135deg, var(--saffron), var(--gold)); color: var(--deep); animation: pulse-glow 2.5s infinite; }
+.fab-scroll-top { background: var(--glass); color: var(--gold); border: 1px solid var(--glass-border); opacity: 0; pointer-events: none; }
+.fab-scroll-top.visible { opacity: 1; pointer-events: all; }
+
+/* ─── Animations ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(224, 92, 0, 0.5); }
+  70% { box-shadow: 0 0 0 12px rgba(224, 92, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(224, 92, 0, 0); }
+}
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .donate-nav-btn { display: none; }
+  .bottom-nav { display: block; }
+  body { padding-bottom: 70px; }
+  .floating-buttons { bottom: 80px; right: 16px; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .timeline::before { left: 20px; }
+  .timeline-item, .timeline-item:nth-child(odd) { flex-direction: row; }
+  .timeline-year { min-width: 60px; font-size: 1rem; }
+  .timeline-dot { margin: 0; }
+  .visitor-grid, .contact-grid, .mv-grid { grid-template-columns: 1fr; }
+  .temple-hours { grid-template-columns: 1fr; }
+  .ticker-content { flex-direction: column; gap: 0.5rem; }
+  .welcome-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .welcome-image { height: 250px; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-form .btn { width: 100%; justify-content: center; }
+  .explore-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+}
+
+@media (min-width: 769px) {
+  .bottom-nav { display: none !important; }
+  body { padding-bottom: 0; }
+}
