@@ -165,6 +165,70 @@
   margin-bottom: 1.5rem;
 }
 
+.featuredAmountGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.featuredAmountCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
+  text-align: left;
+  min-height: 104px;
+  padding: 0.85rem 0.8rem;
+  border: 2px solid rgba(230, 126, 34, 0.22);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, #fffdf9 0%, #fff7ee 100%);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.featuredAmountCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--saffron);
+  box-shadow: 0 8px 18px rgba(230, 126, 34, 0.14);
+}
+
+.featuredAmountValue {
+  font-family: var(--font-ui);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--saffron-light);
+}
+
+.featuredAmountImpact {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--text-secondary);
+}
+
+.recommendedTag {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  font-family: var(--font-ui);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-light));
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.45rem;
+}
+
+.featuredAmountActive {
+  border-color: var(--saffron);
+  background: linear-gradient(180deg, #fff6ea 0%, #ffe9d0 100%);
+  box-shadow: 0 0 0 2px rgba(230, 126, 34, 0.14), 0 10px 22px rgba(230, 126, 34, 0.16);
+}
+
 .quickGrid {
   display: flex;
   flex-wrap: wrap;
@@ -300,6 +364,18 @@
   transition: var(--transition-base);
 }
 
+.inputError {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.08);
+}
+
+.inlineError {
+  font-family: var(--font-ui);
+  font-size: 0.76rem;
+  color: #dc2626;
+  margin-top: 0.25rem;
+}
+
 .input:focus {
   border-color: var(--saffron);
   background: white;
@@ -318,6 +394,50 @@
   color: #dc2626;
   font-family: var(--font-ui);
   font-size: 0.85rem;
+}
+
+.payTrustText {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: -0.25rem;
+}
+
+.trustStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.trustStrip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  padding: 0.4rem 0.65rem;
+}
+
+.ctaReassurance {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.ctaReassurance p {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
 }
 
 .formActions {
@@ -487,4 +607,13 @@
   .stepLabel { display: none; }
   .summarySide { position: static; }
   .formActions { flex-direction: column; }
+  .form { gap: 1rem; }
+  .payTrustText { margin-top: 0; }
+  .input { min-height: 48px; font-size: 1rem; }
+  .customInput { min-height: 48px; }
+  .featuredAmountGrid { grid-template-columns: 1fr; gap: 0.6rem; }
+  .featuredAmountCard { min-height: 88px; }
+  .trustStrip { gap: 0.5rem; }
+  .trustStrip span,
+  .ctaReassurance p { font-size: 0.76rem; }
 }

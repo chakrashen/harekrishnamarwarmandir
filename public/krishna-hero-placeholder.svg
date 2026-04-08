@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a1a3b"/>
+      <stop offset="55%" stop-color="#102852"/>
+      <stop offset="100%" stop-color="#0a1330"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="20%" r="45%">
+      <stop offset="0%" stop-color="#f7d46a" stop-opacity="0.7"/>
+      <stop offset="60%" stop-color="#f7d46a" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#f7d46a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="800" cy="210" r="260" fill="url(#halo)"/>
+  <g opacity="0.5">
+    <circle cx="800" cy="310" r="140" fill="#162c57"/>
+    <rect x="740" y="420" width="120" height="220" rx="60" fill="#162c57"/>
+    <rect x="675" y="520" width="250" height="70" rx="35" fill="#162c57"/>
+  </g>
+  <g opacity="0.3" fill="#f7d46a">
+    <path d="M120 760c80-60 160-60 240 0-60 30-120 45-180 45-20 0-40-15-60-45z"/>
+    <path d="M1240 760c80-60 160-60 240 0-60 30-120 45-180 45-20 0-40-15-60-45z"/>
+  </g>
+</svg>

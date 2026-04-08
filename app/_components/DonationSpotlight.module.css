@@ -1,0 +1,137 @@
+.section {
+  background: linear-gradient(180deg, rgba(238, 245, 255, 0.8) 0%, rgba(255, 249, 240, 0.9) 100%);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: center;
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.eyebrow {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: var(--gold-dim);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--text-primary);
+}
+
+.desc {
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.cta {
+  width: fit-content;
+}
+
+.reassure {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.amountBlock {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.amountLabel {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.amountGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.amountCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 0.6rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  background: rgba(255, 248, 240, 0.7);
+  min-height: 56px;
+  transition: var(--transition-base);
+}
+
+.amountCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(212, 175, 55, 0.7);
+  box-shadow: 0 10px 18px rgba(212, 175, 55, 0.2);
+}
+
+.amountValue {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.amountTag {
+  margin-top: 0.3rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #6f4e00;
+}
+
+.amountRecommended {
+  border-color: var(--saffron);
+  background: linear-gradient(180deg, #fff7e5 0%, #ffe4ba 100%);
+  box-shadow: 0 8px 18px rgba(212, 175, 55, 0.2);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+  }
+
+  .cta {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .amountBlock {
+    padding: 1.5rem;
+  }
+
+  .amountGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .amountCard {
+    min-height: 52px;
+  }
+}

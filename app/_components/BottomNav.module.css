@@ -1,4 +1,5 @@
 .nav { display: none; }
+.stickyDonate { display: none; }
 
 /* Mobile-only bottom navigation */
 @media (max-width: 768px) {
@@ -11,11 +12,12 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    min-height: var(--mobile-nav-height);
     background: rgba(255, 251, 245, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--border-light);
-    padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom));
+    padding: 0.35rem 0 calc(0.5rem + env(safe-area-inset-bottom));
     box-shadow: 0 -2px 15px rgba(0,0,0,0.06);
   }
 
@@ -23,33 +25,52 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0.15rem;
     color: var(--text-muted);
     font-family: var(--font-ui);
     text-decoration: none;
-    padding: 0.4rem 0.75rem;
+    min-height: 44px;
+    min-width: 60px;
+    padding: 0.35rem 0.5rem;
     border-radius: var(--radius-md);
     transition: var(--transition);
     -webkit-tap-highlight-color: transparent;
+    justify-content: center;
   }
 
   .item:active { transform: scale(0.92); }
 
   .label {
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
   }
 
-  .primary {
-    color: white;
-    background: linear-gradient(135deg, var(--saffron), var(--gold));
+  .active {
+    color: var(--saffron-light);
+    background: rgba(230, 126, 34, 0.12);
+  }
+
+  .stickyDonate {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(var(--mobile-nav-height) + var(--mobile-sticky-cta-gap) + 0.4rem + env(safe-area-inset-bottom));
+    z-index: 970;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: var(--mobile-sticky-cta-height);
+    width: min(300px, calc(100vw - 2rem));
     border-radius: var(--radius-full);
-    padding: 0.5rem 1rem;
-    margin-top: -1.25rem;
-    box-shadow: 0 4px 15px rgba(224,92,0,0.3);
+    background: linear-gradient(135deg, var(--saffron), var(--gold));
+    color: #2C2C2C;
+    font-family: var(--font-ui);
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-decoration: none;
+    box-shadow: 0 8px 22px rgba(211, 84, 0, 0.26);
   }
-
-  .primary .label { color: white; }
 }

@@ -203,3 +203,191 @@ Place photos in `public/` folder with these exact names:
 
 ### Notes
 - Full cryptographic callback authenticity verification still depends on exact ICICI response contract/signature docs from bank kit.
+
+## Session Update — 2026-04-08 (Conversion-Safe Donation UX Pass)
+
+### Objective
+- Improve donation conversion KPIs using frontend-only changes.
+- Keep ICICI encryption and backend payment APIs untouched.
+
+### What Changed (Safe UI Only)
+- Removed recurring donation option from donation UI.
+- Simplified donation flow to clear 2-step indicator:
+  - Step 1: Details
+  - Step 2: Payment
+- Added trust text near final pay CTA:
+  - 80G Tax Benefit Available
+  - Secure Payment via ICICI Bank
+- Reduced form friction:
+  - Email is now optional
+  - Mobile remains required
+- Updated final payment CTA copy to conversion-first wording:
+  - Donate Now
+- Mobile CTA optimization:
+  - Sticky bottom Donate CTA is now always visible on mobile (no scroll-hide logic).
+  - Added mobile bottom nav/CTA to Donate and Thank-You pages for consistency.
+- Removed competing hero secondary CTA and kept one primary hero CTA:
+  - Donate Now
+- Improved mobile spacing offsets to avoid overlap between:
+  - Sticky Donate CTA
+  - Bottom nav
+  - Floating WhatsApp button
+
+### Files Updated
+- app/donate/_components/DonateForm.jsx
+- app/donate/_components/DonateForm.module.css
+
+## Session Update — 2026-04-08 (Homepage Spiritual Sections)
+
+### Objective
+- Add Krishna-centered seva, trust, and Gita quote sections that deepen devotion and trust.
+
+### Frontend-Only Changes
+- Added a Seva Highlights section with three devotional cards:
+  - Gau Seva
+  - Anna Daan
+  - Mandir Nirman
+- Added a Trust section with clear proof points:
+  - 1000+ Devotees
+  - Serving since 2012
+  - 80G Tax Benefit Available
+- Added a Bhagavad Gita quote section:
+  - "yoga-kshemam vahamy aham"
+  - "I carry what My devotees lack, and I preserve what they have."
+  - Bhagavad Gita 9.22
+- Inserted new sections into homepage flow after Welcome.
+
+### Files Updated
+- app/page.jsx
+- app/_components/SevaHighlights.jsx
+- app/_components/SevaHighlights.module.css
+- app/_components/TrustSection.jsx
+- app/_components/TrustSection.module.css
+- app/_components/GitaQuote.jsx
+- app/_components/GitaQuote.module.css
+
+## Session Update — 2026-04-08 (Homepage Conversion CTA Optimization)
+
+### Objective
+- Increase donation conversion with a single clear hero CTA and fast amount selection.
+
+### Frontend-Only Changes
+- Updated hero CTA copy: "Be Part of Krishna's Seva".
+- Added quick donate buttons: ₹501, ₹1101, ₹2101.
+- Added trust line: "Secure • 80G • Trusted".
+- Hero quick donate buttons link to /donate?amount=... and donation form now pre-fills amount.
+- Reduced mobile clutter by hiding secondary seva card CTAs on small screens.
+
+### Files Updated
+- app/_components/Hero.jsx
+- app/_components/Hero.module.css
+- app/donate/_components/DonateForm.jsx
+- app/_components/SevaCards.jsx
+- app/_components/SevaCards.module.css
+- app/_components/SevaHighlights.module.css
+
+## Session Update — 2026-04-08 (Premium Krishna Homepage Conversion Pass)
+
+### Objective
+- Create a calm, divine Krishna-centered homepage that increases donation conversion without touching backend or payment logic.
+
+### Frontend-Only Changes
+- Applied a soft divine gradient background to the site.
+- Hero CTA set to "Offer Your Seva" with fast 200–300ms motion.
+- Added Seva Highlights cards with emotional one-line focus and subtle hover scale.
+- Added a Trust section with four proof points and spiritual icons.
+- Added a Donation Spotlight section with quick amounts (₹501, ₹1101, ₹2101), recommended highlight, CTA "Donate Securely", and reassurance line.
+- Updated Bhagavad Gita quote to a centered offering-focused line.
+- Reduced homepage clutter by removing duplicate SevaCards section.
+
+### Files Updated
+- app/globals.css
+- app/_components/Hero.jsx
+- app/_components/Hero.module.css
+- app/_components/SevaHighlights.jsx
+- app/_components/SevaHighlights.module.css
+- app/_components/TrustSection.jsx
+- app/_components/TrustSection.module.css
+- app/_components/DonationSpotlight.jsx
+- app/_components/DonationSpotlight.module.css
+- app/_components/GitaQuote.jsx
+- app/page.jsx
+
+## Session Update — 2026-04-08 (Fast Amount Selection Optimization)
+
+### Objective
+- Reduce donation decision time and increase completion rate via amount selection UX.
+
+### Frontend-Only Changes
+- Added 3 featured one-tap amount cards:
+  - ₹501 (Feed 5 people)
+  - ₹1101 (Support a family)
+  - ₹2101 (Make a bigger impact)
+- Set default selected amount to ₹1101.
+- Added visual recommended tag on ₹1101.
+- Moved higher values into an "Other Amount" section.
+- Kept custom amount input as optional fallback.
+
+### Conversion Intent
+- Most users can now complete amount selection with one tap and no typing.
+- Emotional microcopy is embedded next to each featured amount to improve confidence and intent.
+
+### Files Updated
+- app/donate/_components/DonateForm.jsx
+- app/donate/_components/DonateForm.module.css
+
+## Session Update — 2026-04-08 (Krishna-Centered Hero Redesign)
+
+### Objective
+- Create a devotional, Krishna-focused full-screen hero that inspires seva and trust.
+
+### Frontend-Only Changes
+- Rebuilt hero layout with a single primary CTA: "Offer Your Seva".
+- Applied deep blue + gold divine palette with soft glow and light-ray/particle animation.
+- Updated hero copy:
+  - Heading: Experience Divine Seva with Lord Krishna
+  - Subtext: Serve, Support, and Be Blessed
+- Added Krishna-themed placeholder image for the hero background.
+
+### Files Updated
+- app/_components/Hero.jsx
+- app/_components/Hero.module.css
+- public/krishna-hero-placeholder.svg
+- app/_components/BottomNav.jsx
+- app/_components/BottomNav.module.css
+- app/_components/FloatingButtons.module.css
+- app/_components/Hero.jsx
+- app/donate/page.jsx
+- app/thank-you/page.jsx
+- app/globals.css
+
+### Safety Note
+- No changes made to:
+  - lib/icici-pay.js encryption logic
+  - app/api/pay/route.js
+  - app/api/payment-callback/route.js
+
+## Session Update — 2026-04-08 (Donation Microcopy + Trust UX Refinement)
+
+### Scope
+- Frontend-only donation UX improvements for conversion.
+- No backend or payment logic changes.
+
+### Changes
+- Updated final CTA copy to:
+  - Donate ₹{amount} Securely
+- Added reassurance lines below CTA:
+  - 100% Secure Payment via ICICI Bank
+  - Eligible for 80G Tax Benefit
+  - Your donation helps serve meals today
+- Added trust strip near CTA with subtle icon support:
+  - Trusted by 1000+ Devotees
+  - Serving since 2012
+- Added inline field validation for name/mobile/email.
+- Added autofocus for first actionable input fields.
+- Kept inputs thumb-friendly with larger mobile height.
+- Reduced donation step transition timing to sub-300ms.
+
+### Files Updated
+- app/donate/_components/DonateForm.jsx
+- app/donate/_components/DonateForm.module.css

@@ -24,6 +24,11 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
+const contentSecurityPolicy = isDevelopment
+  ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+  : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests";
+
 export const metadata = {
   title: 'Hare Krishna Marwar Mandir | Temple & Seva — Jodhpur, Rajasthan',
   description: 'Hare Krishna Marwar Mandir, Jodhpur — A magnificent spiritual landmark. Donate for Gau Seva, Anna Daan, and Temple Construction. Join festivals, darshan, and spiritual events in the heart of Marwar.',
@@ -40,10 +45,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${cinzelDecorative.variable} ${ebGaramond.variable} ${inter.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta
-          httpEquiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
-        />
+        <meta httpEquiv="Content-Security-Policy" content={contentSecurityPolicy} />
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>

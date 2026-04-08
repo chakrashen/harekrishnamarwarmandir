@@ -1,5 +1,7 @@
 import Navbar from '../_components/Navbar';
 import Footer from '../_components/Footer';
+import FloatingButtons from '../_components/FloatingButtons';
+import BottomNav from '../_components/BottomNav';
 import ThankYouContent from './_components/ThankYouContent';
 
 export const metadata = {
@@ -15,6 +17,8 @@ export default function ThankYouPage() {
         <ThankYouContent />
       </main>
       <Footer />
+      <FloatingButtons />
+      <BottomNav />
     </>
   );
 }

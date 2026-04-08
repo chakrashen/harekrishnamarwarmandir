@@ -3,7 +3,10 @@ import Hero from './_components/Hero';
 import AartiTicker from './_components/AartiTicker';
 import Welcome from './_components/Welcome';
 import ConstructionMeter from './_components/ConstructionMeter';
-import SevaCards from './_components/SevaCards';
+import SevaHighlights from './_components/SevaHighlights';
+import TrustSection from './_components/TrustSection';
+import GitaQuote from './_components/GitaQuote';
+import DonationSpotlight from './_components/DonationSpotlight';
 import ExploreTemple from './_components/ExploreTemple';
 import Testimonials from './_components/Testimonials';
 import Newsletter from './_components/Newsletter';
@@ -15,12 +18,15 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="home-main">
         <Hero />
         <AartiTicker />
         <Welcome />
+        <SevaHighlights />
+        <TrustSection />
+        <DonationSpotlight />
+        <GitaQuote />
         <ConstructionMeter />
-        <SevaCards />
         <ExploreTemple />
         <Testimonials />
         <Newsletter />

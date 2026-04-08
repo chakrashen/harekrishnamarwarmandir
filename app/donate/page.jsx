@@ -1,6 +1,7 @@
 import Navbar from '../_components/Navbar';
 import Footer from '../_components/Footer';
 import FloatingButtons from '../_components/FloatingButtons';
+import BottomNav from '../_components/BottomNav';
 import DonateForm from './_components/DonateForm';
 
 export const metadata = {
@@ -17,6 +18,7 @@ export default function DonatePage() {
       </main>
       <Footer />
       <FloatingButtons />
+      <BottomNav />
     </>
   );
 }

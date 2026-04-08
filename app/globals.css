@@ -61,6 +61,10 @@
   --space-3xl: 5rem; /* 80px */
   --space-4xl: 6rem; /* 96px */
 
+  --mobile-nav-height: 64px;
+  --mobile-sticky-cta-height: 52px;
+  --mobile-sticky-cta-gap: 12px;
+
   /* Typography Scale */
   --h1-size: clamp(2.2rem, 5vw, 3.5rem);
   --h1-line: 1.2;
@@ -88,7 +92,9 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: var(--bg-primary);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.18), transparent 55%),
+    linear-gradient(180deg, #eef5ff 0%, #ffffff 55%, #fff8ef 100%);
   color: var(--text-primary);
   font-size: var(--body-size);
   line-height: var(--body-line);
@@ -438,7 +444,31 @@ img { max-width: 100%; display: block; }
 @media (max-width: 768px) {
   .section-pad { padding: 4rem 0; }
   .section-pad-compact { padding: 3rem 0; }
-  .container { padding: 0 var(--space-xs); }
+  .container { padding: 0 var(--space-sm); }
+
+  main {
+    padding-bottom: calc(
+      var(--mobile-nav-height)
+      + var(--mobile-sticky-cta-height)
+      + var(--mobile-sticky-cta-gap)
+      + env(safe-area-inset-bottom)
+      + 1rem
+    );
+  }
+
+  .home-main {
+    padding-bottom: calc(
+      var(--mobile-nav-height)
+      + var(--mobile-sticky-cta-height)
+      + var(--mobile-sticky-cta-gap)
+      + env(safe-area-inset-bottom)
+      + 1.25rem
+    );
+  }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

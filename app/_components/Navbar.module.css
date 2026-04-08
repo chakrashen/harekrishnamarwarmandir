@@ -1,6 +1,6 @@
 /* Top Info Bar */
 .topBar {
-  background: var(--bg-secondary);
+  background: rgba(255, 248, 240, 0.82);
   color: var(--text-secondary);
   padding: 0.3rem 0;
   font-size: 0.75rem;
@@ -8,6 +8,8 @@
   position: relative;
   z-index: 1001;
   border-bottom: 1px solid var(--border-light);
+  backdrop-filter: blur(10px) saturate(125%);
+  -webkit-backdrop-filter: blur(10px) saturate(125%);
 }
 
 .topBarLeft {
@@ -92,9 +94,13 @@
     background-color 320ms var(--ease-in-out),
     padding 300ms var(--ease-in-out),
     transform 360ms var(--ease-in-out);
-  background: rgba(255, 251, 245, 0.96);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 251, 245, 0.72) 0%,
+    rgba(255, 248, 240, 0.68) 100%
+  );
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
   border: 1px solid transparent;
   border-radius: 0;
   box-shadow: none;
@@ -103,12 +109,16 @@
 .navbar.scrolled {
   max-width: calc(100% - 1.7rem);
   width: calc(100% - 1.7rem);
-  background: rgba(255, 251, 245, 0.99);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 251, 245, 0.84) 0%,
+    rgba(255, 248, 240, 0.8) 100%
+  );
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
   border: 1px solid rgba(230, 126, 34, 0.15);
   border-radius: 2rem;
-  box-shadow: 0 8px 32px rgba(44, 44, 44, 0.12);
+  box-shadow: 0 10px 30px rgba(44, 44, 44, 0.13), inset 0 1px 0 rgba(255, 255, 255, 0.45);
   padding: 0.58rem 1.2rem 0.22rem;
 }
 

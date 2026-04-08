@@ -71,12 +71,6 @@ export default function SevaCards() {
                 <a href="/donate" className={`btn btn-donate btn-sm ${styles.sevaBtn}`}>
                   <Heart size={14} /> Donate Now
                 </a>
-
-                {/* Optional recurring — not pushy */}
-                <label className={styles.recurringLabel}>
-                  <input type="checkbox" className={styles.recurringCheck} />
-                  <span>Make it monthly (optional)</span>
-                </label>
               </div>
             </motion.div>
           ))}
