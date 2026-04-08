@@ -131,3 +131,23 @@ Place photos in `public/` folder with these exact names:
 
 ### Follow-up Recommendation
 - Run one real transaction in ICICI UAT/production to validate full loop to callback and thank-you page.
+
+## Session Update — 2026-04-08 (ICICI Payload Format Adjustment)
+
+### Why Another Fix Was Needed
+- Gateway error persisted even after query encoding fix.
+
+### Additional Root-Cause Hypothesis Applied
+- `mandatory fields` payload likely too verbose for strict ICICI validation.
+- Moved to spec-safe minimal format in mandatory payload.
+
+### Additional Fix Applied
+- Updated `lib/icici-pay.js` to use mandatory payload as:
+  - `ReferenceNo|SubMerchantId|Amount`
+- Moved donor metadata to encrypted `optional fields`:
+  - `mobile|email|name|sevaType`
+- Normalized amount string before encrypting (`2100` or `2100.50`).
+
+### Git
+- Commit: `591f9d6`
+- Message: Align ICICI mandatory fields payload with gateway format
