@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Shield, CreditCard, Loader, Gift, ChevronRight } from 'lucide-react';
+import { Heart, Shield, CreditCard, Gift, ChevronRight } from 'lucide-react';
 import styles from './DonateForm.module.css';
 
 const sevaOptions = [
@@ -13,7 +13,7 @@ const sevaOptions = [
 const quickAmounts = [501, 1100, 2100, 5100, 11000, 21000, 51000];
 
 export default function DonateForm() {
-  const [step, setStep] = useState(1); // 1=choose seva, 2=fill details, 3=processing
+  const [step, setStep] = useState(1); // 1=choose seva, 2=fill details
   const [selectedSeva, setSelectedSeva] = useState(null);
   const [customAmount, setCustomAmount] = useState('');
   const [isRecurring, setIsRecurring] = useState(false);
@@ -60,7 +60,6 @@ export default function DonateForm() {
     }
 
     setLoading(true);
-    setStep(3);
 
     try {
       const res = await fetch('/api/pay', {
@@ -79,8 +78,8 @@ export default function DonateForm() {
       const data = await res.json();
 
       if (data.success && data.paymentUrl) {
-        // Redirect to ICICI EazyPay gateway
-        window.location.href = data.paymentUrl;
+        // Redirect immediately after API response to avoid gateway session expiry.
+        window.location.replace(data.paymentUrl);
       } else {
         setError(data.error || 'Payment failed. Please try again.');
         setStep(2);
@@ -214,13 +213,6 @@ export default function DonateForm() {
                 </motion.div>
               )}
 
-              {step === 3 && (
-                <motion.div key="step3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className={styles.processing}>
-                  <Loader size={48} className={styles.spinner} />
-                  <h2>Redirecting to Payment...</h2>
-                  <p>You are being securely redirected to ICICI Bank&apos;s payment gateway.</p>
-                </motion.div>
-              )}
             </AnimatePresence>
           </div>
 

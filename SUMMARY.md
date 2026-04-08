@@ -151,3 +151,29 @@ Place photos in `public/` folder with these exact names:
 ### Git
 - Commit: `591f9d6`
 - Message: Align ICICI mandatory fields payload with gateway format
+
+## Session Update — 2026-04-08 (Deep ICICI Hardening Pass)
+
+### Scope Covered
+- `lib/icici-pay.js` (encryption and URL generation)
+- `app/api/pay/route.js` (server diagnostics)
+- `app/donate/_components/DonateForm.jsx` (redirect timing)
+
+### Key Fixes
+- Added strict `encrypt()` type guard so non-string plaintext throws early.
+- Added return URL validation to reject pre-encoded `ICICI_RETURN_URL`.
+- Added amount formatter to force ICICI-safe amount strings:
+  - integer: `500`
+  - decimal: `500.50`
+- Kept exact mandatory format: `refNo|subMerchantId|amount`.
+- Kept exact EazyPay parameter key names and single URL encoding pass.
+- Added encryption integrity check by decrypting mandatory field and comparing to plaintext.
+- Added API diagnostics:
+  - plaintext mandatory fields (+ masked mobile/email)
+  - encrypted mandatory fields
+  - final payment URL preview (first 100 chars)
+- Removed intermediate step transition before redirect; now redirects immediately after API response via `window.location.replace(...)`.
+
+### Validation Done
+- File diagnostics show no code errors in all updated files.
+- Local sanity run verified mandatory field formatting, encrypted output generation, and URL preview construction.
