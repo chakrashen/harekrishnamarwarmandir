@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { buildPaymentUrl } from '@/lib/icici-pay';
 import { supabaseAdmin } from '@/lib/supabase';
+import { isIciciDebugEnabled, writeIciciDebugLog } from '@/lib/icici-debug';
 
 const isPaymentDebug = process.env.NODE_ENV !== 'production' || process.env.PAYMENT_DEBUG === '1';
 
@@ -23,7 +24,7 @@ function maskEmail(value) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { amount, name, mobile, email, sevaType, dedication } = body;
+    const { amount, name, mobile, email, sevaType, dedication, retryWithAlternateReturnUrl } = body;
 
     // Validate required fields
     if (!amount || !name || !mobile || !email || !sevaType) {
@@ -57,6 +58,7 @@ export async function POST(request) {
       mobile,
       email,
       sevaType,
+      useAlternateReturnUrl: Boolean(retryWithAlternateReturnUrl),
     });
 
     // Debug logs for gateway verification without exposing full PII.
@@ -67,6 +69,15 @@ export async function POST(request) {
       });
       console.log('[ICICI] Encrypted mandatory fields:', debug.encryptedMandatoryFields);
       console.log('[ICICI] Payment URL preview:', paymentUrl.slice(0, 100));
+    }
+
+    if (isIciciDebugEnabled()) {
+      writeIciciDebugLog('pay_api_response', {
+        refNo,
+        retryWithAlternateReturnUrl: Boolean(retryWithAlternateReturnUrl),
+        plainPayload: debug.plainPayload,
+        encryptedUrl: paymentUrl,
+      });
     }
 
     // Save donation to Supabase as "pending"
