@@ -108,3 +108,26 @@ Place photos in `public/` folder with these exact names:
 - `gau-seva.jpg` — cow shelter photo
 - `explore-gaushala.jpg`, `explore-kitchen.jpg`, `explore-gita-class.jpg`, etc.
 - `testimonial-1.jpg`, `testimonial-2.jpg`, `testimonial-3.jpg`
+
+## Session Update — 2026-04-08 (ICICI Redirect Error Fix)
+
+### Issue Observed
+- Donors were redirected to ICICI Eazypay error page: "The page you have requested is not available at this time."
+
+### Root Cause
+- Encrypted gateway parameters were being sent as raw Base64 in query string.
+- Characters like `+`, `/`, and `=` can be misinterpreted in URL query parsing, causing ICICI to receive corrupted encrypted payload.
+
+### Fix Applied
+- Updated `lib/icici-pay.js` URL construction to URL-encode all query keys and values.
+- Preserved ICICI-required parameter names (`mandatory fields`, `Reference No`, `transaction amount`, etc.) while safely encoding them.
+- Added config guard for required ICICI env variables.
+- Added AES key length validation (`16 bytes`) for AES-128-ECB.
+- Sanitized pipe (`|`) in donor input fields to protect mandatory-field delimiter format.
+
+### Verification
+- Generated a sample payment URL and confirmed encrypted values now appear URL-safe (`%2B`, `%2F`, `%3D`).
+- File-level diagnostics report no errors in payment files.
+
+### Follow-up Recommendation
+- Run one real transaction in ICICI UAT/production to validate full loop to callback and thank-you page.
