@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { buildPaymentUrl } from '@/lib/icici-pay';
 import { supabaseAdmin } from '@/lib/supabase';
 
+const isPaymentDebug = process.env.NODE_ENV !== 'production' || process.env.PAYMENT_DEBUG === '1';
+
 function maskMobile(value) {
   const str = String(value ?? '');
   if (str.length < 4) return '***';
@@ -58,29 +60,38 @@ export async function POST(request) {
     });
 
     // Debug logs for gateway verification without exposing full PII.
-    console.log('[ICICI] Plain mandatory fields:', debug.mandatoryFields, {
-      mobile: maskMobile(mobile),
-      email: maskEmail(email),
-    });
-    console.log('[ICICI] Encrypted mandatory fields:', debug.encryptedMandatoryFields);
-    console.log('[ICICI] Payment URL preview:', paymentUrl.slice(0, 100));
+    if (isPaymentDebug) {
+      console.log('[ICICI] Plain mandatory fields:', debug.mandatoryFields, {
+        mobile: maskMobile(mobile),
+        email: maskEmail(email),
+      });
+      console.log('[ICICI] Encrypted mandatory fields:', debug.encryptedMandatoryFields);
+      console.log('[ICICI] Payment URL preview:', paymentUrl.slice(0, 100));
+    }
 
     // Save donation to Supabase as "pending"
-    const { error: dbError } = await supabaseAdmin
-      .from('donations')
-      .insert([
-        { 
-          ref_no: refNo, 
-          amount: numAmount, 
-          name, 
-          email, 
-          mobile, 
-          seva_type: sevaType, 
-          dedication, 
-          status: 'pending',
-          created_at: new Date().toISOString()
-        }
-      ]);
+    let dbError = null;
+    if (!supabaseAdmin) {
+      console.error('Supabase admin client is not configured. Skipping donation record insert.');
+    } else {
+      const insertResult = await supabaseAdmin
+        .from('donations')
+        .insert([
+          {
+            ref_no: refNo,
+            amount: numAmount,
+            name,
+            email,
+            mobile,
+            seva_type: sevaType,
+            dedication,
+            status: 'pending',
+            created_at: new Date().toISOString()
+          }
+        ]);
+
+      dbError = insertResult.error;
+    }
 
     if (dbError) {
       console.error('Database Error (Insert Donation):', dbError);

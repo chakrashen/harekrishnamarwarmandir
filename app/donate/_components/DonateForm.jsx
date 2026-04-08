@@ -75,7 +75,14 @@ export default function DonateForm() {
         }),
       });
 
-      const data = await res.json();
+      const contentType = res.headers.get('content-type') || '';
+      const data = contentType.includes('application/json')
+        ? await res.json()
+        : { error: 'Unexpected server response. Please try again.' };
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Payment initialization failed.');
+      }
 
       if (data.success && data.paymentUrl) {
         // Redirect immediately after API response to avoid gateway session expiry.
@@ -85,7 +92,7 @@ export default function DonateForm() {
         setStep(2);
       }
     } catch (err) {
-      setError('Network error. Please check your connection and try again.');
+      setError(err?.message || 'Network error. Please check your connection and try again.');
       setStep(2);
     } finally {
       setLoading(false);

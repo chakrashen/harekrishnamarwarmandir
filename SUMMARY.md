@@ -177,3 +177,29 @@ Place photos in `public/` folder with these exact names:
 ### Validation Done
 - File diagnostics show no code errors in all updated files.
 - Local sanity run verified mandatory field formatting, encrypted output generation, and URL preview construction.
+
+## Session Update — 2026-04-08 (Donation Phase Hardening)
+
+### Issues Addressed
+- Payment callback route previously redirected to thank-you without decrypting or updating donation status.
+- Donation creation could crash when Supabase admin client was missing.
+- Payment debug logs were always-on.
+- Frontend payment submit assumed JSON response unconditionally.
+
+### Fixes Applied
+- `app/api/payment-callback/route.js`
+  - Added callback payload extraction with case-insensitive field lookup.
+  - Added encrypted response decryption attempt using ICICI AES key.
+  - Added status inference (`completed` / `pending` / `failed`) from callback payload.
+  - Added DB fetch + status update by `ref_no`.
+  - Added idempotent email send (only when transitioning to `completed`).
+  - Redirects now include callback status query param (`/thank-you?status=...`).
+- `app/api/pay/route.js`
+  - Added Supabase admin null guard to avoid runtime 500 when misconfigured.
+  - Restricted gateway debug logs to non-production or `PAYMENT_DEBUG=1`.
+- `app/donate/_components/DonateForm.jsx`
+  - Added response content-type check before parsing JSON.
+  - Added HTTP status handling and surfaced backend error messages.
+
+### Notes
+- Full cryptographic callback authenticity verification still depends on exact ICICI response contract/signature docs from bank kit.

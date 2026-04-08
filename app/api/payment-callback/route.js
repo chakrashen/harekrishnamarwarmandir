@@ -1,59 +1,378 @@
+import crypto from 'crypto';
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { resend } from '@/lib/resend';
+import { decrypt } from '@/lib/icici-pay';
+
+const isPaymentDebug = process.env.PAYMENT_DEBUG === 'true' || process.env.PAYMENT_DEBUG === '1';
+const CALLBACK_MAX_AGE_SECONDS = 15 * 60;
+const MAX_ENCRYPTED_PAYLOAD_LENGTH = 12000;
+
+function debugLog(event, details = {}) {
+  if (!isPaymentDebug) return;
+  console.log('[ICICI callback]', { event, ...details });
+}
+
+function getFieldCaseInsensitive(record, keys) {
+  const entries = Object.entries(record || {});
+  for (const key of keys) {
+    const found = entries.find(([k]) => k.toLowerCase() === key.toLowerCase());
+    if (found && found[1] != null && String(found[1]).trim() !== '') {
+      return String(found[1]).trim();
+    }
+  }
+  return '';
+}
+
+function timingSafeEquals(a, b) {
+  const left = Buffer.from(String(a));
+  const right = Buffer.from(String(b));
+  if (left.length !== right.length) return false;
+  return crypto.timingSafeEqual(left, right);
+}
+
+function verifySignature({ encryptedPayload, signature, secretKey, timestamp }) {
+  if (!encryptedPayload || !signature || !secretKey) {
+    return { ok: false, method: null, reason: 'missing_signature_inputs' };
+  }
+
+  if (timestamp) {
+    const now = Math.floor(Date.now() / 1000);
+    const ts = Number(timestamp);
+    if (!Number.isFinite(ts)) {
+      return { ok: false, method: null, reason: 'invalid_timestamp' };
+    }
+    if (Math.abs(now - ts) > CALLBACK_MAX_AGE_SECONDS) {
+      return { ok: false, method: null, reason: 'timestamp_out_of_window' };
+    }
+  }
+
+  const candidates = [];
+  const payloadBase = encryptedPayload;
+  const payloadWithTs = timestamp ? `${encryptedPayload}|${timestamp}` : null;
+
+  candidates.push({
+    method: 'hmac_sha256_hex',
+    value: crypto.createHmac('sha256', secretKey).update(payloadBase).digest('hex')
+  });
+  candidates.push({
+    method: 'hmac_sha256_base64',
+    value: crypto.createHmac('sha256', secretKey).update(payloadBase).digest('base64')
+  });
+
+  if (payloadWithTs) {
+    candidates.push({
+      method: 'hmac_sha256_hex_with_timestamp',
+      value: crypto.createHmac('sha256', secretKey).update(payloadWithTs).digest('hex')
+    });
+    candidates.push({
+      method: 'hmac_sha256_base64_with_timestamp',
+      value: crypto.createHmac('sha256', secretKey).update(payloadWithTs).digest('base64')
+    });
+  }
+
+  candidates.push({
+    method: 'sha256_plain_hex',
+    value: crypto.createHash('sha256').update(payloadBase).digest('hex')
+  });
+  candidates.push({
+    method: 'sha256_plain_base64',
+    value: crypto.createHash('sha256').update(payloadBase).digest('base64')
+  });
+
+  if (payloadWithTs) {
+    candidates.push({
+      method: 'sha256_plain_hex_with_timestamp',
+      value: crypto.createHash('sha256').update(payloadWithTs).digest('hex')
+    });
+    candidates.push({
+      method: 'sha256_plain_base64_with_timestamp',
+      value: crypto.createHash('sha256').update(payloadWithTs).digest('base64')
+    });
+  }
+
+  for (const candidate of candidates) {
+    const signatureMatch = candidate.value.length === 64
+      ? timingSafeEquals(signature.toLowerCase(), candidate.value.toLowerCase())
+      : timingSafeEquals(signature, candidate.value);
+
+    if (signatureMatch) {
+      return { ok: true, method: candidate.method, reason: null };
+    }
+  }
+
+  return { ok: false, method: null, reason: 'signature_mismatch' };
+}
+
+function decryptPayload(encryptedPayload, aesKey) {
+  if (!encryptedPayload || !aesKey) {
+    throw new Error('Missing encrypted payload or AES key.');
+  }
+  return decrypt(encryptedPayload, aesKey);
+}
+
+function parseResponse(decryptedPayload) {
+  if (!decryptedPayload) {
+    throw new Error('Empty decrypted payload.');
+  }
+
+  const parts = String(decryptedPayload).split('|').map((part) => String(part).trim());
+  if (parts.length < 5) {
+    throw new Error('Malformed decrypted payload.');
+  }
+
+  return {
+    refNo: parts[0],
+    subMerchantId: parts[1],
+    amount: parts[2],
+    statusCode: parts[3],
+    txnId: parts[4],
+    rawParts: parts,
+  };
+}
+
+function validateParsedResponse(parsed, expectedSubMerchantId) {
+  if (!parsed?.refNo || !/^HKM\d{10,}$/.test(parsed.refNo)) {
+    return { valid: false, reason: 'invalid_ref_no' };
+  }
+
+  const parsedAmount = Number(parsed.amount);
+  if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+    return { valid: false, reason: 'invalid_amount' };
+  }
+
+  if (expectedSubMerchantId && String(parsed.subMerchantId) !== String(expectedSubMerchantId)) {
+    return { valid: false, reason: 'submerchant_mismatch' };
+  }
+
+  return { valid: true, reason: null };
+}
+
+function mapStatus(statusCode) {
+  const code = String(statusCode || '').trim().toUpperCase();
+  if (['SUCCESS', 'SUCCESSFUL', 'OK', 'S'].includes(code)) return 'completed';
+  if (['FAILED', 'FAILURE', 'F'].includes(code)) return 'failed';
+  if (['PENDING', 'PROCESSING'].includes(code)) return 'pending';
+  return 'unknown';
+}
+
+function redirectWithStatus(request, status) {
+  const allowed = new Set(['completed', 'failed', 'pending']);
+  const safeStatus = allowed.has(status) ? status : 'failed';
+  return NextResponse.redirect(new URL(`/thank-you?status=${safeStatus}`, request.url), 303);
+}
+
+async function sendReceiptIfNeeded(donation) {
+  if (!resend || !donation?.email) return;
+
+  await resend.emails.send({
+    from: 'Hare Krishna Marwar Mandir <onboarding@resend.dev>',
+    to: donation.email,
+    subject: 'Thank You for Your Donation',
+    html: `<h1>Hare Krishna, ${donation.name || 'Devotee'}!</h1><p>Your donation of ₹${donation.amount} has been successfully received.</p>`
+  });
+}
 
 export async function POST(request) {
   try {
-    // ICICI EazyPay sends payment gateway response via POST (often form-urlencoded)
     const formData = await request.formData();
-    
-    // Convert FormData to object for easier handling
-    const data = Object.fromEntries(formData);
-    
-    console.log('--- ICICI Payment Callback Received ---');
-    console.log(data);
+    const payload = Object.fromEntries(formData);
 
-    // TODO: The exact response parameter names depend on ICICI's kit
-    // Typically, they send back an encrypted string that needs to be decrypted
-    // using the AES key to extract status and reference number.
-    
-    // For now, since we don't have the exact response format structure from the email,
-    // we'll safely redirect the user to the thank-you page.
-    
-    // Dummy extraction (replace with real decryption and parsing logic later)
-    // const decryptedData = decrypt(data.ResponseString, process.env.ICICI_AES_KEY);
-    // const refNo = decryptedData.split('|')[0];
-    // const status = decryptedData.split('|')[something] === 'SUCCESS' ? 'completed' : 'failed';
+    const encryptedPayload = getFieldCaseInsensitive(payload, [
+      'ResponseString',
+      'responseString',
+      'Response',
+      'response',
+      'msg',
+      'Msg',
+    ]);
 
-    // Example of how you would update Supabase once you parse the Reference Number
-    /*
-    if (refNo) {
-      const { data: donation, error } = await supabaseAdmin
+    const signature = getFieldCaseInsensitive(payload, [
+      'Signature',
+      'signature',
+      'Hash',
+      'hash',
+      'Checksum',
+      'checksum',
+    ]);
+
+    const timestamp = getFieldCaseInsensitive(payload, ['timestamp', 'Timestamp', 'ts', 'TS']);
+    const secretKey = process.env.ICICI_CALLBACK_SECRET_KEY || process.env.ICICI_SECRET_KEY || process.env.SECRET_KEY;
+
+    if (!encryptedPayload || !signature) {
+      debugLog('callback_rejected', { reason: 'missing_required_fields' });
+      return NextResponse.json({ error: 'Missing required callback fields.' }, { status: 403 });
+    }
+
+    if (encryptedPayload.length > MAX_ENCRYPTED_PAYLOAD_LENGTH) {
+      debugLog('callback_rejected', { reason: 'payload_too_large', size: encryptedPayload.length });
+      return NextResponse.json({ error: 'Payload too large.' }, { status: 403 });
+    }
+
+    const verification = verifySignature({ encryptedPayload, signature, secretKey, timestamp });
+    if (!verification.ok) {
+      debugLog('signature_verification_failed', {
+        reason: verification.reason,
+        hasPayload: Boolean(encryptedPayload),
+        hasSignature: Boolean(signature),
+        hasTimestamp: Boolean(timestamp),
+      });
+      return NextResponse.json({ error: 'Invalid callback signature.' }, { status: 403 });
+    }
+
+    debugLog('signature_verification_passed', { method: verification.method });
+
+    let parsed;
+    let decrypted = '';
+    try {
+      decrypted = decryptPayload(encryptedPayload, process.env.ICICI_AES_KEY);
+      parsed = parseResponse(decrypted);
+    } catch (error) {
+      debugLog('decrypt_or_parse_failed', { message: error?.message || 'Unknown error' });
+      return redirectWithStatus(request, 'failed');
+    }
+
+    const validation = validateParsedResponse(parsed, process.env.ICICI_SUB_MERCHANT_ID);
+    if (!validation.valid) {
+      debugLog('callback_rejected', {
+        reason: validation.reason,
+        refNo: parsed.refNo || '(missing)',
+      });
+      return redirectWithStatus(request, 'failed');
+    }
+
+    const mappedStatus = mapStatus(parsed.statusCode);
+    const redirectStatus = mappedStatus === 'unknown' ? 'failed' : mappedStatus;
+
+    if (!supabaseAdmin) {
+      debugLog('supabase_not_configured', { refNo: parsed.refNo });
+      return redirectWithStatus(request, redirectStatus);
+    }
+
+    const { data: donation, error: fetchError } = await supabaseAdmin
+      .from('donations')
+      .select('*')
+      .eq('ref_no', parsed.refNo)
+      .maybeSingle();
+
+    if (fetchError) {
+      debugLog('fetch_failed', { refNo: parsed.refNo, message: fetchError.message });
+      return redirectWithStatus(request, 'failed');
+    }
+
+    if (!donation) {
+      debugLog('donation_not_found', { refNo: parsed.refNo });
+      return redirectWithStatus(request, 'failed');
+    }
+
+    if (parsed.txnId) {
+      const { data: txnOwner, error: txnFetchError } = await supabaseAdmin
         .from('donations')
-        .update({ status: status }) // 'completed' or 'failed'
-        .eq('ref_no', refNo)
-        .select()
-        .single();
-        
-      if (donation && status === 'completed') {
-        // Send Thank You Email via Resend
-        await resend.emails.send({
-          from: 'Hare Krishna Marwar Mandir <onboarding@resend.dev>',
-          to: donation.email,
-          subject: 'Thank You for Your Donation',
-          html: `<h1>Hare Krishna, ${donation.name}!</h1><p>Your donation of ₹${donation.amount} has been successfully received.</p>`
+        .select('ref_no,status')
+        .eq('txn_id', parsed.txnId)
+        .limit(1)
+        .maybeSingle();
+
+      if (txnFetchError) {
+        debugLog('txn_replay_check_failed', {
+          refNo: parsed.refNo,
+          txnIdSuffix: parsed.txnId.slice(-6),
+          message: txnFetchError.message,
         });
+        return redirectWithStatus(request, 'failed');
+      }
+
+      if (txnOwner && txnOwner.ref_no !== parsed.refNo) {
+        debugLog('replay_detected', {
+          refNo: parsed.refNo,
+          existingRefNo: txnOwner.ref_no,
+          txnIdSuffix: parsed.txnId.slice(-6),
+        });
+        return redirectWithStatus(request, 'failed');
+      }
+
+      if (txnOwner && txnOwner.ref_no === parsed.refNo) {
+        debugLog('duplicate_callback_same_txn', {
+          refNo: parsed.refNo,
+          txnIdSuffix: parsed.txnId.slice(-6),
+        });
+        return redirectWithStatus(request, txnOwner.status === 'completed' ? 'completed' : redirectStatus);
       }
     }
-    */
 
-    // Always redirect the user back to the frontend thank-you (or failed) page
-    // Using 303 See Other is the correct status code for redirecting from a POST request
-    return NextResponse.redirect(new URL('/thank-you', request.url), 303);
+    if (donation.status === 'completed') {
+      debugLog('idempotent_skip_already_completed', { refNo: parsed.refNo });
+      return redirectWithStatus(request, 'completed');
+    }
 
+    if (donation.status !== 'pending') {
+      debugLog('invalid_state_transition_blocked', {
+        refNo: parsed.refNo,
+        previousStatus: donation.status,
+        attemptedStatus: mappedStatus,
+      });
+      return redirectWithStatus(request, donation.status);
+    }
+
+    if (!['completed', 'failed'].includes(mappedStatus)) {
+      debugLog('status_not_updatable', {
+        refNo: parsed.refNo,
+        mappedStatus,
+      });
+      return redirectWithStatus(request, redirectStatus);
+    }
+
+    const updatePayload = {
+      status: mappedStatus,
+      txn_id: parsed.txnId || null,
+      gateway_raw_response: encryptedPayload,
+      gateway_decrypted_response: decrypted,
+      gateway_signature: signature,
+      gateway_verification_method: verification.method,
+    };
+
+    let updateError = null;
+    const primaryUpdate = await supabaseAdmin
+      .from('donations')
+      .update(updatePayload)
+      .eq('ref_no', parsed.refNo);
+
+    updateError = primaryUpdate.error;
+
+    if (updateError) {
+      const fallbackUpdate = await supabaseAdmin
+        .from('donations')
+        .update({
+          status: mappedStatus,
+          txn_id: parsed.txnId || null,
+        })
+        .eq('ref_no', parsed.refNo);
+
+      updateError = fallbackUpdate.error;
+    }
+
+    if (updateError) {
+      debugLog('update_failed', { refNo: parsed.refNo, message: updateError.message });
+      return redirectWithStatus(request, 'failed');
+    }
+
+    if (mappedStatus === 'completed') {
+      try {
+        await sendReceiptIfNeeded(donation);
+      } catch (mailError) {
+        debugLog('receipt_send_failed', { refNo: parsed.refNo, message: mailError?.message || 'mail error' });
+      }
+    }
+
+    debugLog('callback_processed', {
+      refNo: parsed.refNo,
+      status: mappedStatus,
+      txnIdSuffix: parsed.txnId ? parsed.txnId.slice(-6) : '',
+    });
+
+    return redirectWithStatus(request, redirectStatus);
   } catch (error) {
-    console.error('Payment callback error:', error);
-    // Even if it fails, send them back to the site so they aren't stuck on a blank API response
-    return NextResponse.redirect(new URL('/', request.url), 303);
+    debugLog('unhandled_exception', { message: error?.message || 'Unknown error' });
+    return redirectWithStatus(request, 'failed');
   }
 }
