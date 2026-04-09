@@ -67,7 +67,7 @@ export async function POST(request) {
         mobile: maskMobile(mobile),
         email: maskEmail(email),
       });
-      console.log('[ICICI] Encrypted mandatory fields:', debug.encryptedMandatoryFields);
+      console.log('[ICICI] Encrypted payload:', debug.encryptedPayload);
       console.log('[ICICI] Payment URL preview:', paymentUrl.slice(0, 100));
     }
 
