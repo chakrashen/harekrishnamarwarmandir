@@ -3,6 +3,7 @@ import Footer from '../_components/Footer';
 import FloatingButtons from '../_components/FloatingButtons';
 import BottomNav from '../_components/BottomNav';
 import DonateForm from './_components/DonateForm';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Donate — Hare Krishna Marwar Mandir',
@@ -14,7 +15,9 @@ export default function DonatePage() {
     <>
       <Navbar />
       <main>
-        <DonateForm />
+        <Suspense fallback={null}>
+          <DonateForm />
+        </Suspense>
       </main>
       <Footer />
       <FloatingButtons />
