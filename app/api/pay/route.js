@@ -158,12 +158,16 @@ export async function POST(request) {
     }
 
     // Build encrypted ICICI payment URL
-    const { paymentUrl, refNo, debug, encData, gatewayUrl, merchantId } = buildPaymentUrl({
+    const { paymentUrl, refNo, debug, gatewayUrl, formFields, merchantId } = buildPaymentUrl({
       amount: numAmount,
       name,
       mobile,
       email,
       sevaType,
+      city,
+      state,
+      address: addressText,
+      pincode: pinCode,
       useAlternateReturnUrl: Boolean(retryWithAlternateReturnUrl),
     });
 
@@ -261,7 +265,7 @@ export async function POST(request) {
       paymentUrl,
       refNo,
       gatewayUrl,
-      encData,
+      formFields,
       merchantId,
     });
   } catch (error) {

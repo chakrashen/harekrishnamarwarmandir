@@ -17,6 +17,10 @@ export async function GET(request) {
     mobile: '9999999999',
     email: 'test@example.com',
     sevaType: 'Test Seva',
+    city: 'Jodhpur',
+    state: 'Rajasthan',
+    address: 'Test Address Line 1, Test Area',
+    pincode: '342001',
     refNoOverride: refNo,
     useAlternateReturnUrl: forceAlternate,
   });

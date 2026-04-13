@@ -191,21 +191,16 @@ export default function DonateForm() {
         throw new Error(data.error || 'Payment initialization failed.');
       }
 
-      if (data.success && data.encData && data.gatewayUrl && data.merchantId) {
+      if (data.success && data.formFields && data.gatewayUrl) {
         const formEl = document.createElement('form');
         formEl.method = 'POST';
         formEl.action = data.gatewayUrl;
 
-        const fields = {
-          merchantid: data.merchantId,
-          encdata: data.encData,
-        };
-
-        Object.entries(fields).forEach(([key, value]) => {
+        Object.entries(data.formFields).forEach(([key, value]) => {
           const input = document.createElement('input');
           input.type = 'hidden';
           input.name = key;
-          input.value = String(value);
+          input.value = String(value ?? '');
           formEl.appendChild(input);
         });
 
