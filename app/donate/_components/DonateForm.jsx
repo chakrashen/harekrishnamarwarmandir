@@ -33,6 +33,16 @@ export default function DonateForm() {
     email: '',
     mobile: '',
     dedication: '',
+    atgRequired: false,
+    panNo: '',
+    aadharNo: '',
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    state: '',
+    country: 'India',
+    pinCode: '',
+    addressType: 'Residential',
   });
 
   const amount = customAmount ? Number(customAmount) : (selectedSeva?.amount || 0);
@@ -57,14 +67,26 @@ export default function DonateForm() {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    const { name, value, type, checked } = e.target;
+    const nextValue = type === 'checkbox' ? checked : value;
+    setForm({ ...form, [name]: nextValue });
 
     setFieldErrors((prev) => {
       const next = { ...prev };
       if (name === 'name' && value.trim()) delete next.name;
       if (name === 'mobile' && /^\d{10}$/.test(value)) delete next.mobile;
       if (name === 'email' && (!value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))) delete next.email;
+      if (name === 'pinCode' && /^\d{6}$/.test(value)) delete next.pinCode;
+      if (name === 'panNo' && (/^[A-Z]{5}\d{4}[A-Z]$/.test(value.toUpperCase()) || !value.trim())) delete next.panNo;
+      if (name === 'aadharNo' && (/^\d{12}$/.test(value) || !value.trim())) delete next.aadharNo;
+      if (name === 'addressLine1' && value.trim()) delete next.addressLine1;
+      if (name === 'city' && value.trim()) delete next.city;
+      if (name === 'state' && value.trim()) delete next.state;
+      if (name === 'country' && value.trim()) delete next.country;
+      if (name === 'atgRequired' && !checked) {
+        delete next.panNo;
+        delete next.aadharNo;
+      }
       return next;
     });
   };
@@ -89,6 +111,41 @@ export default function DonateForm() {
       nextFieldErrors.email = 'Please enter a valid email address.';
     }
 
+    if (!form.addressLine1.trim()) {
+      nextFieldErrors.addressLine1 = 'Please enter your address.';
+    }
+
+    if (!form.city.trim()) {
+      nextFieldErrors.city = 'Please enter your city.';
+    }
+
+    if (!form.state.trim()) {
+      nextFieldErrors.state = 'Please enter your state.';
+    }
+
+    if (!form.country.trim()) {
+      nextFieldErrors.country = 'Please enter your country.';
+    }
+
+    if (!/^\d{6}$/.test(form.pinCode)) {
+      nextFieldErrors.pinCode = 'Please enter a valid 6-digit PIN code.';
+    }
+
+    if (form.atgRequired) {
+      if (!form.panNo.trim() && !form.aadharNo.trim()) {
+        nextFieldErrors.panNo = 'Enter PAN or Aadhaar to claim 80G.';
+        nextFieldErrors.aadharNo = 'Enter PAN or Aadhaar to claim 80G.';
+      }
+
+      if (form.panNo && !/^[A-Z]{5}\d{4}[A-Z]$/.test(form.panNo.toUpperCase())) {
+        nextFieldErrors.panNo = 'Please enter a valid PAN number.';
+      }
+
+      if (form.aadharNo && !/^\d{12}$/.test(form.aadharNo)) {
+        nextFieldErrors.aadharNo = 'Please enter a valid 12-digit Aadhaar number.';
+      }
+    }
+
     if (Object.keys(nextFieldErrors).length > 0) {
       setFieldErrors(nextFieldErrors);
       return;
@@ -102,7 +159,7 @@ export default function DonateForm() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/pay', {
+      const res = await fetch('/api/create-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -112,6 +169,16 @@ export default function DonateForm() {
           mobile: form.mobile,
           sevaType: selectedSeva?.name || 'General Donation',
           dedication: form.dedication,
+          atgRequired: form.atgRequired,
+          panNo: form.atgRequired ? form.panNo.trim() : '',
+          aadharNo: form.atgRequired ? form.aadharNo.trim() : '',
+          addressLine1: form.addressLine1.trim(),
+          addressLine2: form.addressLine2.trim(),
+          city: form.city.trim(),
+          state: form.state.trim(),
+          country: form.country.trim(),
+          pinCode: form.pinCode.trim(),
+          addressType: form.addressType,
         }),
       });
 
@@ -125,6 +192,7 @@ export default function DonateForm() {
       }
 
       if (data.success && data.paymentUrl) {
+        console.log('Generated Payment URL:', data.paymentUrl);
         // Redirect immediately after API response to avoid gateway session expiry.
         window.location.replace(data.paymentUrl);
       } else {
@@ -146,8 +214,28 @@ export default function DonateForm() {
           <span className="section-label">Support Hare Krishna Marwar Mandir</span>
           <h1 className={styles.title}>Make a Donation</h1>
           <p className={styles.subtitle}>
-            Your generous contribution helps us build the Mandir, feed the hungry, and protect cows.
+            Your seva builds the Mandir, serves prasadam, and protects cows. Every contribution creates
+            daily impact across Jodhpur.
           </p>
+          <div className={styles.headerTrust}>
+            <span>Secure ICICI payment</span>
+            <span>80G tax benefit</span>
+            <span>Serving since 2012</span>
+          </div>
+          <div className={styles.headerImpact}>
+            <div className={styles.impactCard}>
+              <span className={styles.impactValue}>1.51+ lakh</span>
+              <span className={styles.impactLabel}>meals served in Jodhpur</span>
+            </div>
+            <div className={styles.impactCard}>
+              <span className={styles.impactValue}>35,000 sq ft</span>
+              <span className={styles.impactLabel}>mandir in progress</span>
+            </div>
+            <div className={styles.impactCard}>
+              <span className={styles.impactValue}>1+ crore</span>
+              <span className={styles.impactLabel}>global devotee community</span>
+            </div>
+          </div>
         </div>
 
         {/* Steps indicator */}
@@ -297,6 +385,138 @@ export default function DonateForm() {
                     <div className={styles.fieldGroup}>
                       <label className={styles.fieldLabel}>Dedicate this donation (optional)</label>
                       <input name="dedication" value={form.dedication} onChange={handleChange} placeholder="In memory of / On behalf of..." className={styles.input} />
+                    </div>
+
+                    <div className={styles.fieldGroup}>
+                      <label className={styles.checkRow}>
+                        <input
+                          type="checkbox"
+                          name="atgRequired"
+                          checked={form.atgRequired}
+                          onChange={handleChange}
+                          className={styles.checkBox}
+                        />
+                        I want 80G certificate
+                      </label>
+                      <p className={styles.helperText}>80G receipt will include PAN or Aadhaar details for tax benefit.</p>
+                    </div>
+
+                    {form.atgRequired && (
+                      <div className={styles.atgGrid}>
+                        <div className={styles.fieldGroup}>
+                          <label className={styles.fieldLabel}>PAN Number *</label>
+                          <input
+                            name="panNo"
+                            value={form.panNo}
+                            onChange={handleChange}
+                            placeholder="ABCDE1234F"
+                            className={`${styles.input} ${fieldErrors.panNo ? styles.inputError : ''}`}
+                          />
+                          {fieldErrors.panNo && <p className={styles.inlineError}>{fieldErrors.panNo}</p>}
+                        </div>
+                        <div className={styles.fieldGroup}>
+                          <label className={styles.fieldLabel}>Aadhaar Number</label>
+                          <input
+                            name="aadharNo"
+                            value={form.aadharNo}
+                            onChange={handleChange}
+                            placeholder="12-digit Aadhaar"
+                            className={`${styles.input} ${fieldErrors.aadharNo ? styles.inputError : ''}`}
+                            inputMode="numeric"
+                            maxLength={12}
+                          />
+                          {fieldErrors.aadharNo && <p className={styles.inlineError}>{fieldErrors.aadharNo}</p>}
+                        </div>
+                      </div>
+                    )}
+
+                    <div className={styles.fieldGroup}>
+                      <label className={styles.fieldLabel}>Address Line 1 *</label>
+                      <input
+                        name="addressLine1"
+                        value={form.addressLine1}
+                        onChange={handleChange}
+                        placeholder="House no, street"
+                        className={`${styles.input} ${fieldErrors.addressLine1 ? styles.inputError : ''}`}
+                      />
+                      {fieldErrors.addressLine1 && <p className={styles.inlineError}>{fieldErrors.addressLine1}</p>}
+                    </div>
+
+                    <div className={styles.fieldGroup}>
+                      <label className={styles.fieldLabel}>Address Line 2 (optional)</label>
+                      <input
+                        name="addressLine2"
+                        value={form.addressLine2}
+                        onChange={handleChange}
+                        placeholder="Area, landmark"
+                        className={styles.input}
+                      />
+                    </div>
+
+                    <div className={styles.fieldRow}>
+                      <div className={styles.fieldGroup}>
+                        <label className={styles.fieldLabel}>City *</label>
+                        <input
+                          name="city"
+                          value={form.city}
+                          onChange={handleChange}
+                          placeholder="City"
+                          className={`${styles.input} ${fieldErrors.city ? styles.inputError : ''}`}
+                        />
+                        {fieldErrors.city && <p className={styles.inlineError}>{fieldErrors.city}</p>}
+                      </div>
+                      <div className={styles.fieldGroup}>
+                        <label className={styles.fieldLabel}>State *</label>
+                        <input
+                          name="state"
+                          value={form.state}
+                          onChange={handleChange}
+                          placeholder="State"
+                          className={`${styles.input} ${fieldErrors.state ? styles.inputError : ''}`}
+                        />
+                        {fieldErrors.state && <p className={styles.inlineError}>{fieldErrors.state}</p>}
+                      </div>
+                    </div>
+
+                    <div className={styles.fieldRow}>
+                      <div className={styles.fieldGroup}>
+                        <label className={styles.fieldLabel}>Country *</label>
+                        <input
+                          name="country"
+                          value={form.country}
+                          onChange={handleChange}
+                          placeholder="Country"
+                          className={`${styles.input} ${fieldErrors.country ? styles.inputError : ''}`}
+                        />
+                        {fieldErrors.country && <p className={styles.inlineError}>{fieldErrors.country}</p>}
+                      </div>
+                      <div className={styles.fieldGroup}>
+                        <label className={styles.fieldLabel}>PIN Code *</label>
+                        <input
+                          name="pinCode"
+                          value={form.pinCode}
+                          onChange={handleChange}
+                          placeholder="6-digit PIN"
+                          className={`${styles.input} ${fieldErrors.pinCode ? styles.inputError : ''}`}
+                          inputMode="numeric"
+                          maxLength={6}
+                        />
+                        {fieldErrors.pinCode && <p className={styles.inlineError}>{fieldErrors.pinCode}</p>}
+                      </div>
+                    </div>
+
+                    <div className={styles.fieldGroup}>
+                      <label className={styles.fieldLabel}>Address Type</label>
+                      <select
+                        name="addressType"
+                        value={form.addressType}
+                        onChange={handleChange}
+                        className={styles.select}
+                      >
+                        <option value="Residential">Residential</option>
+                        <option value="Office">Office</option>
+                        <option value="Factory">Factory</option>
+                      </select>
                     </div>
 
                     {error && <div className={styles.errorMsg}>{error}</div>}

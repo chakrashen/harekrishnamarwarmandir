@@ -71,10 +71,10 @@ export default function ConstructionMeter() {
       <div className="container">
         <div className="section-header">
           <span className="section-label">Grand Opening March 2027</span>
-          <h2 className="section-title">Help Us Build the Mandir</h2>
+          <h2 className="section-title">Be Part Before Completion</h2>
           <div className="section-divider" />
           <p className="section-desc">
-            Contribute to the construction of Hare Krishna Marwar Mandir — a 35,000 sq ft devotional masterpiece in the heart of Jodhpur.
+            Grand Opening March 2027 - offer your seva today to help complete a 35,000 sq ft devotional landmark in the heart of Jodhpur.
           </p>
         </div>
 
@@ -121,7 +121,7 @@ export default function ConstructionMeter() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
-            <a href="/donate" className="btn btn-donate">🪔 Donate ₹2,100 / Sq Ft</a>
+            <a href="/donate" className="btn btn-donate">🪔 Offer Your Seva - ₹2,100 / Sq Ft</a>
           </div>
         </motion.div>
       </div>

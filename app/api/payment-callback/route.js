@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { resend } from '@/lib/resend';
 import { decrypt } from '@/lib/icici-pay';
+import { createDonationReceipt } from '@/lib/donation-receipt';
 
 const isPaymentDebug = process.env.PAYMENT_DEBUG === 'true' || process.env.PAYMENT_DEBUG === '1';
 const CALLBACK_MAX_AGE_SECONDS = 15 * 60;
@@ -361,6 +362,37 @@ export async function POST(request) {
         await sendReceiptIfNeeded(donation);
       } catch (mailError) {
         debugLog('receipt_send_failed', { refNo: parsed.refNo, message: mailError?.message || 'mail error' });
+      }
+
+      try {
+        const receiptResponse = await createDonationReceipt({
+          donation,
+          txnId: parsed.txnId,
+          refNo: parsed.refNo,
+        });
+
+        if (receiptResponse?.ok) {
+          await supabaseAdmin
+            .from('donations')
+            .update({
+              receipt_id: receiptResponse.receiptId || null,
+              receipt_url: receiptResponse.receiptUrl || null,
+              receipt_status: 'created',
+            })
+            .eq('ref_no', parsed.refNo);
+        } else {
+          await supabaseAdmin
+            .from('donations')
+            .update({
+              receipt_status: 'failed',
+            })
+            .eq('ref_no', parsed.refNo);
+        }
+      } catch (receiptError) {
+        debugLog('receipt_api_failed', {
+          refNo: parsed.refNo,
+          message: receiptError?.message || 'receipt error',
+        });
       }
     }
 

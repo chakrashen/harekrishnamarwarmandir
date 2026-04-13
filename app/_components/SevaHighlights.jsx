@@ -63,6 +63,9 @@ export default function SevaHighlights() {
                 <a href="/donate" className={`btn btn-donate btn-sm ${styles.cardCta}`}>
                   <Heart size={14} /> Offer Your Seva
                 </a>
+                <a href="/visit" className={`btn btn-outline btn-sm ${styles.cardCtaAlt}`}>
+                  Explore Mandir
+                </a>
               </div>
             </div>
           ))}

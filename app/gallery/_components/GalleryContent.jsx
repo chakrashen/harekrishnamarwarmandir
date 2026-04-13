@@ -73,10 +73,23 @@ export default function GalleryContent() {
         <div className={`container ${styles.heroContent}`}>
           <span className="section-label" style={{ color: 'var(--saffron-light)' }}>Photo Gallery</span>
           <h1 className={styles.heroTitle}>Moments of Devotion</h1>
+          <p className={styles.heroDesc}>
+            Every moment here is seva in action. Your donation sustains daily prasadam,
+            cow care, and the mandir we are building together.
+          </p>
+          <div className={styles.heroActions}>
+            <a href="/donate" className="btn btn-donate">Donate Now</a>
+            <a href="#gallery-grid" className="btn btn-outline">Explore Gallery</a>
+          </div>
+          <div className={styles.heroTrust}>
+            <span>Secure ICICI payment</span>
+            <span>80G tax benefit</span>
+            <span>Serving since 2012</span>
+          </div>
         </div>
       </section>
 
-      <section className="section-pad">
+      <section className="section-pad" id="gallery-grid">
         <div className="container">
           {/* Filter tabs */}
           <div className={styles.filters}>

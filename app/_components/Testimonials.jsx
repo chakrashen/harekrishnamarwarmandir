@@ -1,13 +1,15 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Play, Quote } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import styles from './Testimonials.module.css';
 
+const testimonialVideoUrl = 'https://www.youtube.com/embed/t1Qoh6UWhWc?rel=0';
+
 const testimonials = [
-  { name: 'Devoted Visitor', role: 'Regular Devotee', text: 'The experience at Hare Krishna Marwar Mandir is truly divine. The atmosphere, the kirtans, and the prasadam — everything fills your heart with devotion and peace.', video: 'testimonial-video-1.mp4', thumb: 'testimonial-1.jpg' },
-  { name: 'Local Supporter', role: 'Monthly Donor', text: 'I am proud to support this temple\'s mission. The Anna Daan Seva has been feeding hundreds in our community. This is true service to Lord Krishna.', video: 'testimonial-video-2.mp4', thumb: 'testimonial-2.jpg' },
-  { name: 'Youth Volunteer', role: 'Student Volunteer', text: 'The youth programs transformed my life. Learning about Bhagavad Gita, doing kirtan, and serving others — it gave me real purpose and happiness.', video: 'testimonial-video-3.mp4', thumb: 'testimonial-3.jpg' },
+  { name: 'Devoted Visitor', role: 'Regular Devotee', text: 'The experience at Hare Krishna Marwar Mandir is truly divine. The atmosphere, the kirtans, and the prasadam — everything fills your heart with devotion and peace.', videoUrl: testimonialVideoUrl },
+  { name: 'Local Supporter', role: 'Monthly Donor', text: 'I am proud to support this temple\'s mission. The Anna Daan Seva has been feeding hundreds in our community. This is true service to Lord Krishna.', videoUrl: testimonialVideoUrl },
+  { name: 'Youth Volunteer', role: 'Student Volunteer', text: 'The youth programs transformed my life. Learning about Bhagavad Gita, doing kirtan, and serving others — it gave me real purpose and happiness.', videoUrl: testimonialVideoUrl },
 ];
 
 export default function Testimonials() {
@@ -33,10 +35,14 @@ export default function Testimonials() {
           transition={{ duration: 0.5 }}
         >
           <div className={styles.videoSide}>
-            <div className="img-placeholder" style={{ height: '100%', minHeight: '250px', borderRadius: 'var(--radius-lg)' }}>
-              <span>{t.thumb}</span>
-              <button className={styles.playBtn}><Play size={28} fill="white" /></button>
-            </div>
+            <iframe
+              className={styles.videoFrame}
+              src={t.videoUrl}
+              title={`Testimonial video from ${t.name}`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+            />
           </div>
           <div className={styles.textSide}>
             <Quote size={36} className={styles.quoteIcon} />

@@ -42,8 +42,8 @@ export default function Welcome() {
               devotion, service, and spiritual growth through Annadana Seva, Gau Seva, 
               youth empowerment, and cultural festivals.
             </p>
-            <a href="/about" className="btn btn-primary btn-sm" style={{ marginTop: '1rem' }}>
-              Discover More →
+            <a href="/visit" className="btn btn-outline btn-sm" style={{ marginTop: '1rem' }}>
+              Explore Mandir
             </a>
           </motion.div>
         </div>

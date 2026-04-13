@@ -1,10 +1,10 @@
 .ticker {
   background: linear-gradient(90deg, #FFF8F0 0%, #FFFBF5 100%);
   padding: 0.75rem 0;
+  border-top: 1px solid rgba(230, 126, 34, 0.08);
   border-bottom: 1px solid var(--border-light);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  position: relative;
+  z-index: 2;
   box-shadow: var(--shadow-sm);
 }
 

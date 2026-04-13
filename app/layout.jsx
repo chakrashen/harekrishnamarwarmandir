@@ -1,6 +1,6 @@
 import './globals.css';
 import InitialLoaderGate from './_components/InitialLoaderGate';
-import { Cinzel_Decorative, EB_Garamond, Inter } from 'next/font/google';
+import { Cinzel_Decorative, EB_Garamond, Inter, Cormorant_Garamond, Noto_Serif_Devanagari } from 'next/font/google';
 
 const cinzelDecorative = Cinzel_Decorative({
   subsets: ['latin'],
@@ -24,10 +24,24 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-cormorant',
+});
+
+const notoSerifDevanagari = Noto_Serif_Devanagari({
+  subsets: ['devanagari'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+  variable: '--font-devanagari',
+});
+
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const contentSecurityPolicy = isDevelopment
-  ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
-  : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests";
+  ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
+  : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests";
 
 export const metadata = {
   title: 'Hare Krishna Marwar Mandir | Temple & Seva — Jodhpur, Rajasthan',
@@ -42,7 +56,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${cinzelDecorative.variable} ${ebGaramond.variable} ${inter.variable}`}>
+    <html lang="en" className={`${cinzelDecorative.variable} ${ebGaramond.variable} ${inter.variable} ${cormorantGaramond.variable} ${notoSerifDevanagari.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta httpEquiv="Content-Security-Policy" content={contentSecurityPolicy} />

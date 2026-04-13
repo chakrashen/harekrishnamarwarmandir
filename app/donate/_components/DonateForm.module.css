@@ -27,6 +27,63 @@
   line-height: 1.65;
 }
 
+.headerTrust {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.headerTrust span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  padding: 0.4rem 0.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.headerImpact {
+  margin: 1.5rem auto 0;
+  max-width: 860px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.impactCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 0.9rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.impactValue {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--saffron);
+}
+
+.impactLabel {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
 /* Steps */
 .steps {
   display: flex;
@@ -324,6 +381,34 @@
   cursor: pointer;
 }
 
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 0.9rem;
+  cursor: pointer;
+}
+
+.helperText {
+  font-family: var(--font-ui);
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  margin-top: 0.35rem;
+}
+
+.atgGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
 /* Form Fields */
 .form {
   display: flex;
@@ -362,6 +447,24 @@
   color: var(--text-primary);
   outline: none;
   transition: var(--transition-base);
+}
+
+.select {
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  outline: none;
+  transition: var(--transition-base);
+}
+
+.select:focus {
+  border-color: var(--saffron);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.08);
 }
 
 .inputError {
@@ -605,6 +708,8 @@
   .fieldRow { grid-template-columns: 1fr; }
   .steps { gap: 1rem; }
   .stepLabel { display: none; }
+  .headerImpact { grid-template-columns: 1fr; }
+  .headerTrust { gap: 0.5rem; }
   .summarySide { position: static; }
   .formActions { flex-direction: column; }
   .form { gap: 1rem; }
@@ -616,4 +721,5 @@
   .trustStrip { gap: 0.5rem; }
   .trustStrip span,
   .ctaReassurance p { font-size: 0.76rem; }
+  .atgGrid { grid-template-columns: 1fr; }
 }

@@ -24,28 +24,13 @@
   position: relative;
 }
 
-.playBtn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--saffron);
-  border: 3px solid white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition-base);
-  box-shadow: var(--shadow-md);
-  z-index: 2;
-}
-
-.playBtn:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  background: var(--saffron-light);
+.videoFrame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: #0b0b0b;
+  box-shadow: var(--shadow-sm);
 }
 
 .textSide {

@@ -5,6 +5,7 @@ import { Calendar, Clock, MapPin, Users, BookOpen, Utensils, Leaf, Music } from 
 import styles from './EventsContent.module.css';
 import { events } from '../_data/events';
 import { getDaysLeft, getUpcomingEvents } from '../_utils/getUpcomingEvents';
+import WaveBackdrop from '@/app/_components/WaveBackdrop';
 
 const upcomingEvents = getUpcomingEvents(events);
 
@@ -24,6 +25,7 @@ export default function EventsContent() {
     <>
       <section className={styles.hero}>
         <div className={styles.heroBg}>
+          <WaveBackdrop variant="events" />
           <Image
             src="/event page/event page background.jpeg"
             alt="Events at Hare Krishna Marwar Mandir"
@@ -37,11 +39,24 @@ export default function EventsContent() {
         <div className={`container ${styles.heroContent}`}>
           <span className="section-label" style={{ color: 'var(--saffron-light)' }}>Festivals & Programs</span>
           <h1 className={styles.heroTitle}>Events at the Mandir</h1>
+          <p className={styles.heroDesc}>
+            Every festival and kirtan is made possible by devotee seva. Your donation keeps prasadam,
+            cow care, and spiritual programs open to all.
+          </p>
+          <div className={styles.heroActions}>
+            <a href="/donate" className="btn btn-donate">Donate Now</a>
+            <a href="#upcoming-events" className="btn btn-outline">View Upcoming</a>
+          </div>
+          <div className={styles.heroTrust}>
+            <span>Secure ICICI payment</span>
+            <span>80G tax benefit</span>
+            <span>Serving since 2012</span>
+          </div>
         </div>
       </section>
 
       {/* Upcoming */}
-      <section className="section-pad">
+      <section className="section-pad" id="upcoming-events">
         <div className="container">
           <div className="section-header">
             <span className="section-label">Upcoming</span>

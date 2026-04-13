@@ -6,7 +6,7 @@ import styles from './BottomNav.module.css';
 
 const items = [
   { icon: Home, label: 'Home', href: '/' },
-  { icon: Calendar, label: 'Events', href: '/events' },
+  { icon: Calendar, label: 'Seva', href: '/events' },
   { icon: Camera, label: 'Gallery', href: '/gallery' },
   { icon: Phone, label: 'Contact', href: '/contact' },
 ];
@@ -24,8 +24,8 @@ export default function BottomNav() {
 
   return (
     <>
-      <a href="/donate" className={styles.stickyDonate} aria-label="Donate now">
-        <Heart size={18} /> Donate Now
+      <a href="/donate" className={styles.stickyDonate} aria-label="Offer your seva">
+        <Heart size={18} /> Offer Your Seva
       </a>
 
       <nav className={styles.nav}>

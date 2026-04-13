@@ -54,11 +54,24 @@ export default function VisitContent() {
         <div className={`container ${styles.heroContent}`}>
           <span className="section-label" style={{ color: 'var(--saffron-light)' }}>Plan Your Visit</span>
           <h1 className={styles.heroTitle}>Visit the Mandir</h1>
+          <p className={styles.heroDesc}>
+            Your darshan is a blessing. Your seva keeps prasadam, cow care, and daily worship open
+            for every visitor.
+          </p>
+          <div className={styles.heroActions}>
+            <a href="/donate" className="btn btn-donate">Donate Now</a>
+            <a href="#darshan-timings" className="btn btn-outline">View Timings</a>
+          </div>
+          <div className={styles.heroTrust}>
+            <span>Secure ICICI payment</span>
+            <span>80G tax benefit</span>
+            <span>Serving since 2012</span>
+          </div>
         </div>
       </section>
 
       {/* Darshan Timings */}
-      <section className="section-pad">
+      <section className="section-pad" id="darshan-timings">
         <div className="container">
           <div className={styles.topGrid}>
             <motion.div className={styles.timingsCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

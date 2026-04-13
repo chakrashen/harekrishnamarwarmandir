@@ -12,12 +12,12 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-height: var(--mobile-nav-height);
+    min-height: 70px;
     background: rgba(255, 251, 245, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--border-light);
-    padding: 0.35rem 0 calc(0.5rem + env(safe-area-inset-bottom));
+    padding: 0.42rem 0.25rem calc(0.62rem + env(safe-area-inset-bottom));
     box-shadow: 0 -2px 15px rgba(0,0,0,0.06);
   }
 
@@ -29,9 +29,9 @@
     color: var(--text-muted);
     font-family: var(--font-ui);
     text-decoration: none;
-    min-height: 44px;
-    min-width: 60px;
-    padding: 0.35rem 0.5rem;
+    min-height: 48px;
+    min-width: 68px;
+    padding: 0.45rem 0.55rem;
     border-radius: var(--radius-md);
     transition: var(--transition);
     -webkit-tap-highlight-color: transparent;
@@ -41,10 +41,10 @@
   .item:active { transform: scale(0.92); }
 
   .label {
-    font-size: 0.58rem;
-    font-weight: 600;
+    font-size: 0.62rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
   }
 
   .active {
@@ -65,12 +65,18 @@
     min-height: var(--mobile-sticky-cta-height);
     width: min(300px, calc(100vw - 2rem));
     border-radius: var(--radius-full);
-    background: linear-gradient(135deg, var(--saffron), var(--gold));
-    color: #2C2C2C;
+    background: linear-gradient(135deg, #ff7a00, #ffae42);
+    color: #fff8ef;
     font-family: var(--font-ui);
     font-weight: 800;
     font-size: 0.95rem;
     text-decoration: none;
-    box-shadow: 0 8px 22px rgba(211, 84, 0, 0.26);
+    box-shadow: 0 10px 24px rgba(211, 84, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .stickyDonate:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 14px 30px rgba(211, 84, 0, 0.36);
   }
 }

@@ -1,5 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Heart } from 'lucide-react';
@@ -8,16 +10,22 @@ import styles from './Navbar.module.css';
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
-  { name: 'Events', href: '/events' },
+  { name: 'Seva & Events', href: '/events' },
   { name: 'Gallery', href: '/gallery' },
-  { name: 'Donate', href: '/donate' },
-  { name: 'Visit', href: '/visit' },
+  { name: 'Offer Your Seva', href: '/donate' },
+  { name: 'Darshan', href: '/visit' },
   { name: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href) => {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname?.startsWith(`${href}/`);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -36,7 +44,7 @@ export default function Navbar() {
       <div className={`${styles.navWrap} ${scrolled ? styles.navWrapScrolled : ''}`}>
         <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
           <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <a href="/" className={styles.logo}>
+            <Link href="/" className={styles.logo} aria-label="Hare Krishna Mandir home">
               <Image
                 src="/gallery/logo.png"
                 alt="Hare Krishna Mandir Logo"
@@ -45,24 +53,32 @@ export default function Navbar() {
                 className={styles.logoImage}
                 priority
               />
-            </a>
+            </Link>
 
-            <nav className={styles.desktopNav}>
+            <nav className={styles.desktopNav} aria-label="Primary navigation">
               {navLinks.map((link) => (
-                <a key={link.name} href={link.href} className={styles.navLink}>
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`${styles.navLink} ${isActive(link.href) ? styles.navLinkActive : ''}`}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                >
                   {link.name}
-                </a>
+                </Link>
               ))}
             </nav>
 
             <div className={styles.navActions}>
-              <a href="/donate" className="btn btn-donate btn-sm">
-                <Heart size={16} /> Donate Now
-              </a>
+              <Link href="/donate" className={styles.ctaButton}>
+                <Heart size={16} aria-hidden="true" />
+                <span>Offer Your Seva</span>
+              </Link>
               <button
                 className={styles.hamburger}
                 onClick={() => setMenuOpen(true)}
                 aria-label="Open menu"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
               >
                 <Menu size={26} />
               </button>
@@ -84,6 +100,7 @@ export default function Navbar() {
             />
             <motion.div
               className={styles.mobileMenu}
+              id="mobile-menu"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -97,22 +114,27 @@ export default function Navbar() {
               </div>
               <div className={styles.mobileLinks}>
                 {navLinks.map((link, i) => (
-                  <motion.a
+                  <motion.div
                     key={link.name}
-                    href={link.href}
-                    className={styles.mobileLink}
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 * i }}
-                    onClick={() => setMenuOpen(false)}
                   >
-                    {link.name}
-                  </motion.a>
+                    <Link
+                      href={link.href}
+                      className={`${styles.mobileLink} ${isActive(link.href) ? styles.mobileLinkActive : ''}`}
+                      onClick={() => setMenuOpen(false)}
+                      aria-current={isActive(link.href) ? 'page' : undefined}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
-              <a href="/donate" className="btn btn-donate" style={{ width: '100%', marginTop: '1.5rem' }} onClick={() => setMenuOpen(false)}>
-                <Heart size={18} /> Donate Now
-              </a>
+              <Link href="/donate" className={styles.mobileCtaButton} onClick={() => setMenuOpen(false)}>
+                <Heart size={18} aria-hidden="true" />
+                <span>Offer Your Seva</span>
+              </Link>
             </motion.div>
           </>
         )}
