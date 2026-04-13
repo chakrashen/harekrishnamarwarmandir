@@ -158,7 +158,7 @@ export async function POST(request) {
     }
 
     // Build encrypted ICICI payment URL
-    const { paymentUrl, refNo, debug } = buildPaymentUrl({
+    const { paymentUrl, refNo, debug, encData, gatewayUrl, merchantId } = buildPaymentUrl({
       amount: numAmount,
       name,
       mobile,
@@ -218,6 +218,13 @@ export async function POST(request) {
         status: 'pending',
         created_at: new Date().toISOString(),
         receipt_meta: receiptMeta,
+        // Legacy schema compatibility (older donations table columns)
+        full_name: name,
+        phone: mobile,
+        payment_status: 'pending',
+        payment_reference: refNo,
+        payment_gateway: 'ICICI',
+        currency: 'INR',
       };
 
       const insertResult = await supabaseAdmin
@@ -253,6 +260,9 @@ export async function POST(request) {
       success: true,
       paymentUrl,
       refNo,
+      gatewayUrl,
+      encData,
+      merchantId,
     });
   } catch (error) {
     console.error('Payment API error:', error);

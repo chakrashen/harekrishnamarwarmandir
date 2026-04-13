@@ -191,9 +191,29 @@ export default function DonateForm() {
         throw new Error(data.error || 'Payment initialization failed.');
       }
 
-      if (data.success && data.paymentUrl) {
+      if (data.success && data.encData && data.gatewayUrl && data.merchantId) {
+        const formEl = document.createElement('form');
+        formEl.method = 'POST';
+        formEl.action = data.gatewayUrl;
+
+        const fields = {
+          merchantid: data.merchantId,
+          encdata: data.encData,
+        };
+
+        Object.entries(fields).forEach(([key, value]) => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = String(value);
+          formEl.appendChild(input);
+        });
+
+        document.body.appendChild(formEl);
+        formEl.submit();
+      } else if (data.success && data.paymentUrl) {
         console.log('Generated Payment URL:', data.paymentUrl);
-        // Redirect immediately after API response to avoid gateway session expiry.
+        // Fallback to GET redirect if POST data is missing.
         window.location.replace(data.paymentUrl);
       } else {
         setError(data.error || 'Payment failed. Please try again.');
