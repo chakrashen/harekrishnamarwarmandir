@@ -1,5 +1,18 @@
 # SUMMARY.md — Session 2: Full Homepage + ICICI Payment Integration
 
+## Session Update — 2026-04-14 (Receipt Download Button)
+
+### Scope
+- Added a receipt lookup API and fetch flow on the thank-you page.
+- Appended `ref` to ICICI callback redirects so the thank-you page can locate the receipt.
+- Added UI states for receipt loading, download, and error messaging.
+
+### Files Updated
+- `app/api/payment-callback/route.js`
+- `app/api/receipt/route.js` (new)
+- `app/thank-you/_components/ThankYouContent.jsx`
+- `app/thank-you/_components/ThankYouContent.module.css`
+
 ## Session Update — 2026-04-14 (Dev CSP Fix for RSC/HMR)
 
 ### Scope

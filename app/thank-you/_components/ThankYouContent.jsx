@@ -1,9 +1,18 @@
 'use client';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Heart, Share2, Home, ArrowRight } from 'lucide-react';
+import { Heart, Share2, Home, ArrowRight, Download } from 'lucide-react';
 import styles from './ThankYouContent.module.css';
 
 export default function ThankYouContent() {
+  const searchParams = useSearchParams();
+  const paymentStatus = searchParams.get('status');
+  const refNo = searchParams.get('ref');
+  const [receiptUrl, setReceiptUrl] = useState('');
+  const [receiptStatus, setReceiptStatus] = useState('');
+  const [receiptError, setReceiptError] = useState('');
+  const [receiptLoading, setReceiptLoading] = useState(false);
   const shareText = "I just donated to Hare Krishna Marwar Mandir, Jodhpur! 🙏 You can too: https://www.harekrishnamarwar.org/donate";
 
   const shareOnWhatsApp = () => {
@@ -11,6 +20,41 @@ export default function ThankYouContent() {
     const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
     if (newWindow) newWindow.opener = null;
   };
+
+  useEffect(() => {
+    if (!refNo) return;
+
+    let isMounted = true;
+    setReceiptLoading(true);
+    setReceiptError('');
+
+    fetch(`/api/receipt?ref=${encodeURIComponent(refNo)}`, { cache: 'no-store' })
+      .then(async (response) => {
+        const body = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(body.error || 'Receipt lookup failed');
+        }
+        return body;
+      })
+      .then((body) => {
+        if (!isMounted) return;
+        setReceiptUrl(body.receiptUrl || '');
+        setReceiptStatus(body.receiptStatus || '');
+      })
+      .catch((error) => {
+        if (!isMounted) return;
+        setReceiptError(error?.message || 'Receipt lookup failed');
+      })
+      .finally(() => {
+        if (isMounted) {
+          setReceiptLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [refNo]);
 
   return (
     <section className={styles.section}>
@@ -44,6 +88,41 @@ export default function ThankYouContent() {
             यत् तपस्यसि कौन्तेय तत् कुरुष्व मदर्पणम् ॥&rdquo;</p>
             <span>— Bhagavad Gita 9.27</span>
           </div>
+
+          {refNo && paymentStatus !== 'failed' && (
+            <div className={styles.receiptPanel}>
+              <div className={styles.receiptTitle}>Receipt</div>
+              <div className={styles.receiptMeta}>Reference: {refNo}</div>
+              {receiptLoading && (
+                <p className={styles.receiptStatus}>Preparing your receipt. This can take a minute.</p>
+              )}
+              {!receiptLoading && receiptUrl && (
+                <a
+                  href={receiptUrl}
+                  className={`btn btn-outline ${styles.receiptBtn}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Download size={16} /> Download Receipt (PDF)
+                </a>
+              )}
+              {!receiptLoading && !receiptUrl && !receiptError && (
+                <p className={styles.receiptStatus}>
+                  Your receipt is being prepared. We will also email it to you shortly.
+                </p>
+              )}
+              {!receiptLoading && receiptError && (
+                <p className={styles.receiptError}>
+                  We could not fetch the receipt right now. Please try again shortly.
+                </p>
+              )}
+              {!receiptLoading && receiptStatus === 'failed' && !receiptUrl && !receiptError && (
+                <p className={styles.receiptError}>
+                  Receipt generation failed. Please contact us with your reference number.
+                </p>
+              )}
+            </div>
+          )}
 
           <p className={styles.receipt}>
             A receipt will be sent to your email shortly. For any queries, contact us at{' '}

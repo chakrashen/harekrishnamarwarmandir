@@ -179,10 +179,15 @@ function mapStatus(statusCode) {
   return 'unknown';
 }
 
-function redirectWithStatus(request, status) {
+function redirectWithStatus(request, status, refNo) {
   const allowed = new Set(['completed', 'failed', 'pending']);
   const safeStatus = allowed.has(status) ? status : 'failed';
-  return NextResponse.redirect(new URL(`/thank-you?status=${safeStatus}`, request.url), 303);
+  const url = new URL('/thank-you', request.url);
+  url.searchParams.set('status', safeStatus);
+  if (refNo) {
+    url.searchParams.set('ref', refNo);
+  }
+  return NextResponse.redirect(url, 303);
 }
 
 async function sendReceiptIfNeeded(donation) {
@@ -280,13 +285,15 @@ async function handleCallback(request) {
       return redirectWithStatus(request, 'failed');
     }
 
+    const refNo = parsed?.refNo;
+
     const validation = validateParsedResponse(parsed, process.env.ICICI_SUB_MERCHANT_ID);
     if (!validation.valid) {
       debugLog('callback_rejected', {
         reason: validation.reason,
         refNo: parsed.refNo || '(missing)',
       });
-      return redirectWithStatus(request, 'failed');
+      return redirectWithStatus(request, 'failed', refNo);
     }
 
     const mappedStatus = mapStatus(parsed.statusCode);
@@ -294,7 +301,7 @@ async function handleCallback(request) {
 
     if (!supabaseAdmin) {
       debugLog('supabase_not_configured', { refNo: parsed.refNo });
-      return redirectWithStatus(request, redirectStatus);
+      return redirectWithStatus(request, redirectStatus, refNo);
     }
 
     const { data: donation, error: fetchError } = await supabaseAdmin
@@ -305,12 +312,12 @@ async function handleCallback(request) {
 
     if (fetchError) {
       debugLog('fetch_failed', { refNo: parsed.refNo, message: fetchError.message });
-      return redirectWithStatus(request, 'failed');
+      return redirectWithStatus(request, 'failed', refNo);
     }
 
     if (!donation) {
       debugLog('donation_not_found', { refNo: parsed.refNo });
-      return redirectWithStatus(request, 'failed');
+      return redirectWithStatus(request, 'failed', refNo);
     }
 
     if (parsed.txnId) {
@@ -327,7 +334,7 @@ async function handleCallback(request) {
           txnIdSuffix: parsed.txnId.slice(-6),
           message: txnFetchError.message,
         });
-        return redirectWithStatus(request, 'failed');
+        return redirectWithStatus(request, 'failed', refNo);
       }
 
       if (txnOwner && txnOwner.ref_no !== parsed.refNo) {
@@ -336,7 +343,7 @@ async function handleCallback(request) {
           existingRefNo: txnOwner.ref_no,
           txnIdSuffix: parsed.txnId.slice(-6),
         });
-        return redirectWithStatus(request, 'failed');
+        return redirectWithStatus(request, 'failed', refNo);
       }
 
       if (txnOwner && txnOwner.ref_no === parsed.refNo) {
@@ -344,13 +351,13 @@ async function handleCallback(request) {
           refNo: parsed.refNo,
           txnIdSuffix: parsed.txnId.slice(-6),
         });
-        return redirectWithStatus(request, txnOwner.status === 'completed' ? 'completed' : redirectStatus);
+        return redirectWithStatus(request, txnOwner.status === 'completed' ? 'completed' : redirectStatus, refNo);
       }
     }
 
     if (donation.status === 'completed') {
       debugLog('idempotent_skip_already_completed', { refNo: parsed.refNo });
-      return redirectWithStatus(request, 'completed');
+      return redirectWithStatus(request, 'completed', refNo);
     }
 
     if (donation.status !== 'pending') {
@@ -359,7 +366,7 @@ async function handleCallback(request) {
         previousStatus: donation.status,
         attemptedStatus: mappedStatus,
       });
-      return redirectWithStatus(request, donation.status);
+      return redirectWithStatus(request, donation.status, refNo);
     }
 
     if (!['completed', 'failed'].includes(mappedStatus)) {
@@ -367,7 +374,7 @@ async function handleCallback(request) {
         refNo: parsed.refNo,
         mappedStatus,
       });
-      return redirectWithStatus(request, redirectStatus);
+      return redirectWithStatus(request, redirectStatus, refNo);
     }
 
     const updatePayload = {
@@ -401,7 +408,7 @@ async function handleCallback(request) {
 
     if (updateError) {
       debugLog('update_failed', { refNo: parsed.refNo, message: updateError.message });
-      return redirectWithStatus(request, 'failed');
+      return redirectWithStatus(request, 'failed', refNo);
     }
 
     if (mappedStatus === 'completed') {
@@ -464,7 +471,7 @@ async function handleCallback(request) {
       txnIdSuffix: parsed.txnId ? parsed.txnId.slice(-6) : '',
     });
 
-    return redirectWithStatus(request, redirectStatus);
+    return redirectWithStatus(request, redirectStatus, refNo);
   } catch (error) {
     debugLog('unhandled_exception', { message: error?.message || 'Unknown error' });
     return redirectWithStatus(request, 'failed');
