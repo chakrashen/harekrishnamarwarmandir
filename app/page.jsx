@@ -20,17 +20,17 @@ export default function Home() {
     <>
       <Navbar />
       <main className="home-main">
-        <SectionReveal as="div" delay={0}><Hero /></SectionReveal>
-        <SectionReveal as="div" delay={40}><Welcome /></SectionReveal>
-        <SectionReveal as="div" delay={80}><TrustSection /></SectionReveal>
-        <SectionReveal as="div" delay={120}><DonationSpotlight /></SectionReveal>
-        <SectionReveal as="div" delay={160}><SevaHighlights /></SectionReveal>
-        <SectionReveal as="div" delay={200}><ConstructionMeter /></SectionReveal>
-        <SectionReveal as="div" delay={240}><AartiTicker /></SectionReveal>
-        <SectionReveal as="div" delay={280}><Testimonials /></SectionReveal>
-        <SectionReveal as="div" delay={320}><ExploreTemple /></SectionReveal>
-        <SectionReveal as="div" delay={360}><GitaQuote /></SectionReveal>
-        <SectionReveal as="div" delay={400}><Newsletter /></SectionReveal>
+        <SectionReveal as="div" delay={0} immediate><Hero /></SectionReveal>
+        <Welcome />
+        <TrustSection />
+        <DonationSpotlight />
+        <SectionReveal as="div" delay={0}><SevaHighlights /></SectionReveal>
+        <ConstructionMeter />
+        <AartiTicker />
+        <SectionReveal as="div" delay={0}><Testimonials /></SectionReveal>
+        <ExploreTemple />
+        <GitaQuote />
+        <Newsletter />
       </main>
       <Footer />
       <FloatingButtons />

@@ -7,7 +7,9 @@ export default function ThankYouContent() {
   const shareText = "I just donated to Hare Krishna Marwar Mandir, Jodhpur! 🙏 You can too: https://www.harekrishnamarwar.org/donate";
 
   const shareOnWhatsApp = () => {
-    window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+    const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+    if (newWindow) newWindow.opener = null;
   };
 
   return (

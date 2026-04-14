@@ -1,5 +1,118 @@
 # SUMMARY.md — Session 2: Full Homepage + ICICI Payment Integration
 
+## Session Update — 2026-04-14 (Dev CSP Fix for RSC/HMR)
+
+### Scope
+- Relaxed CSP in development to allow local HTTP/WebSocket traffic and avoid upgrading localhost requests to HTTPS.
+- Prevented dev RSC fetch/HMR failures caused by CSP restrictions.
+
+### Files Updated
+- `lib/csp.js`
+
+## Session Update — 2026-04-14 (Website Audit)
+
+### Scope
+- Audited donation and payment flow, security posture, conversion UX, and contact/newsletter funnels.
+- Logged prioritized findings with file/line references in chat.
+
+### Files Updated
+- None (audit only)
+
+## Session Update — 2026-04-14 (Hardening + Newsletter + CSP)
+
+### Scope
+- Hardened payment callback signature verification and kept email optional without breaking gateway flow.
+- Added PII encryption/redaction support for PAN/Aadhaar and safe receipt handling.
+- Implemented newsletter backend endpoint and wired frontend submission.
+- Added CSP response headers and embedded map with safe external link handling.
+
+### Files Updated
+- `app/api/pay/route.js`
+- `app/api/payment-callback/route.js`
+- `app/api/newsletter/route.js` (new)
+- `app/_components/Newsletter.jsx`
+- `app/_components/Hero.module.css` (new)
+- `app/contact/_components/ContactContent.jsx`
+- `app/contact/_components/ContactContent.module.css`
+- `app/thank-you/_components/ThankYouContent.jsx`
+- `app/layout.jsx`
+- `next.config.mjs`
+- `lib/csp.js` (new)
+- `lib/pii.js` (new)
+- `lib/donation-receipt.js`
+
+## Session Update — 2026-04-14 (Homepage Hero + Utility Bar)
+
+### Scope
+- Added a top utility bar (email/WhatsApp/phone + darshan hours) styled to match the saffron theme.
+- Reworked the hero to a full-bleed image treatment while keeping the existing headline text.
+- Renamed navigation label from "Seva & Events" to "Events".
+
+### Files Updated
+- `app/_components/Navbar.jsx`
+- `app/_components/Navbar.module.css`
+- `app/_components/Hero.jsx`
+- `app/_components/Hero.module.css`
+
+## Session Update — 2026-04-14 (Premium Scrolling UX)
+
+### Scope
+- Added Lenis smooth scrolling with reduced-motion and save-data safeguards.
+- Added a gold scroll progress indicator at the top of the viewport.
+- Tuned scroll reveal animation to 20px/0.8s ease-out and limited it to Hero, Seva highlights, and Testimonials.
+- Made parallax on Gau Seva and Mandir Nirman cards more subtle for mobile performance.
+
+### Files Updated
+- `package.json`
+- `app/layout.jsx`
+- `app/page.jsx`
+- `app/globals.css`
+- `app/_components/SmoothScroll.jsx` (new)
+- `app/_components/ScrollProgress.jsx` (new)
+- `app/_components/ScrollProgress.module.css` (new)
+- `app/_components/SevaHighlights.jsx`
+
+## Session Update — 2026-04-14 (Scroll Performance Optimization)
+
+### Scope
+- Reduced scroll jank by disabling Lenis on mobile/low-power devices.
+- Gated parallax effects to desktop only and skipped offscreen updates.
+- Throttled WaveBackdrop parallax and removed unused logic.
+- Removed unused legacy scroll-progress styles.
+
+### Files Updated
+- `app/_components/SmoothScroll.jsx`
+- `app/_components/SevaHighlights.jsx`
+- `app/_components/WaveBackdrop.jsx`
+- `app/globals.css`
+
+## Session Update — 2026-04-14 (Hero Jank Reduction)
+
+### Scope
+- Added compositor hints and containment for the hero background and trust badges.
+- Switched hero image to eager async decoding for smoother first paint.
+- Throttled navbar scroll updates via requestAnimationFrame.
+- Isolated the quick donate card to reduce blending overhead.
+
+### Files Updated
+- `app/_components/Hero.jsx`
+- `app/_components/Hero.module.css`
+- `app/_components/Navbar.jsx`
+
+## Session Update — 2026-04-14 (Hero Motion Lightness)
+
+### Scope
+- Added subtle hero background parallax (0.12 ratio) gated to desktop and low-power checks.
+- Staggered hero headline, badges, and quick seva cards for a lighter entrance feel.
+- Applied premium ease curve for reveal animations.
+- Replaced heavy shadows on hero quick cards and Seva cards with thin gold borders.
+
+### Files Updated
+- `app/_components/Hero.jsx`
+- `app/_components/Hero.module.css`
+- `app/_components/SevaHighlights.module.css`
+- `app/globals.css`
+
 ## Session Update — 2026-04-13 (About Page Premium Redesign)
 
 ### Scope

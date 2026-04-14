@@ -72,24 +72,35 @@ export default function ContactContent() {
               <h2 className={styles.sideTitle}>We&apos;d Love to Hear from You</h2>
               <p className={styles.sideDesc}>Whether you have questions about donations, events, or visiting the temple — reach out anytime.</p>
               <div className={styles.infoList}>
-                {contactInfo.map((c, i) => (
-                  <motion.a
-                    key={c.title}
-                    href={c.href || '#'}
-                    className={styles.infoItem}
-                    target={c.href?.startsWith('http') ? '_blank' : undefined}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.08 }}
-                  >
-                    <div className={styles.infoIcon}><c.icon size={20} /></div>
-                    <div>
-                      <strong>{c.title}</strong>
-                      <span>{c.value}</span>
-                    </div>
-                  </motion.a>
-                ))}
+                {contactInfo.map((c, i) => {
+                  const isExternal = c.href?.startsWith('http');
+                  const Wrapper = c.href ? motion.a : motion.div;
+                  const linkProps = c.href
+                    ? {
+                      href: c.href,
+                      target: isExternal ? '_blank' : undefined,
+                      rel: isExternal ? 'noopener noreferrer' : undefined,
+                    }
+                    : {};
+
+                  return (
+                    <Wrapper
+                      key={c.title}
+                      {...linkProps}
+                      className={styles.infoItem}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.08 }}
+                    >
+                      <div className={styles.infoIcon}><c.icon size={20} /></div>
+                      <div>
+                        <strong>{c.title}</strong>
+                        <span>{c.value}</span>
+                      </div>
+                    </Wrapper>
+                  );
+                })}
               </div>
             </div>
 
@@ -122,10 +133,14 @@ export default function ContactContent() {
 
           {/* Map */}
           <div className={styles.mapWrap}>
-            <div className="img-placeholder" style={{ height: '350px', borderRadius: 'var(--radius-xl)' }}>
-              <span>google-maps-embed.html</span>
-              <small>Replace with Google Maps iframe embed</small>
-            </div>
+            <iframe
+              className={styles.mapFrame}
+              title="Hare Krishna Marwar Mandir Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3560.138524674495!2d73.0093552!3d26.3193949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39418c1b5d51f5a9%3A0x7a7b1b7c4f0e7b91!2sHare%20Krishna%20Marwar%20Mandir!5e0!3m2!1sen!2sin!4v1713100000000!5m2!1sen!2sin"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
           </div>
         </div>
       </section>

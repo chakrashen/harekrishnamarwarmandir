@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { buildPaymentUrl } from '@/lib/icici-pay';
 import { supabaseAdmin } from '@/lib/supabase';
 import { isIciciDebugEnabled, writeIciciDebugLog } from '@/lib/icici-debug';
+import { encryptSensitiveValue } from '@/lib/pii';
 
 const isPaymentDebug = process.env.NODE_ENV !== 'production' || process.env.PAYMENT_DEBUG === '1';
 
@@ -59,6 +60,11 @@ function maskEmail(value) {
   return `${local[0]}***@${domain}`;
 }
 
+function buildFallbackEmail(mobile) {
+  const digits = String(mobile || '').replace(/\D/g, '').slice(-10) || 'donor';
+  return `donor+${digits}@hkmjodhpur.org`;
+}
+
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -83,9 +89,9 @@ export async function POST(request) {
     } = body;
 
     // Validate required fields
-    if (!amount || !name || !mobile || !email || !sevaType) {
+    if (!amount || !name || !mobile || !sevaType) {
       return NextResponse.json(
-        { error: 'Missing required fields: amount, name, mobile, email, sevaType' },
+        { error: 'Missing required fields: amount, name, mobile, sevaType' },
         { status: 400 }
       );
     }
@@ -108,6 +114,8 @@ export async function POST(request) {
     }
 
     const wants80G = normalizeBoolean(atgRequired);
+    const trimmedEmail = String(email || '').trim();
+    const emailForGateway = trimmedEmail || buildFallbackEmail(mobile);
     const cleanedPan = sanitizePan(panNo);
     const cleanedAadhar = sanitizeAadhar(aadharNo);
     const cleanedAddressType = normalizeAddressType(addressType);
@@ -162,7 +170,7 @@ export async function POST(request) {
       amount: numAmount,
       name,
       mobile,
-      email,
+      email: emailForGateway,
       sevaType,
       city,
       state,
@@ -192,8 +200,8 @@ export async function POST(request) {
 
     const receiptMeta = {
       atg_required: wants80G,
-      pan_no: cleanedPan || undefined,
-      aadhar_no: cleanedAadhar || undefined,
+      pan_no: cleanedPan ? encryptSensitiveValue(cleanedPan) : undefined,
+      aadhar_no: cleanedAadhar ? encryptSensitiveValue(cleanedAadhar) : undefined,
       separated_address: {
         type: cleanedAddressType,
         address_line_1: String(addressLine1 || '').trim(),
@@ -215,7 +223,7 @@ export async function POST(request) {
         ref_no: refNo,
         amount: numAmount,
         name,
-        email,
+        email: trimmedEmail || null,
         mobile,
         seva_type: sevaType,
         dedication,

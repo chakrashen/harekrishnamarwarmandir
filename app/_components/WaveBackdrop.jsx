@@ -1,5 +1,4 @@
 'use client';
-import { useEffect, useRef } from 'react';
 import styles from './WaveBackdrop.module.css';
 
 const wavePalettes = {
@@ -21,8 +20,6 @@ const wavePalettes = {
 };
 
 export default function WaveBackdrop({ className = '', variant = 'home' }) {
-  const backdropRef = useRef(null);
-  const targetOffsetRef = useRef(0);
   const palette = wavePalettes[variant] || wavePalettes.home;
   const styleVars = {
     '--wave-olive': palette.olive,
@@ -30,45 +27,8 @@ export default function WaveBackdrop({ className = '', variant = 'home' }) {
     '--wave-saffron': palette.saffron,
   };
 
-  useEffect(() => {
-    const node = backdropRef.current;
-    if (!node || typeof window === 'undefined') return undefined;
-
-    let frame = null;
-    let rafId = null;
-    let current = 0;
-
-    const animate = () => {
-      const target = targetOffsetRef.current;
-      current += (target - current) * 0.08;
-      node.style.setProperty('--wave-parallax', `${current.toFixed(2)}px`);
-      if (Math.abs(target - current) < 0.02) {
-        rafId = null;
-        return;
-      }
-      rafId = window.requestAnimationFrame(animate);
-    };
-
-    const handleScroll = () => {
-      targetOffsetRef.current = Math.min(14, window.scrollY * 0.025);
-      if (!rafId) {
-        rafId = window.requestAnimationFrame(animate);
-      }
-    };
-
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      if (frame !== null) window.cancelAnimationFrame(frame);
-      if (rafId) window.cancelAnimationFrame(rafId);
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
     <div
-      ref={backdropRef}
       className={`${styles.waveBackdrop} ${className}`}
       style={styleVars}
       aria-hidden="true"

@@ -1,6 +1,9 @@
 import './globals.css';
 import InitialLoaderGate from './_components/InitialLoaderGate';
+import ScrollProgress from './_components/ScrollProgress';
+import SmoothScroll from './_components/SmoothScroll';
 import { Cinzel_Decorative, EB_Garamond, Inter, Cormorant_Garamond, Noto_Serif_Devanagari } from 'next/font/google';
+import { buildCsp } from '@/lib/csp';
 
 const cinzelDecorative = Cinzel_Decorative({
   subsets: ['latin'],
@@ -39,9 +42,7 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
 });
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
-const contentSecurityPolicy = isDevelopment
-  ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self' https://eazypay.icicibank.com; upgrade-insecure-requests"
-  : "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https:; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self' https://eazypay.icicibank.com; upgrade-insecure-requests";
+const contentSecurityPolicy = buildCsp({ isDev: isDevelopment });
 
 export const metadata = {
   title: 'Hare Krishna Marwar Mandir | Temple & Seva — Jodhpur, Rajasthan',
@@ -63,6 +64,8 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
+        <ScrollProgress />
+        <SmoothScroll />
         <InitialLoaderGate>{children}</InitialLoaderGate>
       </body>
     </html>

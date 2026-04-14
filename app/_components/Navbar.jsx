@@ -4,13 +4,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X, Heart, Phone, Mail, MessageCircle, Clock } from 'lucide-react';
 import styles from './Navbar.module.css';
 
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
-  { name: 'Seva & Events', href: '/events' },
+  { name: 'Events', href: '/events' },
   { name: 'Gallery', href: '/gallery' },
   { name: 'Offer Your Seva', href: '/donate' },
   { name: 'Darshan', href: '/visit' },
@@ -28,9 +28,24 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    let rafId = 0;
+
+    const update = () => {
+      setScrolled(window.scrollY > 50);
+      rafId = 0;
+    };
+
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
   }, []);
 
   useEffect(() => {
@@ -40,6 +55,31 @@ export default function Navbar() {
 
   return (
     <>
+      <div className={styles.topBar}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className={styles.topBarLeft}>
+            <a href="mailto:harekrishna@hkmjodhpur.org" className={styles.topBarLink}>
+              <Mail size={14} aria-hidden="true" />
+              <span>harekrishna@hkmjodhpur.org</span>
+            </a>
+            <a href="https://wa.me/919116139371" className={styles.topBarLink} target="_blank" rel="noopener noreferrer">
+              <MessageCircle size={14} aria-hidden="true" />
+              <span>WhatsApp</span>
+            </a>
+            <a href="tel:+919116139371" className={styles.topBarLink}>
+              <Phone size={14} aria-hidden="true" />
+              <span>+91 91161 39371</span>
+            </a>
+          </div>
+          <div className={styles.topBarRight}>
+            <div className={styles.topBarBadge}>
+              <Clock size={14} aria-hidden="true" />
+              <span>Darshan Open · 4:30 - 13:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Navbar */}
       <div className={`${styles.navWrap} ${scrolled ? styles.navWrapScrolled : ''}`}>
         <header className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
@@ -48,8 +88,8 @@ export default function Navbar() {
               <Image
                 src="/gallery/logo.png"
                 alt="Hare Krishna Mandir Logo"
-                width={140}
-                height={48}
+                width={200}
+                height={64}
                 className={styles.logoImage}
                 priority
               />

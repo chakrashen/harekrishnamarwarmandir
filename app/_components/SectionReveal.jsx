@@ -2,8 +2,8 @@
 
 import useScrollReveal from '../_hooks/useScrollReveal';
 
-export default function SectionReveal({ children, className = '', delay = 0, as: Tag = 'section' }) {
-  const { ref, revealed } = useScrollReveal();
+export default function SectionReveal({ children, className = '', delay = 0, as: Tag = 'section', immediate = false }) {
+  const { ref, revealed } = useScrollReveal({ immediate });
 
   return (
     <Tag

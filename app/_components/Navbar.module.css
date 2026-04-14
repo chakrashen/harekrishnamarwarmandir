@@ -1,10 +1,10 @@
 /* Top Info Bar */
 .topBar {
-  background: rgba(255, 248, 240, 0.82);
+  background: rgba(255, 249, 243, 0.94);
   color: var(--text-secondary);
-  padding: 0.3rem 0;
+  padding: 0.35rem 0;
   font-size: 0.75rem;
-  min-height: 34px;
+  min-height: 36px;
   position: relative;
   z-index: 1001;
   border-bottom: 1px solid var(--border-light);
@@ -37,6 +37,21 @@
   display: flex;
   align-items: center;
   gap: 0.55rem;
+}
+
+.topBarBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #7a4b16;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(230, 126, 34, 0.2);
+  box-shadow: 0 6px 18px rgba(230, 126, 34, 0.12);
 }
 
 .socialIcon {
@@ -94,58 +109,30 @@
     background-color 0.3s ease,
     padding 0.3s ease,
     transform 0.3s ease;
-  background: linear-gradient(
-    120deg,
-    rgba(253, 250, 245, 0.65) 0%,
-    rgba(246, 247, 242, 0.7) 55%,
-    rgba(253, 250, 245, 0.6) 100%
-  );
+  background: rgba(255, 249, 243, 0.92);
   backdrop-filter: blur(12px) saturate(130%);
   -webkit-backdrop-filter: blur(12px) saturate(130%);
-  border: none;
+  border: 1px solid rgba(230, 126, 34, 0.14);
   border-radius: 0;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
 .navbar::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -10px;
-  height: 22px;
-  background: linear-gradient(
-    to bottom,
-    rgba(253, 250, 245, 0.65),
-    rgba(253, 250, 245, 0)
-  );
-  pointer-events: none;
+  content: none;
 }
 
 .navbar.scrolled {
   max-width: calc(100% - 1.7rem);
   width: calc(100% - 1.7rem);
-  background: linear-gradient(
-    120deg,
-    rgba(253, 250, 245, 0.9) 0%,
-    rgba(246, 247, 242, 0.92) 52%,
-    rgba(253, 250, 245, 0.88) 100%
-  );
+  background: rgba(255, 249, 243, 0.98);
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: none;
+  border: 1px solid rgba(230, 126, 34, 0.16);
   border-radius: 2rem;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.45);
   padding: 0.58rem 1.2rem 0.22rem;
 }
 
-.navbar.scrolled::after {
-  background: linear-gradient(
-    to bottom,
-    rgba(253, 250, 245, 0.8),
-    rgba(253, 250, 245, 0)
-  );
-}
 
 /* Logo */
 .logo {
@@ -155,7 +142,7 @@
 }
 
 .logoImage {
-  height: clamp(36px, 3vw, 40px);
+  height: clamp(44px, 4vw, 56px);
   width: auto;
   object-fit: contain;
   display: block;
@@ -468,6 +455,11 @@
 
   .topBarLeft {
     gap: 0.6rem;
+  }
+
+  .topBarBadge {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.68rem;
   }
 
   .topBarLink span {

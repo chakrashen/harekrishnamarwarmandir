@@ -8,9 +8,24 @@ export default function Newsletter() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email) return;
+
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data?.success !== false) {
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.warn('Newsletter signup failed.', error?.message || error);
+    }
   };
 
   return (
