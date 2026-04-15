@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import styles from './ConstructionMeter.module.css';
 
-const TOTAL_SQFT = 35000;
+const TOTAL_SQFT = 31000;
 const BUILT_SQFT = 8400; // ~24% — update this as construction progresses
 const PERCENT = Math.round((BUILT_SQFT / TOTAL_SQFT) * 100);
 const OPENING_DATE = new Date('2027-03-15');
@@ -74,7 +74,7 @@ export default function ConstructionMeter() {
           <h2 className="section-title">Be Part Before Completion</h2>
           <div className="section-divider" />
           <p className="section-desc">
-            Grand Opening March 2027 - offer your seva today to help complete a 35,000 sq ft devotional landmark in the heart of Jodhpur.
+            Grand Opening March 2027 - offer your seva today to help complete a 31,000 sq ft devotional landmark in the heart of Jodhpur.
           </p>
         </div>
 
@@ -90,7 +90,7 @@ export default function ConstructionMeter() {
           <div className={styles.meterTop}>
             <div className={styles.meterInfo}>
               <h3 className={styles.meterTitle}>Construction Progress</h3>
-              <p className={styles.meterSub}>Every ₹2,100 builds 1 sq ft of the Mandir</p>
+              <p className={styles.meterSub}>Every ₹2,500 builds 1 sq ft of the Mandir</p>
             </div>
             <div className={styles.meterPercent}><Counter target={PERCENT} suffix="%" /></div>
           </div>
@@ -121,7 +121,7 @@ export default function ConstructionMeter() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
-            <a href="/donate" className="btn btn-donate">🪔 Offer Your Seva - ₹2,100 / Sq Ft</a>
+            <a href="/donate" className="btn btn-donate">🪔 Offer Your Seva - ₹2,500 / Sq Ft</a>
           </div>
         </motion.div>
       </div>

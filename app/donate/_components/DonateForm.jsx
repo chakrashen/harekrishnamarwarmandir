@@ -6,9 +6,9 @@ import { useSearchParams } from 'next/navigation';
 import styles from './DonateForm.module.css';
 
 const sevaOptions = [
-  { id: 'anna-daan', name: 'Anna Daan Seva', amount: 4500, icon: '🍛', impact: 'Feed 100 People', desc: 'Sponsor a day of free prasadam for 100 devotees and the needy.' },
-  { id: 'mandir-nirman', name: 'Mandir Nirman Seva', amount: 2100, icon: '🛕', impact: '1 Sq Ft of Mandir', desc: 'Build the temple brick by brick. Every sq ft counts.' },
-  { id: 'gau-seva', name: 'Gau Seva', amount: 2100, icon: '🐄', impact: '1 Month / 1 Cow', desc: 'Provide food, shelter, and medical care for a sacred cow.' },
+  { id: 'anna-daan', name: 'Anna Daan Seva', amount: 3400, unitPrice: 34, unitLabel: 'People', icon: '🍛', impact: 'Feed 100 People', desc: 'Sponsor a day of free prasadam for 100 devotees and the needy.', presets: [{q:100, label: '100 People'}, {q:200, label: '200 People'}, {q:500, label: '500 People'}, {q:1000, label: '1000 People'}] },
+  { id: 'mandir-nirman', name: 'Mandir Nirman Seva', amount: 2500, unitPrice: 2500, unitLabel: 'Sq Ft', icon: '🛕', impact: '1 Sq Ft of Mandir', desc: 'Build the temple brick by brick. Every sq ft counts.', presets: [{q:1, label: '1 Sq Ft'}, {q:5, label: '5 Sq Ft'}, {q:10, label: '10 Sq Ft'}, {q:21, label: '21 Sq Ft'}] },
+  { id: 'gau-seva', name: 'Gau Seva', amount: 2100, unitPrice: 2100, unitLabel: 'Days', icon: '🐄', impact: '1 Day', desc: 'Provide food, shelter, and medical care for a sacred cow.', presets: [{q:1, label: '1 Day'}, {q:7, label: '7 Days'}, {q:15, label: '15 Days'}, {q:30, label: '1 Month'}] },
 ];
 
 const featuredAmounts = [
@@ -23,6 +23,7 @@ export default function DonateForm() {
   const searchParams = useSearchParams();
   const [step, setStep] = useState(1); // 1=details, 2=payment
   const [selectedSeva, setSelectedSeva] = useState(null);
+  const [inputQuantity, setInputQuantity] = useState('1');
   const [customAmount, setCustomAmount] = useState('1101');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -45,7 +46,7 @@ export default function DonateForm() {
     addressType: 'Residential',
   });
 
-  const amount = customAmount ? Number(customAmount) : (selectedSeva?.amount || 0);
+  const amount = customAmount ? Number(customAmount) : (selectedSeva ? (Number(inputQuantity) || 0) * selectedSeva.unitPrice : 0);
 
   useEffect(() => {
     const amountParam = searchParams.get('amount');
@@ -58,11 +59,13 @@ export default function DonateForm() {
 
   const handleSevaSelect = (seva) => {
     setSelectedSeva(seva);
-    setCustomAmount(String(seva.amount));
+    setInputQuantity(String(seva.presets[0].q));
+    setCustomAmount('');
   };
 
   const handleQuickAmount = (amt) => {
     setSelectedSeva(null);
+    setInputQuantity('1');
     setCustomAmount(String(amt));
   };
 
@@ -243,7 +246,7 @@ export default function DonateForm() {
               <span className={styles.impactLabel}>meals served in Jodhpur</span>
             </div>
             <div className={styles.impactCard}>
-              <span className={styles.impactValue}>35,000 sq ft</span>
+              <span className={styles.impactValue}>31,000 sq ft</span>
               <span className={styles.impactLabel}>mandir in progress</span>
             </div>
             <div className={styles.impactCard}>
@@ -291,49 +294,95 @@ export default function DonateForm() {
                         <span className={styles.sevaAmt}>₹{s.amount.toLocaleString()}</span>
                       </button>
                     ))}
+                    
+                    <button
+                      className={`${styles.sevaCard} ${!selectedSeva ? styles.sevaSelected : ''}`}
+                      onClick={() => { setSelectedSeva(null); setCustomAmount('1101'); }}
+                    >
+                      <span className={styles.sevaIcon}>🙏</span>
+                      <div className={styles.sevaInfo}>
+                        <strong>General Donation</strong>
+                        <span className={styles.sevaImpact}>Support all activities</span>
+                      </div>
+                      <span className={styles.sevaAmt}>Any Amount</span>
+                    </button>
                   </div>
 
                   <div className={styles.quickSection}>
-                    <label className={styles.fieldLabel}>Quick Choose Amount</label>
+                    {selectedSeva ? (
+                      <>
+                        <label className={styles.fieldLabel}>Choose Quantity</label>
+                        <div className={styles.quickGrid}>
+                          {selectedSeva.presets?.map((p) => (
+                            <button
+                              key={p.q}
+                              className={`${styles.quickBtn} ${!customAmount && Number(inputQuantity) === p.q ? styles.quickActive : ''}`}
+                              onClick={() => { setInputQuantity(String(p.q)); setCustomAmount(''); }}
+                            >
+                              {p.label} <br/><small style={{opacity: 0.8, fontSize: '0.85em', marginTop: '4px', display: 'block'}}>₹{(selectedSeva.unitPrice * p.q).toLocaleString()}</small>
+                            </button>
+                          ))}
+                        </div>
+                        <label className={styles.fieldLabel} style={{ marginTop: '1.5rem' }}>
+                          Or Enter Custom Number of {selectedSeva.unitLabel}
+                        </label>
+                        <div className={styles.customRow}>
+                          <span className={styles.currency} style={{ fontSize: '1.2rem', padding: '0 0.8rem' }}>{selectedSeva.icon}</span>
+                          <input
+                            type="number"
+                            placeholder={`Enter no of ${selectedSeva.unitLabel.toLowerCase()}`}
+                            value={inputQuantity}
+                            onChange={(e) => { setInputQuantity(e.target.value); setCustomAmount(''); }}
+                            className={styles.customInput}
+                            min="1"
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <label className={styles.fieldLabel}>Quick Choose Amount</label>
+                        <div className={styles.featuredAmountGrid}>
+                          {featuredAmounts.map((item) => (
+                            <button
+                              key={item.amount}
+                              className={`${styles.featuredAmountCard} ${Number(customAmount) === item.amount ? styles.featuredAmountActive : ''}`}
+                              onClick={() => handleQuickAmount(item.amount)}
+                            >
+                              <span className={styles.featuredAmountValue}>₹{item.amount.toLocaleString()}</span>
+                              <span className={styles.featuredAmountImpact}>{item.impact}</span>
+                              {item.recommended && <span className={styles.recommendedTag}>Recommended</span>}
+                            </button>
+                          ))}
+                        </div>
 
-                    <div className={styles.featuredAmountGrid}>
-                      {featuredAmounts.map((item) => (
-                        <button
-                          key={item.amount}
-                          className={`${styles.featuredAmountCard} ${Number(customAmount) === item.amount ? styles.featuredAmountActive : ''}`}
-                          onClick={() => handleQuickAmount(item.amount)}
-                        >
-                          <span className={styles.featuredAmountValue}>₹{item.amount.toLocaleString()}</span>
-                          <span className={styles.featuredAmountImpact}>{item.impact}</span>
-                          {item.recommended && <span className={styles.recommendedTag}>Recommended</span>}
-                        </button>
-                      ))}
-                    </div>
+                        <label className={styles.fieldLabel}>Other Amount</label>
+                        <div className={styles.quickGrid}>
+                          {otherAmounts.map((a) => (
+                            <button
+                              key={a}
+                              className={`${styles.quickBtn} ${Number(customAmount) === a ? styles.quickActive : ''}`}
+                              onClick={() => handleQuickAmount(a)}
+                            >
+                              ₹{a.toLocaleString()}
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
 
-                    <label className={styles.fieldLabel}>Other Amount</label>
-                    <div className={styles.quickGrid}>
-                      {otherAmounts.map((a) => (
-                        <button
-                          key={a}
-                          className={`${styles.quickBtn} ${Number(customAmount) === a ? styles.quickActive : ''}`}
-                          onClick={() => handleQuickAmount(a)}
-                        >
-                          ₹{a.toLocaleString()}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className={styles.customRow}>
-                      <span className={styles.currency}>₹</span>
-                      <input
-                        type="number"
-                        placeholder="Enter custom amount (optional)"
-                        value={customAmount}
-                        onChange={(e) => setCustomAmount(e.target.value)}
-                        className={styles.customInput}
-                        min="1"
-                      />
-                    </div>
+                    {!selectedSeva && (
+                      <div className={styles.customRow}>
+                        <span className={styles.currency}>₹</span>
+                        <input
+                          type="number"
+                          placeholder="Enter custom amount (optional)"
+                          value={customAmount}
+                          onChange={(e) => setCustomAmount(e.target.value)}
+                          className={styles.customInput}
+                          min="1"
+                        />
+                      </div>
+                    )}
                   </div>
 
                   <button
@@ -565,12 +614,26 @@ export default function DonateForm() {
             <div className={styles.summaryCard}>
               <h3 className={styles.summaryTitle}>Donation Summary</h3>
 
-              {selectedSeva && (
+              {selectedSeva ? (
                 <div className={styles.summaryItem}>
                   <span className={styles.summaryIcon}>{selectedSeva.icon}</span>
                   <div>
                     <strong>{selectedSeva.name}</strong>
-                    <small>{selectedSeva.impact}</small>
+                    <br />
+                    <small>
+                      {!customAmount && Number(inputQuantity) > 0 
+                        ? `${inputQuantity} ${selectedSeva.unitLabel}` 
+                        : selectedSeva.impact}
+                    </small>
+                  </div>
+                </div>
+              ) : (
+                <div className={styles.summaryItem}>
+                  <span className={styles.summaryIcon}>🙏</span>
+                  <div>
+                    <strong>General Donation</strong>
+                    <br />
+                    <small>Support all activities</small>
                   </div>
                 </div>
               )}

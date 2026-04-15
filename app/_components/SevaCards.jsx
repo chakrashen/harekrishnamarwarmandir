@@ -6,9 +6,9 @@ import { Heart } from 'lucide-react';
 import styles from './SevaCards.module.css';
 
 const sevas = [
-  { icon: '🍛', name: 'Anna Daan Seva', amount: '₹4,500', impact: 'Feed 100 People', desc: 'Sponsor a day of free prasadam for 100 devotees and the needy.', img: 'aan dan seva.png' },
-  { icon: '🛕', name: 'Mandir Nirman Seva', amount: '₹2,100', impact: '1 Sq Ft of Mandir', desc: 'Build the temple brick by brick. Every sq ft counts.', img: 'mandir-nirman-seva.png' },
-  { icon: '🐄', name: 'Gau Seva', amount: '₹2,100', impact: '1 Month / 1 Cow', desc: 'Provide food, shelter, and medical care for a sacred cow.', img: 'gau dan seva.png' },
+  { icon: '🍛', name: 'Anna Daan Seva', amount: '₹3,400', impact: 'Feed 100 People', desc: 'Sponsor a day of free prasadam for 100 devotees and the needy.', img: 'aan dan seva.png' },
+  { icon: '🛕', name: 'Mandir Nirman Seva', amount: '₹2,500', impact: '1 Sq Ft of Mandir', desc: 'Build the temple brick by brick. Every sq ft counts.', img: 'mandir-nirman-seva.png' },
+  { icon: '🐄', name: 'Gau Seva', amount: '₹2,100', impact: '1 Day', desc: 'Provide food, shelter, and medical care for a sacred cow.', img: 'gau dan seva.png' },
 ];
 
 function SevaImage({ src, alt }) {
