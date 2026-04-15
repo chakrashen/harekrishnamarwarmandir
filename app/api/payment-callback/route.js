@@ -13,7 +13,13 @@ const isProduction = process.env.NODE_ENV === 'production';
 const allowWeakSignatures = !isProduction && (process.env.ICICI_ALLOW_WEAK_SIGNATURES === 'true' || process.env.ICICI_ALLOW_WEAK_SIGNATURES === '1');
 const allowSignatureBypass = !isProduction && (process.env.ICICI_CALLBACK_BYPASS === 'true' || process.env.ICICI_CALLBACK_BYPASS === '1');
 const REF_NO_PATTERN = /^HKM\d{10,}$/i;
-const KNOWN_STATUS_CODES = new Set(['SUCCESS', 'SUCCESSFUL', 'OK', 'S', 'FAILED', 'FAILURE', 'F', 'PENDING', 'PROCESSING']);
+const KNOWN_STATUS_CODES = new Set([
+  'SUCCESS', 'SUCCESSFUL', 'OK', 'S',
+  'FAILED', 'FAILURE', 'F',
+  'PENDING', 'PROCESSING',
+  'E000', 'E006', 'E007', 'E008',
+  '0300', '0399',
+]);
 
 function debugLog(event, details = {}) {
   if (!isPaymentDebug) return;
@@ -307,9 +313,14 @@ function parseDirectResponse(payload, expectedSubMerchantId) {
     'TransactionId',
     'transactionId',
     'transaction_id',
+    'Unique_Ref_Number',
+    'unique_ref_number',
+    'uniqueRefNumber',
     'bank_ref_no',
     'BankRefNo',
     'bankRefNo',
+    'TPS',
+    'tps',
   ]);
 
   const subMerchantId = getFieldCaseInsensitive(payload, [
@@ -354,7 +365,9 @@ function validateParsedResponse(parsed, expectedSubMerchantId) {
 function mapStatus(statusCode) {
   const code = String(statusCode || '').trim().toUpperCase();
   if (['SUCCESS', 'SUCCESSFUL', 'OK', 'S'].includes(code)) return 'completed';
+  if (['E000', 'E006', '0300'].includes(code)) return 'completed';
   if (['FAILED', 'FAILURE', 'F'].includes(code)) return 'failed';
+  if (['E007', 'E008', '0399'].includes(code)) return 'failed';
   if (['PENDING', 'PROCESSING'].includes(code)) return 'pending';
   return 'unknown';
 }

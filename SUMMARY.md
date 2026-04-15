@@ -1084,6 +1084,18 @@ Place photos in `public/` folder with these exact names:
 ### Verification
 - `npm run build` passes.
 
+## Session Update - 2026-04-15 (ICICI Response Code Mapping)
+
+### Scope
+- Added direct ICICI response-code mapping for callback statuses such as `E000`, `E006`, `E007`, `E008`, `0300`, and `0399`.
+- Added common ICICI transaction reference fields like `Unique_Ref_Number` and `TPS` so direct-field callbacks can capture gateway transaction ids more reliably.
+
+### Files Updated
+- `app/api/payment-callback/route.js`
+
+### Verification
+- `npm run build` passes.
+
 ### Follow-up
 - Thank-you page now trusts the donation status returned by `/api/receipt`, so a completed payment can still show the receipt download panel even if the URL query string says `status=failed`.
 
