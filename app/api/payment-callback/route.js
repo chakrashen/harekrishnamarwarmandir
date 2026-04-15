@@ -25,10 +25,42 @@ async function getCallbackPayload(request) {
 
   if (request.method === 'POST') {
     try {
-      const formData = await request.formData();
+      const formData = await request.clone().formData();
       payload = Object.fromEntries(formData);
     } catch {
       payload = {};
+    }
+
+    if (!Object.keys(payload).length) {
+      try {
+        const rawText = await request.clone().text();
+        const text = String(rawText || '').trim();
+
+        if (text) {
+          try {
+            const params = new URLSearchParams(text);
+            const parsed = Object.fromEntries(params);
+            if (Object.keys(parsed).length) {
+              payload = parsed;
+            } else {
+              payload = { raw_body: text };
+            }
+          } catch {
+            try {
+              const parsed = JSON.parse(text);
+              if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+                payload = parsed;
+              } else {
+                payload = { raw_body: text };
+              }
+            } catch {
+              payload = { raw_body: text };
+            }
+          }
+        }
+      } catch {
+        // ignore raw body fallback errors
+      }
     }
   }
 
@@ -36,14 +68,29 @@ async function getCallbackPayload(request) {
   return { ...queryPayload, ...payload };
 }
 
+function normalizeKey(key) {
+  return String(key || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
 function getFieldCaseInsensitive(record, keys) {
   const entries = Object.entries(record || {});
+  const normalizedKeys = new Set(keys.map((key) => normalizeKey(key)));
+
   for (const key of keys) {
     const found = entries.find(([k]) => k.toLowerCase() === key.toLowerCase());
     if (found && found[1] != null && String(found[1]).trim() !== '') {
       return String(found[1]).trim();
     }
   }
+
+  const normalizedFound = entries.find(([k, value]) => {
+    return normalizedKeys.has(normalizeKey(k)) && value != null && String(value).trim() !== '';
+  });
+
+  if (normalizedFound) {
+    return String(normalizedFound[1]).trim();
+  }
+
   return '';
 }
 
@@ -215,6 +262,78 @@ function parseResponse(decryptedPayload, expectedSubMerchantId) {
   };
 }
 
+function parseDirectResponse(payload, expectedSubMerchantId) {
+  const refNo = getFieldCaseInsensitive(payload, [
+    'Reference No',
+    'ReferenceNo',
+    'referenceNo',
+    'referenceno',
+    'refNo',
+    'ref_no',
+    'MerchantRefNo',
+    'merchantRefNo',
+    'merchant_ref_no',
+  ]);
+
+  const amount = getFieldCaseInsensitive(payload, [
+    'transaction amount',
+    'transactionamount',
+    'TransactionAmount',
+    'amount',
+    'Amount',
+    'txnAmount',
+    'txn_amount',
+    'amt',
+  ]);
+
+  const statusCode = getFieldCaseInsensitive(payload, [
+    'status',
+    'Status',
+    'statusCode',
+    'StatusCode',
+    'responseCode',
+    'ResponseCode',
+    'paymentStatus',
+    'payment_status',
+    'result',
+  ]);
+
+  const txnId = getFieldCaseInsensitive(payload, [
+    'txnId',
+    'TxnId',
+    'txn_id',
+    'txnid',
+    'TxnID',
+    'TransactionId',
+    'transactionId',
+    'transaction_id',
+    'bank_ref_no',
+    'BankRefNo',
+    'bankRefNo',
+  ]);
+
+  const subMerchantId = getFieldCaseInsensitive(payload, [
+    'submerchantid',
+    'subMerchantId',
+    'SubMerchantId',
+    'sub_merchant_id',
+  ]) || expectedSubMerchantId || '';
+
+  if (!refNo && !amount && !statusCode && !txnId) {
+    return null;
+  }
+
+  return {
+    refNo,
+    subMerchantId,
+    amount,
+    statusCode,
+    txnId,
+    rawParts: [],
+    parseMode: 'direct_fields',
+  };
+}
+
 function validateParsedResponse(parsed, expectedSubMerchantId) {
   if (!parsed?.refNo || !REF_NO_PATTERN.test(parsed.refNo)) {
     return { valid: false, reason: 'invalid_ref_no' };
@@ -299,6 +418,7 @@ async function sendReceiptIfNeeded(donation, receiptResponse) {
 async function handleCallback(request) {
   try {
     const payload = await getCallbackPayload(request);
+    const directParsed = parseDirectResponse(payload, process.env.ICICI_SUB_MERCHANT_ID);
 
     const encryptedPayload = getFieldCaseInsensitive(payload, [
       'ResponseString',
@@ -330,7 +450,7 @@ async function handleCallback(request) {
 
     const allowUnsignedCallbacks = process.env.ICICI_ALLOW_UNSIGNED_CALLBACKS === 'true';
 
-    if (!encryptedPayload) {
+    if (!encryptedPayload && !directParsed) {
       debugLog('callback_rejected', {
         reason: 'missing_payload',
         keys: Object.keys(payload),
@@ -338,12 +458,12 @@ async function handleCallback(request) {
       return redirectWithStatus(request, 'failed');
     }
 
-    if (encryptedPayload.length > MAX_ENCRYPTED_PAYLOAD_LENGTH) {
+    if (encryptedPayload && encryptedPayload.length > MAX_ENCRYPTED_PAYLOAD_LENGTH) {
       debugLog('callback_rejected', { reason: 'payload_too_large', size: encryptedPayload.length });
       return NextResponse.json({ error: 'Payload too large.' }, { status: 403 });
     }
 
-    const canVerify = Boolean(signature && secretKey);
+    const canVerify = Boolean(encryptedPayload && signature && secretKey);
     const verification = allowSignatureBypass
       ? { ok: true, method: 'bypass', reason: null }
       : canVerify
@@ -354,7 +474,7 @@ async function handleCallback(request) {
           timestamp,
           allowWeak: allowWeakSignatures,
         })
-        : { ok: true, method: 'none', reason: 'missing_signature_or_key' };
+        : { ok: true, method: directParsed ? 'direct_fields' : 'none', reason: 'missing_signature_or_key' };
 
     if (canVerify && !verification.ok) {
       debugLog('signature_verification_failed', {
@@ -373,11 +493,23 @@ async function handleCallback(request) {
     let parsed;
     let decrypted = '';
     try {
-      decrypted = decryptPayload(encryptedPayload, process.env.ICICI_AES_KEY);
-      parsed = parseResponse(decrypted, process.env.ICICI_SUB_MERCHANT_ID);
+      if (encryptedPayload) {
+        decrypted = decryptPayload(encryptedPayload, process.env.ICICI_AES_KEY);
+        parsed = parseResponse(decrypted, process.env.ICICI_SUB_MERCHANT_ID);
+      } else {
+        parsed = directParsed;
+      }
     } catch (error) {
-      debugLog('decrypt_or_parse_failed', { message: error?.message || 'Unknown error' });
-      return redirectWithStatus(request, 'failed');
+      if (directParsed) {
+        debugLog('decrypt_or_parse_fallback_to_direct', {
+          message: error?.message || 'Unknown error',
+          keys: Object.keys(payload),
+        });
+        parsed = directParsed;
+      } else {
+        debugLog('decrypt_or_parse_failed', { message: error?.message || 'Unknown error' });
+        return redirectWithStatus(request, 'failed');
+      }
     }
 
     const refNo = parsed?.refNo;
@@ -475,8 +607,8 @@ async function handleCallback(request) {
     const updatePayload = {
       status: mappedStatus,
       txn_id: parsed.txnId || null,
-      gateway_raw_response: encryptedPayload,
-      gateway_decrypted_response: decrypted,
+      gateway_raw_response: encryptedPayload || JSON.stringify(payload),
+      gateway_decrypted_response: decrypted || null,
       gateway_signature: signature,
       gateway_verification_method: verification.method,
     };

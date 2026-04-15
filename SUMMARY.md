@@ -1086,3 +1086,16 @@ Place photos in `public/` folder with these exact names:
 
 ### Follow-up
 - Thank-you page now trusts the donation status returned by `/api/receipt`, so a completed payment can still show the receipt download panel even if the URL query string says `status=failed`.
+
+## Session Update - 2026-04-15 (ICICI Direct Callback Fallback)
+
+### Scope
+- Added callback parsing fallback for ICICI responses that post direct field names instead of a single encrypted payload.
+- Added raw body parsing fallback for callback POST requests that are not parsed cleanly as form data.
+- Stored a serialized callback payload when no encrypted blob is present, so direct-field callbacks still update the donation record.
+
+### Files Updated
+- `app/api/payment-callback/route.js`
+
+### Verification
+- `npm run build` passes.
