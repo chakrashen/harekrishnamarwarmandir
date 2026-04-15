@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import { createDonationReceipt } from '@/lib/donation-receipt';
+import { redactReceiptMeta } from '@/lib/pii';
 import { supabaseAdmin } from '@/lib/supabase';
 
 async function findDonationByLookup(lookup) {
@@ -12,7 +14,7 @@ async function findDonationByLookup(lookup) {
   for (const candidate of candidates) {
     const { data, error } = await supabaseAdmin
       .from('donations')
-      .select('ref_no, txn_id, payment_reference, receipt_url, receipt_status, status')
+      .select('*')
       .eq(candidate.column, candidate.value)
       .maybeSingle();
 
@@ -26,6 +28,68 @@ async function findDonationByLookup(lookup) {
   }
 
   return { data: null, error: null, matchedBy: null };
+}
+
+async function ensureReceiptForCompletedDonation(donation) {
+  if (!donation || donation.status !== 'completed') {
+    return donation;
+  }
+
+  if (donation.receipt_url) {
+    return donation;
+  }
+
+  if (donation.receipt_status && !['failed', 'pending', 'created'].includes(String(donation.receipt_status))) {
+    return donation;
+  }
+
+  const receiptResponse = await createDonationReceipt({
+    donation,
+    txnId: donation.txn_id,
+    refNo: donation.ref_no,
+  });
+
+  if (!receiptResponse?.ok) {
+    await supabaseAdmin
+      .from('donations')
+      .update({
+        receipt_status: 'failed',
+      })
+      .eq('ref_no', donation.ref_no);
+
+    return {
+      ...donation,
+      receipt_status: 'failed',
+    };
+  }
+
+  const updatePayload = {
+    receipt_id: receiptResponse.receiptId || null,
+    receipt_url: receiptResponse.receiptUrl || null,
+    receipt_status: 'created',
+    receipt_meta: redactReceiptMeta(donation?.receipt_meta) || donation?.receipt_meta || null,
+  };
+
+  const updateResult = await supabaseAdmin
+    .from('donations')
+    .update(updatePayload)
+    .eq('ref_no', donation.ref_no);
+
+  if (updateResult.error && updatePayload.receipt_meta) {
+    await supabaseAdmin
+      .from('donations')
+      .update({
+        receipt_id: receiptResponse.receiptId || null,
+        receipt_url: receiptResponse.receiptUrl || null,
+        receipt_status: 'created',
+      })
+      .eq('ref_no', donation.ref_no);
+  }
+
+  return {
+    ...donation,
+    ...updatePayload,
+  };
 }
 
 export async function GET(request) {
@@ -49,13 +113,25 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
   }
 
+  let resolvedDonation = data;
+  if (data.status === 'completed' && !data.receipt_url) {
+    try {
+      resolvedDonation = await ensureReceiptForCompletedDonation(data);
+    } catch {
+      resolvedDonation = {
+        ...data,
+        receipt_status: data.receipt_status || 'failed',
+      };
+    }
+  }
+
   const response = NextResponse.json({
-    referenceNo: data.ref_no || null,
-    txnId: data.txn_id || null,
+    referenceNo: resolvedDonation.ref_no || null,
+    txnId: resolvedDonation.txn_id || null,
     matchedBy,
-    receiptUrl: data.receipt_url || null,
-    receiptStatus: data.receipt_status || null,
-    donationStatus: data.status || null,
+    receiptUrl: resolvedDonation.receipt_url || null,
+    receiptStatus: resolvedDonation.receipt_status || null,
+    donationStatus: resolvedDonation.status || null,
   });
   response.headers.set('Cache-Control', 'no-store, max-age=0');
   return response;

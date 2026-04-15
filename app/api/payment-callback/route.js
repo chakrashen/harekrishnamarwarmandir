@@ -78,23 +78,36 @@ function normalizeKey(key) {
   return String(key || '').toLowerCase().replace(/[^a-z0-9]/g, '');
 }
 
+function normalizeFieldValue(value) {
+  if (value == null) return '';
+  const text = String(value).trim();
+  if (!text) return '';
+  if (['null', 'undefined', 'nil', 'na', 'n/a'].includes(text.toLowerCase())) {
+    return '';
+  }
+  return text;
+}
+
 function getFieldCaseInsensitive(record, keys) {
   const entries = Object.entries(record || {});
   const normalizedKeys = new Set(keys.map((key) => normalizeKey(key)));
 
   for (const key of keys) {
     const found = entries.find(([k]) => k.toLowerCase() === key.toLowerCase());
-    if (found && found[1] != null && String(found[1]).trim() !== '') {
-      return String(found[1]).trim();
+    if (found) {
+      const normalized = normalizeFieldValue(found[1]);
+      if (normalized) {
+        return normalized;
+      }
     }
   }
 
   const normalizedFound = entries.find(([k, value]) => {
-    return normalizedKeys.has(normalizeKey(k)) && value != null && String(value).trim() !== '';
+    return normalizedKeys.has(normalizeKey(k)) && Boolean(normalizeFieldValue(value));
   });
 
   if (normalizedFound) {
-    return String(normalizedFound[1]).trim();
+    return normalizeFieldValue(normalizedFound[1]);
   }
 
   return '';

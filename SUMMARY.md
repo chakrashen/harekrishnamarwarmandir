@@ -1084,6 +1084,21 @@ Place photos in `public/` folder with these exact names:
 ### Verification
 - `npm run build` passes.
 
+## Session Update - 2026-04-15 (Receipt Retry + Remarks Fallback)
+
+### Scope
+- Normalized callback values like `"null"` and `"undefined"` so gateway transaction ids are not stored as literal strings.
+- Updated receipt generation to fall back to the donation reference number when a usable transaction id is missing.
+- Added retry logic in `/api/receipt` so completed donations without a receipt URL can trigger receipt generation again on thank-you page lookup.
+
+### Files Updated
+- `app/api/payment-callback/route.js`
+- `app/api/receipt/route.js`
+- `lib/donation-receipt.js`
+
+### Verification
+- `npm run build` passes.
+
 ## Session Update - 2026-04-15 (ICICI Response Code Mapping)
 
 ### Scope
