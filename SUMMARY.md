@@ -1084,6 +1084,23 @@ Place photos in `public/` folder with these exact names:
 ### Verification
 - `npm run build` passes.
 
+## Session Update - 2026-04-15 (Jaipur/Jodhpur Receipt Payload Alignment)
+
+### Scope
+- Updated the receipt API payload defaults to use `company = Hare Krishna Movement Jaipur` and `preacher = DMT`.
+- Added support for `seva_subtype` in the receipt payload.
+- Added env-driven receipt payload controls for centralized DCC setups:
+  - `DONATION_RECEIPT_SEVA_TYPE`
+  - `DONATION_RECEIPT_SEVA_SUBTYPE`
+  - `DONATION_PAYMENT_METHOD`
+  - `DONATION_TRY_PATRON_TAGGING`
+
+### Files Updated
+- `lib/donation-receipt.js`
+
+### Verification
+- `npm run build` passes.
+
 ## Session Update - 2026-04-15 (Receipt Retry + Remarks Fallback)
 
 ### Scope
