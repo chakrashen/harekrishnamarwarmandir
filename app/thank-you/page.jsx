@@ -3,6 +3,7 @@ import Footer from '../_components/Footer';
 import FloatingButtons from '../_components/FloatingButtons';
 import BottomNav from '../_components/BottomNav';
 import ThankYouContent from './_components/ThankYouContent';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Thank You — Hare Krishna Marwar Mandir',
@@ -14,7 +15,9 @@ export default function ThankYouPage() {
     <>
       <Navbar />
       <main>
-        <ThankYouContent />
+        <Suspense fallback={null}>
+          <ThankYouContent />
+        </Suspense>
       </main>
       <Footer />
       <FloatingButtons />

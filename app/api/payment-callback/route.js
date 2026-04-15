@@ -190,15 +190,49 @@ function redirectWithStatus(request, status, refNo) {
   return NextResponse.redirect(url, 303);
 }
 
-async function sendReceiptIfNeeded(donation) {
-  if (!resend || !donation?.email) return;
+async function sendReceiptIfNeeded(donation, receiptResponse) {
+  if (!resend || !donation?.email) return { ok: false, reason: 'missing_email_or_resend' };
 
-  await resend.emails.send({
+  const receiptUrl = receiptResponse?.receiptUrl || null;
+  const attachments = [];
+
+  if (receiptUrl && /^https?:\/\//i.test(receiptUrl)) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10_000);
+      const response = await fetch(receiptUrl, { signal: controller.signal });
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        const contentType = response.headers.get('content-type') || 'application/pdf';
+        const buffer = Buffer.from(await response.arrayBuffer());
+        attachments.push({
+          filename: `receipt-${receiptResponse?.receiptId || donation?.ref_no || 'donation'}.pdf`,
+          content: buffer,
+          contentType,
+        });
+      }
+    } catch (error) {
+      debugLog('receipt_attachment_fetch_failed', {
+        refNo: donation?.ref_no,
+        message: error?.message || 'receipt fetch failed',
+      });
+    }
+  }
+
+  const receiptLinkHtml = receiptUrl
+    ? `<p>You can also download your receipt here: <a href="${receiptUrl}">${receiptUrl}</a></p>`
+    : '<p>Your receipt is being prepared and will be available shortly.</p>';
+
+  const result = await resend.emails.send({
     from: 'Hare Krishna Marwar Mandir <onboarding@resend.dev>',
     to: donation.email,
-    subject: 'Thank You for Your Donation',
-    html: `<h1>Hare Krishna, ${donation.name || 'Devotee'}!</h1><p>Your donation of ₹${donation.amount} has been successfully received.</p>`
+    subject: 'Your Donation Receipt - Hare Krishna Marwar Mandir',
+    html: `<h1>Hare Krishna, ${donation.name || 'Devotee'}!</h1><p>Your donation of ₹${donation.amount} has been successfully received.</p>${receiptLinkHtml}`,
+    attachments,
   });
+
+  return { ok: true, result };
 }
 
 async function handleCallback(request) {
@@ -412,14 +446,10 @@ async function handleCallback(request) {
     }
 
     if (mappedStatus === 'completed') {
-      try {
-        await sendReceiptIfNeeded(donation);
-      } catch (mailError) {
-        debugLog('receipt_send_failed', { refNo: parsed.refNo, message: mailError?.message || 'mail error' });
-      }
+      let receiptResponse = null;
 
       try {
-        const receiptResponse = await createDonationReceipt({
+        receiptResponse = await createDonationReceipt({
           donation,
           txnId: parsed.txnId,
           refNo: parsed.refNo,
@@ -448,6 +478,12 @@ async function handleCallback(request) {
                 receipt_status: 'created',
               })
               .eq('ref_no', parsed.refNo);
+          }
+
+          try {
+            await sendReceiptIfNeeded(donation, receiptResponse);
+          } catch (mailError) {
+            debugLog('receipt_send_failed', { refNo: parsed.refNo, message: mailError?.message || 'mail error' });
           }
         } else {
           await supabaseAdmin

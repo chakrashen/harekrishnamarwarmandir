@@ -126,6 +126,20 @@
 - `app/_components/SevaHighlights.module.css`
 - `app/globals.css`
 
+## Session Update — 2026-04-15 (Payment Receipt Fix)
+
+### Scope
+- Fixed the post-payment receipt flow so the receipt is generated before the email is sent.
+- Updated the receipt email to include the receipt PDF attachment when available and a downloadable link fallback.
+- Fixed the thank-you page prerender issue by wrapping `useSearchParams()` usage in `Suspense`.
+
+### Files Updated
+- `app/api/payment-callback/route.js`
+- `app/thank-you/page.jsx`
+
+### Verification
+- `npm run build` passes after the fix.
+
 ## Session Update — 2026-04-13 (About Page Premium Redesign)
 
 ### Scope
