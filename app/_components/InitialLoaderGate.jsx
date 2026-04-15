@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './InitialLoaderGate.module.css';
 
 const SESSION_KEY = 'hkmm-loader-seen-v2';
-const MIN_LOADER_MS = 350;
-const MAX_LOADER_MS = 900;
-const FADE_MS = 450;
+const MIN_LOADER_MS = 1500;
+const MAX_LOADER_MS = 3500;
+const FADE_MS = 600;
 
 export default function InitialLoaderGate({ children }) {
   const [showLoader, setShowLoader] = useState(false);
@@ -74,7 +74,7 @@ export default function InitialLoaderGate({ children }) {
 
     const videoEl = videoRef.current;
     const setPlaybackSpeed = () => {
-      videoEl.playbackRate = 3;
+      videoEl.playbackRate = 2;
     };
 
     setPlaybackSpeed();
@@ -102,7 +102,7 @@ export default function InitialLoaderGate({ children }) {
             autoPlay
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
           />
         </div>
       )}

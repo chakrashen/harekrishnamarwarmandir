@@ -1,4 +1,16 @@
-# SUMMARY.md — Session 2: Full Homepage + ICICI Payment Integration
+# SUMMARY.md — Session 3: Fixing Donation Receipt Flow
+
+## Session Update — 2026-04-15 (Receipt Category Fix)
+
+### Scope
+- Fixed 'LinkValidationError' in Dhananjaya ERP by standardizing the Seva category.
+- Mapped all donations to the ERP-recognized subtype: "General Donation - HKMJD".
+- Preserved original Seva type (e.g., Anna Daan, Gau Seva) in the receipt 'Remarks' field.
+- Enabled receipt debugging in environment configuration.
+
+### Files Updated
+- `.env.local`
+- `lib/donation-receipt.js`
 
 ## Session Update — 2026-04-14 (Receipt Download Button)
 
