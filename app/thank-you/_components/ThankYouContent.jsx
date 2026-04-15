@@ -9,11 +9,17 @@ export default function ThankYouContent() {
   const searchParams = useSearchParams();
   const paymentStatus = searchParams.get('status');
   const refNo = searchParams.get('ref');
+  const [resolvedRefNo, setResolvedRefNo] = useState('');
+  const [donationStatus, setDonationStatus] = useState('');
   const [receiptUrl, setReceiptUrl] = useState('');
   const [receiptStatus, setReceiptStatus] = useState('');
   const [receiptError, setReceiptError] = useState('');
   const [receiptLoading, setReceiptLoading] = useState(false);
   const shareText = "I just donated to Hare Krishna Marwar Mandir, Jodhpur! 🙏 You can too: https://www.harekrishnamarwar.org/donate";
+
+  const displayRefNo = resolvedRefNo || refNo || '';
+  const effectivePaymentStatus = donationStatus || paymentStatus || '';
+  const shouldShowReceiptPanel = Boolean(refNo) && effectivePaymentStatus !== 'failed';
 
   const shareOnWhatsApp = () => {
     const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
@@ -38,6 +44,8 @@ export default function ThankYouContent() {
       })
       .then((body) => {
         if (!isMounted) return;
+        setResolvedRefNo(body.referenceNo || '');
+        setDonationStatus(body.donationStatus || '');
         setReceiptUrl(body.receiptUrl || '');
         setReceiptStatus(body.receiptStatus || '');
       })
@@ -89,10 +97,10 @@ export default function ThankYouContent() {
             <span>— Bhagavad Gita 9.27</span>
           </div>
 
-          {refNo && paymentStatus !== 'failed' && (
+          {shouldShowReceiptPanel && (
             <div className={styles.receiptPanel}>
               <div className={styles.receiptTitle}>Receipt</div>
-              <div className={styles.receiptMeta}>Reference: {refNo}</div>
+              <div className={styles.receiptMeta}>Reference: {displayRefNo}</div>
               {receiptLoading && (
                 <p className={styles.receiptStatus}>Preparing your receipt. This can take a minute.</p>
               )}

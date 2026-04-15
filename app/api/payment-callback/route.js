@@ -12,6 +12,8 @@ const MAX_ENCRYPTED_PAYLOAD_LENGTH = 12000;
 const isProduction = process.env.NODE_ENV === 'production';
 const allowWeakSignatures = !isProduction && (process.env.ICICI_ALLOW_WEAK_SIGNATURES === 'true' || process.env.ICICI_ALLOW_WEAK_SIGNATURES === '1');
 const allowSignatureBypass = !isProduction && (process.env.ICICI_CALLBACK_BYPASS === 'true' || process.env.ICICI_CALLBACK_BYPASS === '1');
+const REF_NO_PATTERN = /^HKM\d{10,}$/i;
+const KNOWN_STATUS_CODES = new Set(['SUCCESS', 'SUCCESSFUL', 'OK', 'S', 'FAILED', 'FAILURE', 'F', 'PENDING', 'PROCESSING']);
 
 function debugLog(event, details = {}) {
   if (!isPaymentDebug) return;
@@ -134,7 +136,18 @@ function decryptPayload(encryptedPayload, aesKey) {
   return decrypt(encryptedPayload, aesKey);
 }
 
-function parseResponse(decryptedPayload) {
+function isKnownStatusCode(value) {
+  return KNOWN_STATUS_CODES.has(String(value || '').trim().toUpperCase());
+}
+
+function isLikelyAmount(value) {
+  const text = String(value || '').trim();
+  if (!/^\d+(?:\.\d{1,2})?$/.test(text)) return false;
+  const parsed = Number(text);
+  return Number.isFinite(parsed) && parsed > 0 && parsed < 10000000;
+}
+
+function parseResponse(decryptedPayload, expectedSubMerchantId) {
   if (!decryptedPayload) {
     throw new Error('Empty decrypted payload.');
   }
@@ -144,18 +157,66 @@ function parseResponse(decryptedPayload) {
     throw new Error('Malformed decrypted payload.');
   }
 
-  return {
+  const parsed = {
     refNo: parts[0],
     subMerchantId: parts[1],
     amount: parts[2],
     statusCode: parts[3],
     txnId: parts[4],
     rawParts: parts,
+    parseMode: 'positional',
+  };
+
+  const hasExpectedRefNo = REF_NO_PATTERN.test(parsed.refNo);
+  const hasExpectedStatus = isKnownStatusCode(parsed.statusCode);
+
+  if (hasExpectedRefNo && hasExpectedStatus) {
+    return parsed;
+  }
+
+  const refCandidate = parts.find((part) => REF_NO_PATTERN.test(part));
+  const subMerchantCandidate = expectedSubMerchantId
+    ? parts.find((part) => String(part) === String(expectedSubMerchantId))
+    : null;
+  const statusCandidate = parts.find((part) => isKnownStatusCode(part));
+  const amountCandidate = parts.find((part) => {
+    if (!isLikelyAmount(part)) return false;
+    if (subMerchantCandidate && String(part) === String(subMerchantCandidate)) return false;
+    return String(part).length <= 7;
+  });
+
+  if (refCandidate) parsed.refNo = refCandidate;
+  if (subMerchantCandidate) parsed.subMerchantId = subMerchantCandidate;
+  if (amountCandidate) parsed.amount = amountCandidate;
+  if (statusCandidate) parsed.statusCode = statusCandidate;
+
+  const reservedValues = new Set([
+    parsed.refNo,
+    parsed.subMerchantId,
+    parsed.amount,
+    parsed.statusCode,
+  ].filter(Boolean).map((value) => String(value)));
+
+  const txnCandidate = parts.find((part) => {
+    const text = String(part || '').trim();
+    if (!text || reservedValues.has(text)) return false;
+    if (REF_NO_PATTERN.test(text)) return false;
+    if (isKnownStatusCode(text)) return false;
+    return true;
+  });
+
+  if (txnCandidate) {
+    parsed.txnId = txnCandidate;
+  }
+
+  parsed.parseMode = 'heuristic';
+  return {
+    ...parsed,
   };
 }
 
 function validateParsedResponse(parsed, expectedSubMerchantId) {
-  if (!parsed?.refNo || !/^HKM\d{10,}$/.test(parsed.refNo)) {
+  if (!parsed?.refNo || !REF_NO_PATTERN.test(parsed.refNo)) {
     return { valid: false, reason: 'invalid_ref_no' };
   }
 
@@ -313,7 +374,7 @@ async function handleCallback(request) {
     let decrypted = '';
     try {
       decrypted = decryptPayload(encryptedPayload, process.env.ICICI_AES_KEY);
-      parsed = parseResponse(decrypted);
+      parsed = parseResponse(decrypted, process.env.ICICI_SUB_MERCHANT_ID);
     } catch (error) {
       debugLog('decrypt_or_parse_failed', { message: error?.message || 'Unknown error' });
       return redirectWithStatus(request, 'failed');

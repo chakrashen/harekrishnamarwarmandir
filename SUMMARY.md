@@ -1050,3 +1050,39 @@ Place photos in `public/` folder with these exact names:
 ### Files Updated
 - app/donate/_components/DonateForm.jsx
 - app/donate/_components/DonateForm.module.css
+
+## Session Update - 2026-04-15 (Codex Skills Installed)
+
+### Scope
+- Installed project-relevant Codex skills to support future work on this temple donation website.
+- Chose only skills that match the current stack and roadmap: frontend implementation, browser testing, deployment, and security review.
+- No application source files were changed in this session.
+
+### Skills Installed
+- `frontend-skill`
+- `playwright`
+- `vercel-deploy`
+- `security-best-practices`
+
+### Notes
+- Installed into `C:\Users\ABCD\.codex\skills`.
+- System skills such as `imagegen` and `openai-docs` were already preinstalled, so they were not reinstalled.
+- Restart Codex to make the newly installed skills available in future sessions.
+
+## Session Update - 2026-04-15 (Payment Callback Recovery Fix)
+
+### Scope
+- Fixed the receipt lookup API so it can resolve donations by canonical reference number, legacy payment reference, or gateway transaction id.
+- Hardened the ICICI callback parser so it can recover the `HKM...` donation reference from decrypted callback payloads even when the gateway returns fields in a different order.
+- Updated the thank-you page to show the canonical donation reference returned by the receipt lookup endpoint.
+
+### Files Updated
+- `app/api/payment-callback/route.js`
+- `app/api/receipt/route.js`
+- `app/thank-you/_components/ThankYouContent.jsx`
+
+### Verification
+- `npm run build` passes.
+
+### Follow-up
+- Thank-you page now trusts the donation status returned by `/api/receipt`, so a completed payment can still show the receipt download panel even if the URL query string says `status=failed`.
