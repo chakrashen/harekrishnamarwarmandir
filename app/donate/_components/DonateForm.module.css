@@ -716,8 +716,11 @@
   .payTrustText { margin-top: 0; }
   .input { min-height: 48px; font-size: 1rem; }
   .customInput { min-height: 48px; }
-  .featuredAmountGrid { grid-template-columns: 1fr; gap: 0.6rem; }
-  .featuredAmountCard { min-height: 88px; }
+  .featuredAmountGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+  .featuredAmountCard { min-height: 88px; padding: 0.65rem; }
+  .featuredAmountValue { font-size: 1rem; }
+  .featuredAmountImpact { font-size: 0.72rem; }
+  .recommendedTag { font-size: 0.55rem; padding: 0.15rem 0.35rem; }
   .trustStrip { gap: 0.5rem; }
   .trustStrip span,
   .ctaReassurance p { font-size: 0.76rem; }

@@ -159,10 +159,10 @@
   }
 
   .amountGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .amountCard {
-    min-height: 52px;
+    min-height: 72px;
   }
 }

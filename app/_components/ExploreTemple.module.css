@@ -58,6 +58,8 @@
 
 @media (max-width: 640px) {
   .grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .cardImg { height: 180px; }
+  .cardOverlay { padding: 1rem; }
 }
 
 @media (max-width: 400px) {

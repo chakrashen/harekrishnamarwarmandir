@@ -309,12 +309,12 @@
 
 @media (max-width: 900px) {
   .hero {
-    min-height: auto;
-    padding: 7rem 0 4rem;
+    min-height: 100svh;
+    padding: 6rem 0 4rem;
   }
 
   .quickGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -330,9 +330,21 @@
 
   .ctaRow a {
     width: 100%;
+    padding: 1.1rem;
+    font-size: 1.05rem;
   }
 
-  .quickGrid {
-    grid-template-columns: 1fr;
+  .badgeItem {
+    font-size: 0.78rem;
+    padding: 0.55rem 0.9rem;
+  }
+  
+  .quickCard {
+    padding: 1.25rem 0.5rem 0.75rem;
+  }
+
+  .quickTag {
+    font-size: 0.52rem;
+    white-space: nowrap;
   }
 }

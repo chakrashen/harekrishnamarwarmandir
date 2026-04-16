@@ -135,5 +135,6 @@
 
 @media (max-width: 640px) {
   .grid { grid-template-columns: 1fr; }
-  .sevaBtn { display: none; }
+  .cardImg { height: 180px; }
+  .sevaBtn { margin-top: 0.5rem; }
 }

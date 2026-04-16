@@ -437,6 +437,10 @@
 }
 
 @media (max-width: 480px) {
+  .topBar {
+    display: none;
+  }
+  
   .navWrap {
     top: 0;
     padding: 0;
@@ -448,28 +452,6 @@
     padding: 0;
   }
 
-  .topBar {
-    padding: 0.25rem 0;
-    min-height: 30px;
-  }
-
-  .topBarLeft {
-    gap: 0.6rem;
-  }
-
-  .topBarBadge {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.68rem;
-  }
-
-  .topBarLink span {
-    display: none;
-  }
-
-  .topBarLink {
-    font-size: 0.7rem;
-  }
-
   .navbar {
     min-height: 62px;
     padding: 0.46rem 0 0.14rem;
@@ -479,11 +461,15 @@
   .navbar.scrolled {
     max-width: calc(100% - 0.9rem);
     width: calc(100% - 0.9rem);
-    border-radius: 1.5rem;
+    border-radius: 1.6rem;
     padding: 0.48rem 0.8rem 0.18rem;
   }
 
   .logoImage {
     height: 44px;
+  }
+  
+  .mobileCtaButton {
+    min-height: 52px;
   }
 }

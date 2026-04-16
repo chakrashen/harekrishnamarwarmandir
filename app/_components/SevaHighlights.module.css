@@ -94,15 +94,11 @@
   }
 
   .cardBody {
-    text-align: center;
-    align-items: center;
+    text-align: left;
+    align-items: flex-start;
   }
-
-  .cardCta {
-    display: none;
-  }
-
-  .cardCtaAlt {
-    display: none;
+  
+  .cardImageWrap {
+    height: 180px;
   }
 }
