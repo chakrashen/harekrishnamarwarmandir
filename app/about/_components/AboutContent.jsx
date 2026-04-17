@@ -8,7 +8,7 @@ import WaveBackdrop from '@/app/_components/WaveBackdrop';
 import heroImg from '../../../public/about page/About page main background.png';
 import quoteImg from '../../../public/srila-prabhupada.jpg';
 import missionImg from '../../../public/about-mission.png';
-import imgNirman from '../../../public/Mandir Nirman seva impact.JPG';
+import imgNirman from '../../../public/Mandir Nirman seva impact.jpg';
 import imgAnna from '../../../public/Anna Daan Seva seva impact.png';
 import imgGau from '../../../public/Gau Seva seva impact.jpg';
 

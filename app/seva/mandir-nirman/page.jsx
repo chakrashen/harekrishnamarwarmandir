@@ -11,7 +11,7 @@ import BottomNav from '@/app/_components/BottomNav';
 import styles from '../_components/SevaPage.module.css';
 
 import heroImg from '../../../public/mandir-nirman-seva.png';
-import trustImg from '../../../public/Mandir Nirman seva impact.JPG';
+import trustImg from '../../../public/Mandir Nirman seva impact.jpg';
 
 const stats = [
   { label: 'Temple Size', value: '35K SqFt', icon: Landmark },
