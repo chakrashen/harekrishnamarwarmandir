@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
+import ScrollReveal from './ScrollReveal';
 import styles from './Welcome.module.css';
 import thumbImg from '../../public/temple-intro-video-thumbnail.jpg';
 
@@ -10,7 +11,7 @@ export default function Welcome() {
     <section className={`section-pad ${styles.section}`}>
       <div className="container">
         <div className={styles.grid}>
-          <div className={styles.videoSide}>
+          <ScrollReveal y={0} className={styles.videoSide}>
             <div className={styles.videoPlaceholder}>
               <Image
                 src={thumbImg}
@@ -24,7 +25,7 @@ export default function Welcome() {
               <div className={styles.videoOverlay} />
               <button className={styles.playBtn}><Play size={32} fill="white" /></button>
             </div>
-          </div>
+          </ScrollReveal>
           <motion.div
             className={styles.textSide}
             initial={{ opacity: 0, x: 40 }}
