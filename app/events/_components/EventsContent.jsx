@@ -7,6 +7,8 @@ import { events } from '../_data/events';
 import { getDaysLeft, getUpcomingEvents } from '../_utils/getUpcomingEvents';
 import WaveBackdrop from '@/app/_components/WaveBackdrop';
 
+import heroImg from '../../../public/event page/event page background.jpeg';
+
 const upcomingEvents = getUpcomingEvents(events);
 
 const programs = [
@@ -27,9 +29,10 @@ export default function EventsContent() {
         <div className={styles.heroBg}>
           <WaveBackdrop variant="events" />
           <Image
-            src="/event page/event page background.jpeg"
+            src={heroImg}
             alt="Events at Hare Krishna Marwar Mandir"
             fill
+            placeholder="blur"
             priority
             sizes="100vw"
             className={styles.heroImage}
@@ -71,7 +74,7 @@ export default function EventsContent() {
                   className={`card ${styles.eventCard}`}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, amount: 0.15 }}
                   transition={{ delay: i * 0.1 }}
                 >
                   <div className={styles.eventImg}>
@@ -112,7 +115,7 @@ export default function EventsContent() {
           </div>
           <div className={styles.programsGrid}>
             {programs.map((p, i) => (
-              <motion.div key={p.title} className={styles.programCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
+              <motion.div key={p.title} className={styles.programCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ delay: i * 0.08 }}>
                 <div className={styles.programIcon} style={{ background: `${p.color}15`, color: p.color }}><p.icon size={24} /></div>
                 <div>
                   <h3 className={styles.programTitle}>{p.title}</h3>

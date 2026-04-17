@@ -137,11 +137,15 @@
 @media (max-width: 768px) {
   .card {
     grid-template-columns: 1fr;
-    padding: 1.5rem;
-    gap: 1.5rem;
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .videoFrame {
+    min-height: 200px;
   }
   
   .quoteText {
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
 }

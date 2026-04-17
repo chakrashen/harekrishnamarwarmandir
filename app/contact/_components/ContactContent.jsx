@@ -6,9 +6,9 @@ import { Phone, Mail, MapPin, MessageCircle, Send, Clock, Check } from 'lucide-r
 import styles from './ContactContent.module.css';
 
 const contactInfo = [
-  { icon: Phone, title: 'Phone', value: '+91 91161 39371', href: 'tel:+919116139371' },
+  { icon: Phone, title: 'Phone', value: '+91 99287 66773', href: 'tel:+919928766773' },
   { icon: Mail, title: 'Email', value: 'harekrishna@hkmjodhpur.org', href: 'mailto:harekrishna@hkmjodhpur.org' },
-  { icon: MessageCircle, title: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/919116139371' },
+  { icon: MessageCircle, title: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/919928766773' },
   { icon: MapPin, title: 'Address', value: 'Hare Krishna Marwar Mandir, Jodhpur, Rajasthan 342001', href: 'https://maps.google.com/?q=Jodhpur+Rajasthan' },
   { icon: Clock, title: 'Temple Hours', value: 'Daily 4:30 AM — 8:30 PM' },
 ];
@@ -21,8 +21,8 @@ export default function ContactContent() {
   const [error, setError] = useState('');
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  const handleSubmit = async (e) => { 
-    e.preventDefault(); 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setSending(true);
     setError('');
     try {

@@ -4,24 +4,35 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './InitialLoaderGate.module.css';
 
 const SESSION_KEY = 'hkmm-loader-seen-v2';
-const MIN_LOADER_MS = 1500;
-const MAX_LOADER_MS = 3500;
+const MIN_LOADER_MS = 1200;
+const MAX_LOADER_MS = 2500;
 const FADE_MS = 600;
 
 export default function InitialLoaderGate({ children }) {
   const [showLoader, setShowLoader] = useState(false);
   const [fadingOut, setFadingOut] = useState(false);
-  const videoRef = useRef(null);
   const finishedRef = useRef(false);
 
   useEffect(() => {
-    const isDev = process.env.NODE_ENV !== 'production';
     const forceLoader = new URLSearchParams(window.location.search).get('loader') === '1';
-    const alreadySeen = window.sessionStorage.getItem(SESSION_KEY) === '1';
+
+    // Some mobile browsers block/throw on sessionStorage (privacy modes, etc).
+    // If that happens, we must still allow the loader to finish/hide.
+    let alreadySeen = false;
+    try {
+      alreadySeen = window.sessionStorage.getItem(SESSION_KEY) === '1';
+    } catch {
+      alreadySeen = false;
+    }
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const saveData = navigator.connection?.saveData === true;
 
-    if ((alreadySeen && !forceLoader && !isDev) || (saveData && !forceLoader) || (prefersReducedMotion && !forceLoader)) {
+    // Skip loader on slow connections (2g, slow-2g, 3g) — these users need content ASAP
+    const effectiveType = navigator.connection?.effectiveType;
+    const isSlowConnection = effectiveType === 'slow-2g' || effectiveType === '2g' || effectiveType === '3g';
+
+    if ((alreadySeen && !forceLoader) || (saveData && !forceLoader) || (prefersReducedMotion && !forceLoader) || (isSlowConnection && !forceLoader)) {
       return;
     }
 
@@ -37,7 +48,11 @@ export default function InitialLoaderGate({ children }) {
       setFadingOut(true);
       window.setTimeout(() => {
         setShowLoader(false);
-        window.sessionStorage.setItem(SESSION_KEY, '1');
+        try {
+          window.sessionStorage.setItem(SESSION_KEY, '1');
+        } catch {
+          // Ignore storage failures; loader visibility is the important part.
+        }
       }, FADE_MS);
     };
 
@@ -52,6 +67,8 @@ export default function InitialLoaderGate({ children }) {
     };
 
     const timeoutId = window.setTimeout(finish, MAX_LOADER_MS);
+    // Extra hard fail-safe so the overlay can never remain visible indefinitely.
+    const hardTimeoutId = window.setTimeout(finish, MAX_LOADER_MS + FADE_MS + 250);
     const onLoaded = () => finishWhenMinTimeReached();
 
     if (document.readyState === 'complete') {
@@ -63,28 +80,12 @@ export default function InitialLoaderGate({ children }) {
     return () => {
       window.clearTimeout(timeoutId);
       window.clearTimeout(delayedFinishId);
+      window.clearTimeout(hardTimeoutId);
       window.removeEventListener('load', onLoaded);
     };
   }, []);
 
-  useEffect(() => {
-    if (!showLoader || !videoRef.current) {
-      return;
-    }
 
-    const videoEl = videoRef.current;
-    const setPlaybackSpeed = () => {
-      videoEl.playbackRate = 2;
-    };
-
-    setPlaybackSpeed();
-    // Some browsers need an explicit play call even with autoplay+muted.
-    videoEl.play().catch(() => {});
-    videoEl.addEventListener('loadedmetadata', setPlaybackSpeed);
-    return () => {
-      videoEl.removeEventListener('loadedmetadata', setPlaybackSpeed);
-    };
-  }, [showLoader]);
 
   return (
     <>
@@ -95,15 +96,14 @@ export default function InitialLoaderGate({ children }) {
           aria-live="polite"
           aria-label="Loading website"
         >
-          <video
-            ref={videoRef}
-            className={styles.loaderVideo}
-            src="/gallery/loading-video.mp4"
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
+          <img
+            className={styles.loaderLogo}
+            src="/gallery/logo.png"
+            alt="Hare Krishna Marwar Mandir"
+            aria-hidden="true"
           />
+          {/* CSS-only spinner fallback */}
+          <div className={styles.spinnerFallback} aria-hidden="true" />
         </div>
       )}
 

@@ -1,5 +1,7 @@
 .section {
-  background: linear-gradient(180deg, rgba(255, 251, 244, 0.95) 0%, rgba(255, 241, 220, 0.82) 100%);
+  background:
+    radial-gradient(circle at 95% 50%, rgba(107, 142, 122, 0.06), transparent 45%),
+    linear-gradient(180deg, rgba(255, 251, 244, 0.95) 0%, rgba(255, 241, 220, 0.82) 100%);
 }
 
 .inner {
@@ -57,7 +59,8 @@
   font-family: var(--font-ui);
   font-size: 0.85rem;
   letter-spacing: 0.06em;
-  color: #8d5e22;
+  color: var(--green-earth);
+  font-weight: 500;
 }
 
 .amountBlock {
@@ -160,9 +163,19 @@
 
   .amountGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
   }
 
   .amountCard {
-    min-height: 72px;
+    min-height: 80px;
+    padding: 0.75rem 0.4rem;
+  }
+
+  .amountValue {
+    font-size: 0.95rem;
+  }
+
+  .amountImpact {
+    font-size: 0.65rem;
   }
 }

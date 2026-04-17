@@ -4,7 +4,7 @@
   z-index: 4000;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at center, #fff5eb 0%, #fffbf5 45%, #f6ecdd 100%);
+  background: #ffffff;
   opacity: 1;
   visibility: visible;
   transition: opacity 450ms ease, visibility 450ms ease;
@@ -16,12 +16,41 @@
   pointer-events: none;
 }
 
-.loaderVideo {
-  width: min(62vw, 360px);
+@keyframes wipeLogo {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    filter: blur(12px);
+    opacity: 0.5;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+
+.loaderLogo {
+  width: min(50vw, 280px);
   height: auto;
-  max-height: 42vh;
-  border-radius: 1rem;
   object-fit: contain;
+  animation: wipeLogo 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* CSS-only spinner fallback — displayed behind the video so it shows
+   if the video fails to load or is still buffering. */
+.spinnerFallback {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(230, 126, 34, 0.2);
+  border-top-color: #E67E22;
+  border-radius: 50%;
+  animation: loaderSpin 0.8s linear infinite;
+  z-index: -1;
+}
+
+@keyframes loaderSpin {
+  to { transform: rotate(360deg); }
 }
 
 .mainHidden {
@@ -33,8 +62,24 @@
   visibility: visible;
 }
 
+/* Hard fail-safe: after 3s the overlay auto-hides via CSS even if JS fails.
+   This prevents an infinite white screen on broken JS execution. */
+@keyframes forceHide {
+  0%, 99% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+.loaderOverlay {
+  animation: forceHide 3.2s ease forwards;
+}
+
+.loaderOverlay.fadeOut {
+  /* When JS triggers fadeOut, override the CSS animation */
+  animation: none;
+}
+
 @media (max-width: 768px) {
-  .loaderVideo {
-    width: min(76vw, 300px);
+  .loaderLogo {
+    width: min(60vw, 240px);
   }
 }

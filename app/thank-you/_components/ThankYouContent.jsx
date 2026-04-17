@@ -87,13 +87,13 @@ export default function ThankYouContent() {
           <h2 className={styles.subtitle}>Thank You for Your Generous Donation</h2>
 
           <p className={styles.desc}>
-            Your sacred contribution directly supports temple construction, Gau Seva, 
+            Your sacred contribution directly supports temple construction, Gau Seva,
             and Anna Daan at Hare Krishna Marwar Mandir, Jodhpur.
           </p>
 
           <div className={styles.verse}>
             <p>&ldquo;यत् करोषि यद् अश्नासि यज् जुहोषि ददासि यत् ।<br />
-            यत् तपस्यसि कौन्तेय तत् कुरुष्व मदर्पणम् ॥&rdquo;</p>
+              यत् तपस्यसि कौन्तेय तत् कुरुष्व मदर्पणम् ॥&rdquo;</p>
             <span>— Bhagavad Gita 9.27</span>
           </div>
 
@@ -135,7 +135,7 @@ export default function ThankYouContent() {
           <p className={styles.receipt}>
             A receipt will be sent to your email shortly. For any queries, contact us at{' '}
             <a href="mailto:harekrishna@hkmjodhpur.org">harekrishna@hkmjodhpur.org</a> or{' '}
-            <a href="tel:+919116139371">+91 91161 39371</a>.
+            <a href="tel:+919928766773">+91 99287 66773</a>.
           </p>
 
           <div className={styles.actions}>

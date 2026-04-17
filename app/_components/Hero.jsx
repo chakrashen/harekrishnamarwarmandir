@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Heart, ShieldCheck, BadgeCheck, Users } from 'lucide-react';
 import styles from './Hero.module.css';
 import WaveBackdrop from './WaveBackdrop';
+import bgImage from '../../public/home page backgrond image.png';
 
 const trustBadges = [
   { icon: BadgeCheck, text: '80G Tax Benefit' },
@@ -28,13 +29,11 @@ export default function Hero() {
       <div className={styles.heroBg}>
         <div className={styles.heroImageWrap} aria-hidden="true">
           <Image
-            src="/home page backgrond image.png"
+            src={bgImage}
             alt=""
             fill
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            sizes="100vw"
+            placeholder="blur"
+            priority
             className={styles.heroImage}
           />
         </div>
@@ -47,10 +46,10 @@ export default function Hero() {
       <div className={`container ${styles.heroContent}`}>
         <motion.div
           className={styles.copyBlock}
-          variants={staggerGroup(0.05, 0.12)}
+          variants={staggerGroup(0.05, 0.06)}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.6 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <motion.span variants={fadeUp} className={styles.kicker}>Bhakti • Seva • Sanskriti</motion.span>
           <motion.h1 variants={fadeUp} className={styles.headline}>Be Part of Krishna&apos;s Seva in Marwar</motion.h1>
@@ -64,7 +63,7 @@ export default function Hero() {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.6 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <a href="/donate" className={`btn ${styles.primaryCta}`}>
             <Heart size={18} /> Offer Your Seva
@@ -76,10 +75,10 @@ export default function Hero() {
 
         <motion.div
           className={styles.badgesRow}
-          variants={staggerGroup(0.05, 0.08)}
+          variants={staggerGroup(0.05, 0.05)}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.6 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           {trustBadges.map((badge) => (
             <motion.div key={badge.text} className={styles.badgeItem} variants={fadeUp}>
@@ -94,10 +93,10 @@ export default function Hero() {
             <span className={styles.quickLabel}>Choose Your Seva</span>
             <motion.div
               className={styles.quickGrid}
-              variants={staggerGroup(0.05, 0.1)}
+              variants={staggerGroup(0.05, 0.05)}
               initial="hidden"
               whileInView="show"
-              viewport={{ once: true, amount: 0.6 }}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <motion.a href="/donate?amount=501" className={styles.quickCard} variants={fadeUp}>
                 <span>₹501</span>

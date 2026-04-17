@@ -6,7 +6,7 @@ export default function GitaQuote() {
       <div className="container">
         <div className={styles.card}>
           <p className={styles.translation}>
-            "Whatever you do, whatever you give, do it as an offering to Me."
+            "तुम जो कुछ भी करते हो, जो खाते हो, जो यज्ञ करते हो, जो दान देते हो, और जो तप करते हो — वह सब मुझे अर्पण करो।"
           </p>
           <p className={styles.ref}>— Bhagavad Gita</p>
         </div>

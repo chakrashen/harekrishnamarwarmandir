@@ -46,10 +46,16 @@
 
 @media (max-width: 640px) {
   .card {
-    padding: 2rem 1.25rem;
+    padding: 1.75rem 1rem;
+  }
+
+  .translation {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    line-height: 1.7;
   }
 
   .sanskrit {
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
+    font-size: clamp(1rem, 3.5vw, 1.3rem);
   }
 }

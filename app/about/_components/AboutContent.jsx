@@ -5,13 +5,20 @@ import { BookOpen, Heart, Leaf, Star } from 'lucide-react';
 import styles from './AboutContent.module.css';
 import WaveBackdrop from '@/app/_components/WaveBackdrop';
 
+import heroImg from '../../../public/about page/About page main background.png';
+import quoteImg from '../../../public/srila-prabhupada.jpg';
+import missionImg from '../../../public/about-mission.png';
+import imgNirman from '../../../public/Mandir Nirman seva impact.jpg';
+import imgAnna from '../../../public/Anna Daan Seva seva impact.png';
+import imgGau from '../../../public/Gau Seva seva impact.jpg';
+
 const impactStories = [
   {
     icon: BookOpen,
     title: 'Mandir Nirman',
     desc: 'A temple built by devotees. Every offering becomes a stone in a sacred home for bhakti and community.',
     impact: 'Construction is active now. Early seva becomes a founding legacy.',
-    image: '/Mandir%20Nirman%20seva%20impact.JPG',
+    image: imgNirman,
     crop: 'center 30%',
   },
   {
@@ -19,7 +26,7 @@ const impactStories = [
     title: 'Anna Daan Seva',
     desc: 'Offer prasadam that nourishes body and soul. Your seva feeds real people today.',
     impact: '1.51+ lakh meals served in Jodhpur through our initiatives.',
-    image: '/Anna%20Daan%20Seva%20seva%20impact.png',
+    image: imgAnna,
     crop: 'center 35%',
   },
   {
@@ -27,7 +34,7 @@ const impactStories = [
     title: 'Gau Seva',
     desc: 'Protect sacred cows with shelter, care, and daily nourishment.',
     impact: 'One offering sustains care that begins immediately.',
-    image: '/Gau%20Seva%20seva%20impact.jpg',
+    image: imgGau,
     crop: 'center 45%',
   },
 ];
@@ -38,7 +45,7 @@ const timeline = [
   { year: '2013', title: 'Anna Daan Begins', desc: 'Daily free prasadam distribution starts, serving communities every day.' },
   { year: '2017', title: 'Chaitanya Kunj', desc: 'A spiritual center opens for regular programs and festivals.' },
   { year: '2022', title: 'Land Sanctioned', desc: 'Government approval received for the grand temple project at Chopasani.' },
-  { year: '2023', title: 'Mandir Construction Begins', desc: 'Construction starts for the 35,000 sq ft Hare Krishna Marwar Mandir.' },
+  { year: '2023', title: 'Mandir Construction Begins', desc: 'Construction starts for the 31,000 sq ft Hare Krishna Marwar Mandir.' },
   { year: '2027', title: 'Grand Opening', desc: 'A spiritual landmark for Marwar opens its doors to future generations.' },
 ];
 
@@ -50,9 +57,10 @@ export default function AboutContent() {
         <div className={styles.heroBg}>
           <WaveBackdrop variant="about" />
           <Image
-            src="/about page/About page main background.png"
+            src={heroImg}
             alt="Hare Krishna Marwar Mandir about page hero"
             fill
+            placeholder="blur"
             priority
             sizes="100vw"
             className={styles.heroImage}
@@ -71,7 +79,7 @@ export default function AboutContent() {
             culture, and care for every visitor who enters.
           </motion.p>
           <div className={styles.heroHighlights}>
-            <span>35,000 sq ft mandir in progress</span>
+            <span>31,000 sq ft mandir in progress</span>
             <span>1.51+ lakh meals served</span>
             <span>2010-2027 sacred legacy</span>
           </div>
@@ -85,13 +93,14 @@ export default function AboutContent() {
       {/* Prabhupada Quote */}
       <section className={`section-pad ${styles.quoteSection}`}>
         <div className="container">
-          <motion.div className={styles.quoteCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <motion.div className={styles.quoteCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }}>
             <div className={styles.quoteImg}>
               <Image
-                src="/srila-prabhupada.jpg"
+                src={quoteImg}
                 alt="His Divine Grace A.C. Bhaktivedanta Swami Prabhupada"
                 fill
-                sizes="(max-width: 768px) 220px, 250px"
+                placeholder="blur"
+                sizes="(max-width: 768px) 120px, 250px"
                 className={styles.quotePortrait}
               />
             </div>
@@ -114,16 +123,17 @@ export default function AboutContent() {
       <section className={`section-pad ${styles.missionSection}`}>
         <div className="container">
           <div className={styles.missionGrid}>
-            <motion.div className={styles.missionImg} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <motion.div className={styles.missionImg} initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.15 }}>
               <Image
-                src="/about-mission.png"
+                src={missionImg}
                 alt="Devotees and spiritual activities at Hare Krishna Marwar Mandir"
                 fill
+                placeholder="blur"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className={styles.missionImage}
               />
             </motion.div>
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.15 }}>
               <span className="section-label">Our Mission</span>
               <h2 className={styles.sectionTitle}>A Spiritual Sanctuary Rooted in Srila Prabhupada&apos;s Vision</h2>
               <p className={styles.bodyText}>
@@ -131,7 +141,7 @@ export default function AboutContent() {
                 as given by His Divine Grace A.C. Bhaktivedanta Swami Prabhupada.
               </p>
               <p className={styles.bodyText}>
-                We are building a 35,000 sq ft temple that becomes a beacon of devotion, culture, and community
+                We are building a 31,000 sq ft temple that becomes a beacon of devotion, culture, and community
                 upliftment. Your early participation becomes a founding legacy for generations.
               </p>
               <div className={styles.impactStats}>
@@ -176,14 +186,15 @@ export default function AboutContent() {
                 className={`${styles.impactRow} ${i % 2 === 1 ? styles.impactRowReverse : ''}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: i * 0.05 }}
               >
                 <div className={styles.impactMedia}>
                   <Image
                     src={story.image}
                     alt={`${story.title} seva impact`}
                     fill
+                    placeholder="blur"
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className={styles.impactImage}
                     style={{ objectPosition: story.crop }}
@@ -227,8 +238,8 @@ export default function AboutContent() {
                 className={styles.timelineCard}
                 initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ delay: i * 0.05 }}
               >
                 <div className={styles.timelineTop}>
                   <span className={styles.timelineYear}>{t.year}</span>

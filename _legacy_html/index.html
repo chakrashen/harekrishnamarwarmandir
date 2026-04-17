@@ -1,309 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hare Krishna Marwar | Temple & Seva — Jodhpur, Rajasthan</title>
-    <meta name="description" content="Hare Krishna Marwar Mandir, Jodhpur — A magnificent spiritual landmark. Donate for Gau Seva, Anna Daan, Temple Construction. Join festivals, darshan, and spiritual events in the heart of Marwar.">
-    <meta name="keywords" content="Hare Krishna Marwar, ISKCON Jodhpur, Temple Donation, Gau Seva, Anna Daan, Rajasthan Temple, Gupt Govardhan Dham">
+    <meta name="description"
+        content="Hare Krishna Marwar Mandir, Jodhpur — A magnificent spiritual landmark. Donate for Gau Seva, Anna Daan, Temple Construction. Join festivals, darshan, and spiritual events in the heart of Marwar.">
+    <meta name="keywords"
+        content="Hare Krishna Marwar, ISKCON Jodhpur, Temple Donation, Gau Seva, Anna Daan, Rajasthan Temple, Gupt Govardhan Dham">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<!-- ═══ NAVIGATION ═══ -->
-<header class="navbar" id="navbar">
-    <div class="container nav-container">
-        <a href="index.html" class="logo">
-            <span class="logo-title">Hare Krishna Marwar</span>
-            <span class="logo-sub">Jodhpur · Rajasthan</span>
-        </a>
-        <nav class="nav-links">
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="about.html" class="nav-link">About</a>
-            <a href="events.html" class="nav-link">Events</a>
-            <a href="gallery.html" class="nav-link">Gallery</a>
-            <a href="donations.html" class="nav-link">Donate</a>
-            <a href="visit.html" class="nav-link">Visit</a>
-            <a href="contact.html" class="nav-link">Contact</a>
-        </nav>
-        <div style="display:flex;align-items:center;gap:1rem;">
-            <a href="donations.html" class="donate-nav-btn">🪔 Donate Now</a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </div>
-</header>
-
-<!-- Mobile Full-Screen Menu -->
-<div class="mobile-menu" id="mobile-menu">
-    <a href="index.html" class="mobile-link">Home</a>
-    <a href="about.html" class="mobile-link">About</a>
-    <a href="events.html" class="mobile-link">Events</a>
-    <a href="gallery.html" class="mobile-link">Gallery</a>
-    <a href="donations.html" class="mobile-link">Donate</a>
-    <a href="visit.html" class="mobile-link">Visit</a>
-    <a href="contact.html" class="mobile-link">Contact</a>
-    <a href="donations.html" class="btn btn-primary" style="margin-top:1rem;">🪔 Donate Now</a>
-</div>
-
-<!-- ═══ HERO ═══ -->
-<section class="hero" id="home">
-    <div class="hero-bg-pattern"></div>
-    <div class="hero-content">
-        <p class="hero-greeting">॥ हरे कृष्ण ॥</p>
-        <h1 class="hero-title">Hare Krishna Marwar</h1>
-        <p class="hero-location">Jodhpur, Rajasthan</p>
-        <p class="hero-verse">"सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज ।<br>अहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः ॥"</p>
-        <p class="hero-verse-ref">— Bhagavad Gita 18.66</p>
-        <div class="hero-cta">
-            <a href="donations.html" class="btn btn-primary">🪔 Donate Now</a>
-            <a href="visit.html" class="btn btn-secondary">🛕 Plan Your Visit</a>
-        </div>
-        <div class="hero-stats">
-            <div class="stat-item"><div class="stat-number">14+</div><div class="stat-label">Years</div></div>
-            <div class="stat-item"><div class="stat-number">50,000+</div><div class="stat-label">Lives Touched</div></div>
-            <div class="stat-item"><div class="stat-number">50L+</div><div class="stat-label">Meals Served</div></div>
-            <div class="stat-item"><div class="stat-number">200+</div><div class="stat-label">Festivals</div></div>
-        </div>
-    </div>
-</section>
-
-<!-- ═══ AARTI TICKER ═══ -->
-<div class="aarti-ticker">
-    <div class="container ticker-content">
-        <span class="ticker-label">🪔 Next Aarti</span>
-        <span class="ticker-aarti" id="next-aarti-name">Loading...</span>
-        <span class="ticker-countdown" id="next-aarti-countdown">--:--:--</span>
-    </div>
-</div>
-
-<!-- ═══ WELCOME / ABOUT PREVIEW ═══ -->
-<section class="welcome-section">
-    <div class="container">
-        <div class="welcome-grid reveal">
-            <div class="welcome-text">
-                <h5>About Our Temple</h5>
-                <h2>A Magnificent Spiritual Landmark</h2>
-                <p>In the royal city of Jodhpur, renowned for its rich heritage and timeless architecture, Hare Krishna Marwar is envisioned as a magnificent spiritual landmark — a sanctuary of devotion, culture, and divine harmony.</p>
-                <p>Guided by the teachings of the Bhagavad Gita and Srimad Bhagavatam, we promote devotion, service, and spiritual growth through Annadana Seva, Gau Seva, youth empowerment, and cultural festivals.</p>
-                <a href="about.html" class="btn btn-secondary btn-small" style="margin-top:1rem;">Learn More →</a>
-            </div>
-            <div class="welcome-image">🛕</div>
-        </div>
-    </div>
-</section>
-
-<!-- ═══ EXPLORE TEMPLE (GVD-inspired cards) ═══ -->
-<section class="events-section">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">Explore</span>
-            <h2 class="section-title">Discover Our Temple</h2>
-            <div class="section-divider"></div>
-            <p class="section-desc">Become acquainted with the various services, immerse yourself in the transcendental environment, and feel invigorated.</p>
-        </div>
-        <div class="explore-grid reveal">
-            <a href="events.html" class="explore-card" style="background: linear-gradient(135deg, #5B2C0E, #3B0A0A);">
-                <div class="explore-card-placeholder">🐄</div>
-                <div class="explore-card-overlay">
-                    <div class="explore-card-icon">🐄</div>
-                    <div class="explore-card-title">Gau Shala</div>
-                    <div class="explore-card-desc">Sacred cow shelter & protection</div>
-                </div>
-            </a>
-            <a href="events.html" class="explore-card" style="background: linear-gradient(135deg, #4A1E08, #2A0505);">
-                <div class="explore-card-placeholder">🍛</div>
-                <div class="explore-card-overlay">
-                    <div class="explore-card-icon">🍛</div>
-                    <div class="explore-card-title">Anna Daan Prasadam</div>
-                    <div class="explore-card-desc">Free meals for devotees daily</div>
-                </div>
-            </a>
-            <a href="events.html" class="explore-card" style="background: linear-gradient(135deg, #3B1A08, #1C0505);">
-                <div class="explore-card-placeholder">📖</div>
-                <div class="explore-card-overlay">
-                    <div class="explore-card-icon">📖</div>
-                    <div class="explore-card-title">Bhagavad Gita Study</div>
-                    <div class="explore-card-desc">Weekly spiritual classes</div>
-                </div>
-            </a>
-            <a href="events.html" class="explore-card" style="background: linear-gradient(135deg, #4A2508, #3B0A0A);">
-                <div class="explore-card-placeholder">🧑‍🤝‍🧑</div>
-                <div class="explore-card-overlay">
-                    <div class="explore-card-icon">🧑‍🤝‍🧑</div>
-                    <div class="explore-card-title">Youth Programs</div>
-                    <div class="explore-card-desc">Secrets of Success sessions</div>
-                </div>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- ═══ DONATION CTA BANNER ═══ -->
-<section class="cta-banner reveal">
-    <div class="container">
-        <h2>Join Hands in Building a Spiritual Legacy</h2>
-        <p>Join hands in building a magnificent spiritual landmark dedicated to Lord Krishna — a beacon of devotion and culture in the heart of Marwar.</p>
-        <a href="donations.html" class="btn btn-primary">🪔 Contribute Now</a>
-    </div>
-</section>
-
-<!-- ═══ DARSHAN PREVIEW ═══ -->
-<section class="darshan-section">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">Daily Schedule</span>
-            <h2 class="section-title">Darshan & Aarti Timings</h2>
-            <div class="section-divider"></div>
-            <p class="section-desc">Divine moments await you. Temple Opens: 08:30 AM – 08:30 PM daily.</p>
-        </div>
-        <div class="aarti-grid reveal">
-            <div class="aarti-card"><div class="aarti-icon">🌅</div><div><div class="aarti-name">Mangala Aarti</div><div class="aarti-time">04:30 AM</div><div class="aarti-desc">Wake up the deity with devotional songs</div></div></div>
-            <div class="aarti-card"><div class="aarti-icon">🌺</div><div><div class="aarti-name">Darshan Aarti</div><div class="aarti-time">07:00 AM</div><div class="aarti-desc">Morning dress and decoration of deities</div></div></div>
-            <div class="aarti-card"><div class="aarti-icon">🍛</div><div><div class="aarti-name">Raj Bhog Aarti</div><div class="aarti-time">12:00 PM</div><div class="aarti-desc">The grand afternoon meal offering</div></div></div>
-            <div class="aarti-card"><div class="aarti-icon">🛕</div><div><div class="aarti-name">Utthapan Aarti</div><div class="aarti-time">04:00 PM</div><div class="aarti-desc">Afternoon awakening ceremony</div></div></div>
-            <div class="aarti-card"><div class="aarti-icon">🪔</div><div><div class="aarti-name">Sandhya Aarti</div><div class="aarti-time">07:30 PM</div><div class="aarti-desc">Evening prayers and lamp ceremony</div></div></div>
-            <div class="aarti-card"><div class="aarti-icon">🌙</div><div><div class="aarti-name">Shayan Aarti</div><div class="aarti-time">08:30 PM</div><div class="aarti-desc">Night rest ceremony for the deities</div></div></div>
-        </div>
-        <div class="temple-hours reveal">
-            <div class="hours-card"><div class="hours-label">Morning Session</div><div class="hours-time">4:30 AM — 12:30 PM</div></div>
-            <div class="hours-card"><div class="hours-label">Evening Session</div><div class="hours-time">4:00 PM — 8:30 PM</div></div>
-        </div>
-        <div style="text-align:center;margin-top:2rem;">
-            <a href="events.html" class="btn btn-secondary btn-small">View All Events & Programs →</a>
-        </div>
-    </div>
-</section>
-
-<!-- ═══ TESTIMONIALS ═══ -->
-<section class="testimonials-section">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-label">Devotee Voices</span>
-            <h2 class="section-title">What Devotees Say</h2>
-            <div class="section-divider"></div>
-            <p class="section-desc">Hear from our beloved devotees about their spiritual journey with us</p>
-        </div>
-        <div class="testimonial-grid reveal">
-            <div class="testimonial-card">
-                <div class="testimonial-quote-icon">❝</div>
-                <p class="testimonial-text">"Visiting Hare Krishna Marwar has completely transformed my life. The serene atmosphere and the teachings of Lord Krishna inspire me every day to live with love, compassion, and devotion."</p>
-                <p class="testimonial-author">Ramesh Kumar</p>
-                <p class="testimonial-role">Regular Devotee</p>
-                <p class="testimonial-location">Jodhpur, Rajasthan</p>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-quote-icon">❝</div>
-                <p class="testimonial-text">"The Bhagavad Gita sessions here are enlightening. I feel spiritually nourished and find practical guidance for facing life's challenges with clarity and peace."</p>
-                <p class="testimonial-author">Meera Sharma</p>
-                <p class="testimonial-role">Visiting Devotee</p>
-                <p class="testimonial-location">Mumbai, Maharashtra</p>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-quote-icon">❝</div>
-                <p class="testimonial-text">"Participating in Annadana Seva has taught me the joy of selfless service. Feeding others with prasadam brings immense happiness and a sense of connection to Lord Krishna."</p>
-                <p class="testimonial-author">Arjun Patel</p>
-                <p class="testimonial-role">Temple Volunteer</p>
-                <p class="testimonial-location">Ahmedabad, Gujarat</p>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-quote-icon">❝</div>
-                <p class="testimonial-text">"Hare Krishna Marwar is more than a temple; it's a spiritual home. The youth programs helped me develop skills while staying grounded in Krishna Consciousness."</p>
-                <p class="testimonial-author">Priya Agarwal</p>
-                <p class="testimonial-role">Temple Patron</p>
-                <p class="testimonial-location">Delhi, India</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ═══ NEWSLETTER ═══ -->
-<section class="newsletter-section reveal">
-    <div class="container">
-        <span class="section-label">Stay Connected</span>
-        <h2 class="section-title">Stay Connected with Krishna</h2>
-        <div class="section-divider"></div>
-        <p class="section-desc">Get updates on festivals, aarti timings, and special events</p>
-        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
-            <input type="email" placeholder="Enter your email address" required>
-            <button type="submit" class="btn btn-primary">Subscribe</button>
-        </form>
-    </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-top">
-            <div class="footer-brand">
+    <!-- ═══ NAVIGATION ═══ -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
                 <span class="logo-title">Hare Krishna Marwar</span>
-                <span class="logo-sub" style="display:block;margin-bottom:1rem;">Jodhpur · Rajasthan</span>
-                <p>A spiritual organization devoted to uplifting human life through Krishna Consciousness, inner peace, and community service.</p>
-                <div class="footer-social">
-                    <a href="#" aria-label="Facebook">📘</a>
-                    <a href="#" aria-label="Instagram">📸</a>
-                    <a href="#" aria-label="YouTube">▶️</a>
-                    <a href="https://wa.me/919116139371" aria-label="WhatsApp">💬</a>
+                <span class="logo-sub">Jodhpur · Rajasthan</span>
+            </a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="donations.html" class="nav-link">Donate</a>
+                <a href="visit.html" class="nav-link">Visit</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div style="display:flex;align-items:center;gap:1rem;">
+                <a href="donations.html" class="donate-nav-btn">🪔 Donate Now</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Full-Screen Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html" class="mobile-link">Home</a>
+        <a href="about.html" class="mobile-link">About</a>
+        <a href="events.html" class="mobile-link">Events</a>
+        <a href="gallery.html" class="mobile-link">Gallery</a>
+        <a href="donations.html" class="mobile-link">Donate</a>
+        <a href="visit.html" class="mobile-link">Visit</a>
+        <a href="contact.html" class="mobile-link">Contact</a>
+        <a href="donations.html" class="btn btn-primary" style="margin-top:1rem;">🪔 Donate Now</a>
+    </div>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="home">
+        <div class="hero-bg-pattern"></div>
+        <div class="hero-content">
+            <p class="hero-greeting">॥ हरे कृष्ण ॥</p>
+            <h1 class="hero-title">Hare Krishna Marwar</h1>
+            <p class="hero-location">Jodhpur, Rajasthan</p>
+            <p class="hero-verse">"सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज ।<br>अहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा
+                शुचः ॥"</p>
+            <p class="hero-verse-ref">— Bhagavad Gita 18.66</p>
+            <div class="hero-cta">
+                <a href="donations.html" class="btn btn-primary">🪔 Donate Now</a>
+                <a href="visit.html" class="btn btn-secondary">🛕 Plan Your Visit</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">14+</div>
+                    <div class="stat-label">Years</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50,000+</div>
+                    <div class="stat-label">Lives Touched</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50L+</div>
+                    <div class="stat-label">Meals Served</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Festivals</div>
                 </div>
             </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="events.html">Darshan & Events</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="donations.html">Donations</a>
-            </div>
-            <div class="footer-col">
-                <h4>Temple Timings</h4>
-                <a href="events.html">Morning Aarti: 4:30 AM</a>
-                <a href="events.html">Evening Aarti: 8:00 PM</a>
-                <a href="visit.html">Opens: 08:30 AM – 08:30 PM</a>
-                <a href="contact.html">+91 91161 39371</a>
-                <a href="mailto:harekrishna@hkmjodhpur.org">harekrishna@hkmjodhpur.org</a>
-            </div>
         </div>
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2026 Hare Krishna Marwar, Jodhpur. All rights reserved.</p>
-            <p class="footer-gita">"सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज" — भगवद्गीता 18.66</p>
+    </section>
+
+    <!-- ═══ AARTI TICKER ═══ -->
+    <div class="aarti-ticker">
+        <div class="container ticker-content">
+            <span class="ticker-label">🪔 Next Aarti</span>
+            <span class="ticker-aarti" id="next-aarti-name">Loading...</span>
+            <span class="ticker-countdown" id="next-aarti-countdown">--:--:--</span>
         </div>
     </div>
-</footer>
 
-<!-- ═══ MOBILE BOTTOM NAV ═══ -->
-<nav class="bottom-nav" id="bottom-nav">
-    <div class="bottom-nav-items">
-        <a href="index.html" class="bottom-nav-item active">
-            <span class="bottom-nav-icon">🏠</span>
-            <span>Home</span>
-        </a>
-        <a href="about.html" class="bottom-nav-item">
-            <span class="bottom-nav-icon">🛕</span>
-            <span>Mandir</span>
-        </a>
-        <a href="about.html#prabhupada" class="bottom-nav-item">
-            <span class="bottom-nav-icon">🙏</span>
-            <span>Prabhupada</span>
-        </a>
-        <a href="events.html" class="bottom-nav-item">
-            <span class="bottom-nav-icon">📅</span>
-            <span>Events</span>
-        </a>
-        <a href="contact.html" class="bottom-nav-item">
-            <span class="bottom-nav-icon">☰</span>
-            <span>More</span>
-        </a>
+    <!-- ═══ WELCOME / ABOUT PREVIEW ═══ -->
+    <section class="welcome-section">
+        <div class="container">
+            <div class="welcome-grid reveal">
+                <div class="welcome-text">
+                    <h5>About Our Temple</h5>
+                    <h2>A Magnificent Spiritual Landmark</h2>
+                    <p>In the royal city of Jodhpur, renowned for its rich heritage and timeless architecture, Hare
+                        Krishna Marwar is envisioned as a magnificent spiritual landmark — a sanctuary of devotion,
+                        culture, and divine harmony.</p>
+                    <p>Guided by the teachings of the Bhagavad Gita and Srimad Bhagavatam, we promote devotion, service,
+                        and spiritual growth through Annadana Seva, Gau Seva, youth empowerment, and cultural festivals.
+                    </p>
+                    <a href="about.html" class="btn btn-secondary btn-small" style="margin-top:1rem;">Learn More →</a>
+                </div>
+                <div class="welcome-image">🛕</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ EXPLORE TEMPLE (GVD-inspired cards) ═══ -->
+    <section class="events-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Explore</span>
+                <h2 class="section-title">Discover Our Temple</h2>
+                <div class="section-divider"></div>
+                <p class="section-desc">Become acquainted with the various services, immerse yourself in the
+                    transcendental environment, and feel invigorated.</p>
+            </div>
+            <div class="explore-grid reveal">
+                <a href="events.html" class="explore-card"
+                    style="background: linear-gradient(135deg, #5B2C0E, #3B0A0A);">
+                    <div class="explore-card-placeholder">🐄</div>
+                    <div class="explore-card-overlay">
+                        <div class="explore-card-icon">🐄</div>
+                        <div class="explore-card-title">Gau Shala</div>
+                        <div class="explore-card-desc">Sacred cow shelter & protection</div>
+                    </div>
+                </a>
+                <a href="events.html" class="explore-card"
+                    style="background: linear-gradient(135deg, #4A1E08, #2A0505);">
+                    <div class="explore-card-placeholder">🍛</div>
+                    <div class="explore-card-overlay">
+                        <div class="explore-card-icon">🍛</div>
+                        <div class="explore-card-title">Anna Daan Prasadam</div>
+                        <div class="explore-card-desc">Free meals for devotees daily</div>
+                    </div>
+                </a>
+                <a href="events.html" class="explore-card"
+                    style="background: linear-gradient(135deg, #3B1A08, #1C0505);">
+                    <div class="explore-card-placeholder">📖</div>
+                    <div class="explore-card-overlay">
+                        <div class="explore-card-icon">📖</div>
+                        <div class="explore-card-title">Bhagavad Gita Study</div>
+                        <div class="explore-card-desc">Weekly spiritual classes</div>
+                    </div>
+                </a>
+                <a href="events.html" class="explore-card"
+                    style="background: linear-gradient(135deg, #4A2508, #3B0A0A);">
+                    <div class="explore-card-placeholder">🧑‍🤝‍🧑</div>
+                    <div class="explore-card-overlay">
+                        <div class="explore-card-icon">🧑‍🤝‍🧑</div>
+                        <div class="explore-card-title">Youth Programs</div>
+                        <div class="explore-card-desc">Secrets of Success sessions</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ DONATION CTA BANNER ═══ -->
+    <section class="cta-banner reveal">
+        <div class="container">
+            <h2>Join Hands in Building a Spiritual Legacy</h2>
+            <p>Join hands in building a magnificent spiritual landmark dedicated to Lord Krishna — a beacon of devotion
+                and culture in the heart of Marwar.</p>
+            <a href="donations.html" class="btn btn-primary">🪔 Contribute Now</a>
+        </div>
+    </section>
+
+    <!-- ═══ DARSHAN PREVIEW ═══ -->
+    <section class="darshan-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Daily Schedule</span>
+                <h2 class="section-title">Darshan & Aarti Timings</h2>
+                <div class="section-divider"></div>
+                <p class="section-desc">Divine moments await you. Temple Opens: 08:30 AM – 08:30 PM daily.</p>
+            </div>
+            <div class="aarti-grid reveal">
+                <div class="aarti-card">
+                    <div class="aarti-icon">🌅</div>
+                    <div>
+                        <div class="aarti-name">Mangala Aarti</div>
+                        <div class="aarti-time">04:30 AM</div>
+                        <div class="aarti-desc">Wake up the deity with devotional songs</div>
+                    </div>
+                </div>
+                <div class="aarti-card">
+                    <div class="aarti-icon">🌺</div>
+                    <div>
+                        <div class="aarti-name">Darshan Aarti</div>
+                        <div class="aarti-time">07:00 AM</div>
+                        <div class="aarti-desc">Morning dress and decoration of deities</div>
+                    </div>
+                </div>
+                <div class="aarti-card">
+                    <div class="aarti-icon">🍛</div>
+                    <div>
+                        <div class="aarti-name">Raj Bhog Aarti</div>
+                        <div class="aarti-time">12:00 PM</div>
+                        <div class="aarti-desc">The grand afternoon meal offering</div>
+                    </div>
+                </div>
+                <div class="aarti-card">
+                    <div class="aarti-icon">🛕</div>
+                    <div>
+                        <div class="aarti-name">Utthapan Aarti</div>
+                        <div class="aarti-time">04:00 PM</div>
+                        <div class="aarti-desc">Afternoon awakening ceremony</div>
+                    </div>
+                </div>
+                <div class="aarti-card">
+                    <div class="aarti-icon">🪔</div>
+                    <div>
+                        <div class="aarti-name">Sandhya Aarti</div>
+                        <div class="aarti-time">07:30 PM</div>
+                        <div class="aarti-desc">Evening prayers and lamp ceremony</div>
+                    </div>
+                </div>
+                <div class="aarti-card">
+                    <div class="aarti-icon">🌙</div>
+                    <div>
+                        <div class="aarti-name">Shayan Aarti</div>
+                        <div class="aarti-time">08:30 PM</div>
+                        <div class="aarti-desc">Night rest ceremony for the deities</div>
+                    </div>
+                </div>
+            </div>
+            <div class="temple-hours reveal">
+                <div class="hours-card">
+                    <div class="hours-label">Morning Session</div>
+                    <div class="hours-time">4:30 AM — 12:30 PM</div>
+                </div>
+                <div class="hours-card">
+                    <div class="hours-label">Evening Session</div>
+                    <div class="hours-time">4:00 PM — 8:30 PM</div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:2rem;">
+                <a href="events.html" class="btn btn-secondary btn-small">View All Events & Programs →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TESTIMONIALS ═══ -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Devotee Voices</span>
+                <h2 class="section-title">What Devotees Say</h2>
+                <div class="section-divider"></div>
+                <p class="section-desc">Hear from our beloved devotees about their spiritual journey with us</p>
+            </div>
+            <div class="testimonial-grid reveal">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-icon">❝</div>
+                    <p class="testimonial-text">"Visiting Hare Krishna Marwar has completely transformed my life. The
+                        serene atmosphere and the teachings of Lord Krishna inspire me every day to live with love,
+                        compassion, and devotion."</p>
+                    <p class="testimonial-author">Ramesh Kumar</p>
+                    <p class="testimonial-role">Regular Devotee</p>
+                    <p class="testimonial-location">Jodhpur, Rajasthan</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-icon">❝</div>
+                    <p class="testimonial-text">"The Bhagavad Gita sessions here are enlightening. I feel spiritually
+                        nourished and find practical guidance for facing life's challenges with clarity and peace."</p>
+                    <p class="testimonial-author">Meera Sharma</p>
+                    <p class="testimonial-role">Visiting Devotee</p>
+                    <p class="testimonial-location">Mumbai, Maharashtra</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-icon">❝</div>
+                    <p class="testimonial-text">"Participating in Annadana Seva has taught me the joy of selfless
+                        service. Feeding others with prasadam brings immense happiness and a sense of connection to Lord
+                        Krishna."</p>
+                    <p class="testimonial-author">Arjun Patel</p>
+                    <p class="testimonial-role">Temple Volunteer</p>
+                    <p class="testimonial-location">Ahmedabad, Gujarat</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote-icon">❝</div>
+                    <p class="testimonial-text">"Hare Krishna Marwar is more than a temple; it's a spiritual home. The
+                        youth programs helped me develop skills while staying grounded in Krishna Consciousness."</p>
+                    <p class="testimonial-author">Priya Agarwal</p>
+                    <p class="testimonial-role">Temple Patron</p>
+                    <p class="testimonial-location">Delhi, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ NEWSLETTER ═══ -->
+    <section class="newsletter-section reveal">
+        <div class="container">
+            <span class="section-label">Stay Connected</span>
+            <h2 class="section-title">Stay Connected with Krishna</h2>
+            <div class="section-divider"></div>
+            <p class="section-desc">Get updates on festivals, aarti timings, and special events</p>
+            <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="logo-title">Hare Krishna Marwar</span>
+                    <span class="logo-sub" style="display:block;margin-bottom:1rem;">Jodhpur · Rajasthan</span>
+                    <p>A spiritual organization devoted to uplifting human life through Krishna Consciousness, inner
+                        peace, and community service.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📸</a>
+                        <a href="#" aria-label="YouTube">▶️</a>
+                        <a href="https://wa.me/919928766773" aria-label="WhatsApp">💬</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="events.html">Darshan & Events</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="donations.html">Donations</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Temple Timings</h4>
+                    <a href="events.html">Morning Aarti: 4:30 AM</a>
+                    <a href="events.html">Evening Aarti: 8:00 PM</a>
+                    <a href="visit.html">Opens: 08:30 AM – 08:30 PM</a>
+                    <a href="contact.html">+91 99287 66773</a>
+                    <a href="mailto:harekrishna@hkmjodhpur.org">harekrishna@hkmjodhpur.org</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 Hare Krishna Marwar, Jodhpur. All rights reserved.</p>
+                <p class="footer-gita">"सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज" — भगवद्गीता 18.66</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══ MOBILE BOTTOM NAV ═══ -->
+    <nav class="bottom-nav" id="bottom-nav">
+        <div class="bottom-nav-items">
+            <a href="index.html" class="bottom-nav-item active">
+                <span class="bottom-nav-icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="about.html" class="bottom-nav-item">
+                <span class="bottom-nav-icon">🛕</span>
+                <span>Mandir</span>
+            </a>
+            <a href="about.html#prabhupada" class="bottom-nav-item">
+                <span class="bottom-nav-icon">🙏</span>
+                <span>Prabhupada</span>
+            </a>
+            <a href="events.html" class="bottom-nav-item">
+                <span class="bottom-nav-icon">📅</span>
+                <span>Events</span>
+            </a>
+            <a href="contact.html" class="bottom-nav-item">
+                <span class="bottom-nav-icon">☰</span>
+                <span>More</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ═══ FLOATING BUTTONS ═══ -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/919928766773" target="_blank" class="fab fab-whatsapp" aria-label="WhatsApp">💬</a>
+        <a href="donations.html" class="fab fab-donate" aria-label="Donate">🪔</a>
+        <button class="fab fab-scroll-top" id="scroll-top-btn" aria-label="Scroll to top">↑</button>
     </div>
-</nav>
 
-<!-- ═══ FLOATING BUTTONS ═══ -->
-<div class="floating-buttons">
-    <a href="https://wa.me/919116139371" target="_blank" class="fab fab-whatsapp" aria-label="WhatsApp">💬</a>
-    <a href="donations.html" class="fab fab-donate" aria-label="Donate">🪔</a>
-    <button class="fab fab-scroll-top" id="scroll-top-btn" aria-label="Scroll to top">↑</button>
-</div>
-
-<script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
+
 </html>

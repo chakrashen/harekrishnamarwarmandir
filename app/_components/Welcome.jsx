@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 import styles from './Welcome.module.css';
+import thumbImg from '../../public/temple-intro-video-thumbnail.jpg';
 
 export default function Welcome() {
   return (
@@ -12,10 +13,11 @@ export default function Welcome() {
           <div className={styles.videoSide}>
             <div className={styles.videoPlaceholder}>
               <Image
-                src="/temple-intro-video-thumbnail.jpg"
+                src={thumbImg}
                 alt="Temple intro video thumbnail"
                 className={styles.videoThumb}
                 fill
+                placeholder="blur"
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority={false}
               />
@@ -27,7 +29,7 @@ export default function Welcome() {
             className={styles.textSide}
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8 }}
           >
             <span className="section-label">About Our Temple</span>

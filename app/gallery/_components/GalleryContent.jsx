@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ZoomIn } from 'lucide-react';
 import styles from './GalleryContent.module.css';
 
+import heroImg from '../../../public/gallery/gallery page background.jpeg';
+
 const categories = ['All', 'Temple', 'Gau Seva', 'Anna Daan', 'Events', 'Mandir Event'];
 
 const photos = [
@@ -61,9 +63,10 @@ export default function GalleryContent() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image
-            src="/gallery/gallery page background.jpeg"
+            src={heroImg}
             alt="Gallery at Hare Krishna Marwar Mandir"
             fill
+            placeholder="blur"
             priority
             sizes="100vw"
             className={styles.heroImage}

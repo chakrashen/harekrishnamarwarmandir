@@ -1,5 +1,7 @@
 .footer {
-  background: var(--bg-dark);
+  background:
+    radial-gradient(circle at 90% 0%, rgba(107, 142, 122, 0.06), transparent 45%),
+    var(--bg-dark);
   color: var(--text-primary);
   padding: 4rem 0 0;
   border-top: 1px solid var(--border-light);
@@ -86,7 +88,7 @@
 }
 
 .link:hover {
-  color: var(--saffron);
+  color: var(--green-earth);
   padding-left: 0.3rem;
 }
 

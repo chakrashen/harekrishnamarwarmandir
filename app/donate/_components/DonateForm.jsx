@@ -413,6 +413,8 @@ export default function DonateForm() {
                         onChange={handleChange}
                         required
                         placeholder="Enter your full name"
+                        autoComplete="name"
+                        enterKeyHint="next"
                         className={`${styles.input} ${fieldErrors.name ? styles.inputError : ''}`}
                         autoFocus
                       />
@@ -427,6 +429,8 @@ export default function DonateForm() {
                           value={form.email}
                           onChange={handleChange}
                           placeholder="your@email.com"
+                          autoComplete="email"
+                          enterKeyHint="next"
                           className={`${styles.input} ${fieldErrors.email ? styles.inputError : ''}`}
                         />
                         {fieldErrors.email && <p className={styles.inlineError}>{fieldErrors.email}</p>}
@@ -441,6 +445,8 @@ export default function DonateForm() {
                           placeholder="10-digit number"
                           maxLength={10}
                           inputMode="numeric"
+                          autoComplete="tel"
+                          enterKeyHint="next"
                           className={`${styles.input} ${fieldErrors.mobile ? styles.inputError : ''}`}
                         />
                         {fieldErrors.mobile && <p className={styles.inlineError}>{fieldErrors.mobile}</p>}
@@ -448,7 +454,7 @@ export default function DonateForm() {
                     </div>
                     <div className={styles.fieldGroup}>
                       <label className={styles.fieldLabel}>Dedicate this donation (optional)</label>
-                      <input name="dedication" value={form.dedication} onChange={handleChange} placeholder="In memory of / On behalf of..." className={styles.input} />
+                      <input name="dedication" value={form.dedication} onChange={handleChange} placeholder="In memory of / On behalf of..." enterKeyHint="next" className={styles.input} />
                     </div>
 
                     <div className={styles.fieldGroup}>
@@ -474,6 +480,7 @@ export default function DonateForm() {
                             value={form.panNo}
                             onChange={handleChange}
                             placeholder="ABCDE1234F"
+                            enterKeyHint="next"
                             className={`${styles.input} ${fieldErrors.panNo ? styles.inputError : ''}`}
                           />
                           {fieldErrors.panNo && <p className={styles.inlineError}>{fieldErrors.panNo}</p>}
@@ -485,6 +492,7 @@ export default function DonateForm() {
                             value={form.aadharNo}
                             onChange={handleChange}
                             placeholder="12-digit Aadhaar"
+                            enterKeyHint="next"
                             className={`${styles.input} ${fieldErrors.aadharNo ? styles.inputError : ''}`}
                             inputMode="numeric"
                             maxLength={12}
@@ -501,6 +509,8 @@ export default function DonateForm() {
                         value={form.addressLine1}
                         onChange={handleChange}
                         placeholder="House no, street"
+                        autoComplete="address-line1"
+                        enterKeyHint="next"
                         className={`${styles.input} ${fieldErrors.addressLine1 ? styles.inputError : ''}`}
                       />
                       {fieldErrors.addressLine1 && <p className={styles.inlineError}>{fieldErrors.addressLine1}</p>}
@@ -513,6 +523,8 @@ export default function DonateForm() {
                         value={form.addressLine2}
                         onChange={handleChange}
                         placeholder="Area, landmark"
+                        autoComplete="address-line2"
+                        enterKeyHint="next"
                         className={styles.input}
                       />
                     </div>
@@ -525,6 +537,8 @@ export default function DonateForm() {
                           value={form.city}
                           onChange={handleChange}
                           placeholder="City"
+                          autoComplete="address-level2"
+                          enterKeyHint="next"
                           className={`${styles.input} ${fieldErrors.city ? styles.inputError : ''}`}
                         />
                         {fieldErrors.city && <p className={styles.inlineError}>{fieldErrors.city}</p>}
@@ -536,6 +550,8 @@ export default function DonateForm() {
                           value={form.state}
                           onChange={handleChange}
                           placeholder="State"
+                          autoComplete="address-level1"
+                          enterKeyHint="next"
                           className={`${styles.input} ${fieldErrors.state ? styles.inputError : ''}`}
                         />
                         {fieldErrors.state && <p className={styles.inlineError}>{fieldErrors.state}</p>}
@@ -550,6 +566,8 @@ export default function DonateForm() {
                           value={form.country}
                           onChange={handleChange}
                           placeholder="Country"
+                          autoComplete="country-name"
+                          enterKeyHint="next"
                           className={`${styles.input} ${fieldErrors.country ? styles.inputError : ''}`}
                         />
                         {fieldErrors.country && <p className={styles.inlineError}>{fieldErrors.country}</p>}
@@ -561,6 +579,8 @@ export default function DonateForm() {
                           value={form.pinCode}
                           onChange={handleChange}
                           placeholder="6-digit PIN"
+                          autoComplete="postal-code"
+                          enterKeyHint="done"
                           className={`${styles.input} ${fieldErrors.pinCode ? styles.inputError : ''}`}
                           inputMode="numeric"
                           maxLength={6}

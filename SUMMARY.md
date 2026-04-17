@@ -1,4 +1,50 @@
-# SUMMARY.md — Session 3: Fixing Donation Receipt Flow
+# SUMMARY.md — Hare Krishna Marwar Mandir Website
+
+## Session Update — 2026-04-17 (Mobile & Local Network Loading Audit + Fixes)
+
+### Issue
+- Home page was not loading when accessed via local WiFi network on mobile devices.
+- Multiple components were not rendering on mobile view.
+
+### Root Causes Found (10 total)
+1. **Dev server only bound to localhost** — couldn't be accessed from WiFi devices
+2. **Duplicate CSP** — meta tag + response headers conflicted, blocking HTTP resources
+3. **8.5MB loader video** — blocked rendering on slow connections
+4. **Tailwind v3 syntax with v4 package** — base styles not injecting properly
+5. **Missing favicon.ico** — 404 on every page load
+6. **Dev mode loader bypass** — loader showed on every dev reload
+7. **GPU-heavy SVG blur** — jank on low-end mobile
+8. **Footer image warning** — aspect ratio not maintained
+9. **Tiny placeholder images** — broken explore section visuals
+10. **YouTube iframe weight** — added load to initial page
+
+### Fixes Applied
+1. `package.json` — Changed `next dev` → `next dev -H 0.0.0.0` for LAN access
+2. `app/layout.jsx` — Removed duplicate CSP meta tag (kept headers-only in next.config.mjs), fixed favicon `.ico` → `.svg`
+3. `app/_components/InitialLoaderGate.jsx` — Reduced timeout 3500→2500ms, skip on slow connections (2g/3g), fixed dev session check, added CSS spinner fallback
+4. `app/_components/InitialLoaderGate.module.css` — Added CSS hard fail-safe (auto-hides overlay after 3.2s even if JS fails), added spinner animation
+5. `app/globals.css` — Fixed `@tailwind base/components/utilities` → `@import "tailwindcss"` for Tailwind v4
+6. `app/_components/WaveBackdrop.jsx` — Reduced SVG blur from 26→12 for mobile GPU performance
+7. `app/_components/Footer.jsx` — Fixed QR image aspect ratio warning
+
+### Deferred / User Action
+- User will replace the 8.5MB `loading-video.mp4` with a lighter file
+- Placeholder images (`explore-youth.jpg`, etc.) need real photos
+
+### Files Updated
+- `package.json`
+- `app/layout.jsx`
+- `app/globals.css`
+- `app/_components/InitialLoaderGate.jsx`
+- `app/_components/InitialLoaderGate.module.css`
+- `app/_components/WaveBackdrop.jsx`
+- `app/_components/Footer.jsx`
+
+### Verification
+- Dev server running on `0.0.0.0:3000` ✅
+- Home page loads (HTTP 200) ✅
+- All 13 sections render (page height 9037px) ✅
+- No compilation errors ✅
 
 ## Session Update — 2026-04-15 (Receipt Category Fix)
 
@@ -483,7 +529,7 @@
 3. **Hero Section** — full-viewport maroon gradient, Sanskrit verse, animated stats (14+ Years, 50k+ Lives, 50L+ Meals)
 4. **Aarti Ticker** — live countdown to next darshan
 5. **Welcome Section** — video placeholder + temple introduction
-6. **Construction Meter** — 35,000 sq ft progress bar (24%), March 2027 countdown timer
+6. **Construction Meter** — 31,000 sq ft progress bar (24%), March 2027 countdown timer
 7. **Seva Cards** — 4 seva types with impact text, optional recurring checkbox
 8. **Explore Temple** — 6 facility cards with hover effects
 9. **Testimonials** — video carousel with navigation

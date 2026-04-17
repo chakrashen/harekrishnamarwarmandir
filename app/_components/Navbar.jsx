@@ -62,13 +62,13 @@ export default function Navbar() {
               <Mail size={14} aria-hidden="true" />
               <span>harekrishna@hkmjodhpur.org</span>
             </a>
-            <a href="https://wa.me/919116139371" className={styles.topBarLink} target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/919928766773" className={styles.topBarLink} target="_blank" rel="noopener noreferrer">
               <MessageCircle size={14} aria-hidden="true" />
               <span>WhatsApp</span>
             </a>
-            <a href="tel:+919116139371" className={styles.topBarLink}>
+            <a href="tel:+919928766773" className={styles.topBarLink}>
               <Phone size={14} aria-hidden="true" />
-              <span>+91 91161 39371</span>
+              <span>+91 99287 66773</span>
             </a>
           </div>
           <div className={styles.topBarRight}>

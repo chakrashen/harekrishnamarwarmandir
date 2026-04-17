@@ -14,6 +14,12 @@
   padding: 1rem 1.5rem;
   min-width: 80px;
   box-shadow: var(--shadow-sm);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.countUnit:hover {
+  border-color: rgba(107, 142, 122, 0.3);
+  box-shadow: 0 6px 20px rgba(107, 142, 122, 0.1);
 }
 
 .countNum {
@@ -90,7 +96,7 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--saffron), var(--gold));
+  background: linear-gradient(90deg, var(--green-earth), var(--saffron), var(--gold));
   border-radius: var(--radius-full);
   position: relative;
 }
@@ -138,11 +144,19 @@
 }
 
 @media (max-width: 768px) {
-  .meterCard { padding: 1.5rem; }
+  .meterCard { padding: 1.25rem; }
   .meterTop { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .meterPercent { font-size: 2rem; }
-  .countUnit { min-width: 60px; padding: 0.75rem 0.5rem; flex: 1; }
-  .countNum { font-size: 1.5rem; }
+  .countdown { gap: 0.75rem; }
+  .countUnit { min-width: 0; flex: 1; padding: 0.75rem 0.5rem; }
+  .countNum { font-size: 1.4rem; }
+  .countLabel { font-size: 0.6rem; }
   .meterBottom { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-  .meterStatLabel { font-size: 0.6rem; }
+  .meterStatNum { font-size: 1.1rem; }
+  .meterStatLabel { font-size: 0.58rem; }
+}
+
+@media (max-width: 400px) {
+  .countdown { gap: 0.5rem; }
+  .countNum { font-size: 1.2rem; }
 }

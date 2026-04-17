@@ -12,9 +12,9 @@ const quickLinks = [
 ];
 
 const sevaLinks = [
-  { name: 'Anna Daan Seva', href: '/donate#anna-daan' },
-  { name: 'Gau Seva', href: '/donate#gau-seva' },
-  { name: 'Mandir Nirman Seva', href: '/donate#mandir-nirman' },
+  { name: 'Anna Daan Seva', href: '/seva/anna-daan' },
+  { name: 'Gau Seva', href: '/seva/gau-seva' },
+  { name: 'Mandir Nirman Seva', href: '/seva/mandir-nirman' },
   { name: 'Monthly Giving', href: '/donate#recurring' },
 ];
 
@@ -32,7 +32,7 @@ export default function Footer() {
               </div>
             </div>
             <p className={styles.brandDesc}>
-              A sacred sanctuary in Jodhpur dedicated to Lord Sri Krishna — promoting devotion, 
+              A sacred sanctuary in Jodhpur dedicated to Lord Sri Krishna — promoting devotion,
               culture, cow protection, and community upliftment through timeless Vedic wisdom.
             </p>
           </div>
@@ -56,11 +56,11 @@ export default function Footer() {
 
           <div className={styles.linksCol}>
             <h4 className={styles.colTitle}>Contact</h4>
-            <a href="tel:+919116139371" className={styles.contactLink}><Phone size={14} /> +91 91161 39371</a>
+            <a href="tel:+919928766773" className={styles.contactLink}><Phone size={14} /> +91 99287 66773</a>
             <a href="mailto:harekrishna@hkmjodhpur.org" className={styles.contactLink}><Mail size={14} /> harekrishna@hkmjodhpur.org</a>
             <div className={styles.contactLink}><MapPin size={14} /> Jodhpur, Rajasthan, India</div>
             <div style={{ marginTop: '1rem' }}>
-              <Image src="/6244790021147790970.jpg" alt="Payment QR" width={180} height={180} />
+              <Image src="/6244790021147790970.jpg" alt="Payment QR" width={180} height={180} style={{ width: 'auto', height: 'auto' }} />
             </div>
           </div>
         </div>

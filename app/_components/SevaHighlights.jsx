@@ -1,26 +1,40 @@
 'use client';
 import { useEffect } from 'react';
 import Image from 'next/image';
-import { Heart } from 'lucide-react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Heart, ArrowRight } from 'lucide-react';
 import styles from './SevaHighlights.module.css';
+
+// Route mapping for dedicated pages
+const sevaRoutes = {
+  'Gau Seva': '/seva/gau-seva',
+  'Anna Daan': '/seva/anna-daan',
+  'Mandir Nirman': '/seva/mandir-nirman',
+};
+
+// Static LCP optimization
+import gauImage from '../../public/gau dan seva.png';
+import annaImage from '../../public/aan dan seva.png';
+import mandirImage from '../../public/mandir-nirman-seva.png';
 
 const sevaItems = [
   {
     name: 'Gau Seva',
-    image: 'gau dan seva.png',
+    image: gauImage,
     impact: 'Protect and nourish Gau Mata with love.',
     description: 'Provide shelter, fodder, and care for sacred cows.',
     parallaxSpeed: 0.06,
   },
   {
     name: 'Anna Daan',
-    image: 'aan dan seva.png',
+    image: annaImage,
     impact: 'Feed devotees with sanctified prasadam.',
     description: 'Serve meals that nourish body and soul.',
   },
   {
     name: 'Mandir Nirman',
-    image: 'mandir-nirman-seva.png',
+    image: mandirImage,
     impact: 'Build a sacred home for Krishna.',
     description: 'Complete the mandir for darshan and kirtan.',
     parallaxSpeed: 0.06,
@@ -28,7 +42,6 @@ const sevaItems = [
 ];
 
 function SevaImage({ src, alt, parallaxSpeed }) {
-  const safeSrc = `/${src.split('/').map(encodeURIComponent).join('/')}`;
   return (
     <div
       className={styles.cardImageWrap}
@@ -36,9 +49,10 @@ function SevaImage({ src, alt, parallaxSpeed }) {
       data-parallax-speed={parallaxSpeed ? String(parallaxSpeed) : undefined}
     >
       <Image
-        src={safeSrc}
+        src={src}
         alt={alt}
         fill
+        placeholder="blur"
         sizes="(max-width: 768px) 100vw, 33vw"
         className={parallaxSpeed ? styles.cardImageParallax : styles.cardImage}
       />
@@ -109,20 +123,29 @@ export default function SevaHighlights() {
 
         <div className={styles.grid}>
           {sevaItems.map((item) => (
-            <div key={item.name} className={styles.card}>
-              <SevaImage src={item.image} alt={item.name} parallaxSpeed={item.parallaxSpeed} />
-              <div className={styles.cardBody}>
-                <h3 className={styles.cardTitle}>{item.name}</h3>
-                <p className={styles.cardImpact}>{item.impact}</p>
-                <p className={styles.cardDesc}>{item.description}</p>
-                <a href="/donate" className={`btn btn-donate btn-sm ${styles.cardCta}`}>
-                  <Heart size={14} /> Offer Your Seva
-                </a>
-                <a href="/visit" className={`btn btn-outline btn-sm ${styles.cardCtaAlt}`}>
-                  Explore Mandir
-                </a>
-              </div>
-            </div>
+            <Link key={item.name} href={sevaRoutes[item.name]} className={styles.cardLink}>
+              <motion.div
+                className={styles.card}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+              >
+                <SevaImage src={item.image} alt={item.name} parallaxSpeed={item.parallaxSpeed} />
+                <div className={styles.cardBody}>
+                  <h3 className={styles.cardTitle}>{item.name}</h3>
+                  <p className={styles.cardImpact}>{item.impact}</p>
+                  <p className={styles.cardDesc}>{item.description}</p>
+                  <div className={styles.cardFooter}>
+                    <span className={`btn btn-donate btn-sm ${styles.cardCta}`}>
+                      <Heart size={14} /> Learn More & Offer
+                    </span>
+                    <span className={styles.learnMore}>
+                      View Impact <ArrowRight size={14} />
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </Link>
           ))}
         </div>
       </div>

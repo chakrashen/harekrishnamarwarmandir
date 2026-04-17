@@ -5,6 +5,9 @@ import { Clock, MapPin, Shirt, Car, Train, Plane, Phone, ChevronDown, ChevronUp 
 import { useState } from 'react';
 import styles from './VisitContent.module.css';
 
+// Static LCP optimization
+import visitBg from '../../../public/visit page background.png';
+
 const darshan = [
   { name: 'Mangala Aarti', time: '4:30 AM' },
   { name: 'Darshan Aarti', time: '7:00 AM' },
@@ -17,7 +20,7 @@ const darshan = [
 const faqs = [
   { q: 'Is there an entry fee to visit the temple?', a: 'No, Hare Krishna Marwar Mandir is open to all visitors free of charge. Everyone is welcome to come for darshan at any time during temple hours.' },
   { q: 'Is free prasadam available?', a: 'Yes! Free nutritious prasadam (blessed vegetarian food) is served daily after the Raj Bhog Aarti at 12:00 PM. All are welcome.' },
-  { q: 'Can I volunteer at the temple?', a: 'Absolutely! We welcome volunteers for kitchen seva, cleaning, event management, and devotional programs. Contact us at +91 91161 39371 to join.' },
+  { q: 'Can I volunteer at the temple?', a: 'Absolutely! We welcome volunteers for kitchen seva, cleaning, event management, and devotional programs. Contact us at +91 99287 66773 to join.' },
   { q: 'How can I donate for a specific seva?', a: 'Visit our Donate page to choose from Anna Daan (₹4,500 for 100 meals), Mandir Nirman (₹2,100/sq ft), or Gau Seva (₹2,100/month/cow).' },
   { q: 'Is photography allowed inside the temple?', a: 'Yes, photography is allowed in most areas. However, please be respectful during aarti and darshan times. Flash photography is not permitted near the deities.' },
   { q: 'Are there accommodation facilities?', a: 'Guest house facilities are under construction and will be available after the Mandir opening in March 2027. For current accommodation, we can suggest nearby options.' },
@@ -42,10 +45,11 @@ export default function VisitContent() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image
-            src="/visit page background.png"
+            src={visitBg}
             alt="Visit Hare Krishna Marwar Mandir"
             fill
             priority
+            placeholder="blur"
             sizes="100vw"
             className={styles.heroImage}
           />
@@ -114,7 +118,7 @@ export default function VisitContent() {
               { icon: Plane, title: 'By Air', desc: 'Jodhpur Airport (JDH) is just 15 minutes from the temple. Pre-paid taxi and auto-rickshaw available.' },
               { icon: Train, title: 'By Train', desc: 'Jodhpur Junction (JU) is the nearest railway station — well connected to Delhi, Mumbai, Jaipur.' },
               { icon: Car, title: 'By Road', desc: 'Jodhpur is well connected via NH-62 and NH-25. Ample parking available at the temple premises.' },
-              { icon: Phone, title: 'Need Help?', desc: 'Call us at +91 91161 39371 or WhatsApp for directions and transportation assistance.' },
+              { icon: Phone, title: 'Need Help?', desc: 'Call us at +91 99287 66773 or WhatsApp for directions and transportation assistance.' },
             ].map((r, i) => (
               <motion.div key={r.title} className={styles.reachCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
                 <div className={styles.reachIcon}><r.icon size={24} /></div>

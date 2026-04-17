@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   /* Light Divine Theme — Saffron & Cream */
   --bg-primary: #ffffff;
@@ -20,6 +22,10 @@
   /* Earthy Accents */
   --green-earth: #6B8E7A;
   --green-soft: #8FA892;
+  --green-deep: #4a7c59;
+  --green-pale: #eef4f0;
+  --green-border: rgba(107, 142, 122, 0.22);
+  --green-glow: rgba(107, 142, 122, 0.18);
 
   --text-primary: #2C2C2C;
   --text-secondary: #5D544B;
@@ -206,6 +212,25 @@ main {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+@layer utilities {
+  .glass-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  }
+  .glass-dark {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .text-shadow-divine {
+    text-shadow: 0 4px 12px rgba(230, 126, 34, 0.2);
+  }
 }
 
 /* ── Section Headers ── */
@@ -512,6 +537,36 @@ main {
   background: linear-gradient(90deg, transparent, var(--saffron), transparent);
 }
 
+/* ── Green Earth Utility Classes ── */
+.bg-green-pale {
+  background: var(--green-pale);
+}
+
+.accent-green-earth {
+  color: var(--green-earth);
+}
+
+/* Subtle green radial used on alternating sections */
+.section-green-tint {
+  background:
+    radial-gradient(circle at 80% 50%, rgba(107, 142, 122, 0.07), transparent 55%),
+    var(--bg-secondary);
+}
+
+/* Hero overlay — cinematic 4-stop dark gradient */
+.hero-overlay-cinematic {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.22) 40%,
+    rgba(0, 0, 0, 0.38) 72%,
+    rgba(10, 8, 5, 0.78) 100%
+  );
+  pointer-events: none;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .section-pad { padding: 3rem 0; }
@@ -527,25 +582,14 @@ main {
     padding: 0.9rem 1.15rem;
   }
 
+  /* Account for bottom nav (64px) + sticky donate (48px) + gap (10px) + safe area */
   main {
-    padding-bottom: calc(
-      var(--mobile-nav-height)
-      + var(--mobile-sticky-cta-height)
-      + var(--mobile-sticky-cta-gap)
-      + env(safe-area-inset-bottom)
-      + 1rem
-    );
+    padding-bottom: calc(64px + 48px + 10px + env(safe-area-inset-bottom) + 1rem);
   }
 
   .home-main {
     scroll-padding-top: 86px;
-    padding-bottom: calc(
-      var(--mobile-nav-height)
-      + var(--mobile-sticky-cta-height)
-      + var(--mobile-sticky-cta-gap)
-      + env(safe-area-inset-bottom)
-      + 1.25rem
-    );
+    padding-bottom: calc(64px + 48px + 10px + env(safe-area-inset-bottom) + 1.25rem);
   }
 }
 

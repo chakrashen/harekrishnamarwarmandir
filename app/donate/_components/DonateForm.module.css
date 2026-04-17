@@ -702,27 +702,55 @@
 
 /* Mobile */
 @media (max-width: 768px) {
-  .section { padding: 4rem 0 3rem; }
+  .section { padding: 3.5rem 0 2.5rem; }
   .layout { grid-template-columns: 1fr; }
-  .formSide { padding: 1.5rem; }
+  .formSide { padding: 1.25rem; }
   .fieldRow { grid-template-columns: 1fr; }
-  .steps { gap: 1rem; }
-  .stepLabel { display: none; }
-  .headerImpact { grid-template-columns: 1fr; }
+  .steps {
+    gap: 1.5rem;
+    justify-content: space-around;
+    width: 100%;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .stepItem { flex-direction: column; gap: 0.3rem; }
+  .stepLabel { font-size: 0.7rem; opacity: 0.8; }
+  .headerImpact { 
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.75rem;
+    margin-right: -1rem;
+    padding-right: 1rem;
+    gap: 0.75rem;
+    scrollbar-width: none;
+  }
+  .headerImpact::-webkit-scrollbar { display: none; }
+  .impactCard {
+    flex: 0 0 calc(72vw - 2rem);
+    scroll-snap-align: center;
+  }
   .headerTrust { gap: 0.5rem; }
-  .summarySide { position: static; }
+  /* Hide summary on mobile — it's redundant below the form */
+  .summarySide { display: none; }
   .formActions { flex-direction: column; }
   .form { gap: 1rem; }
-  .payTrustText { margin-top: 0; }
-  .input { min-height: 48px; font-size: 1rem; }
-  .customInput { min-height: 48px; }
+  .input, .select { min-height: 48px; font-size: 1rem; }
+  .customInput { min-height: 48px; font-size: 1rem; }
   .featuredAmountGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
-  .featuredAmountCard { min-height: 88px; padding: 0.65rem; }
-  .featuredAmountValue { font-size: 1rem; }
-  .featuredAmountImpact { font-size: 0.72rem; }
-  .recommendedTag { font-size: 0.55rem; padding: 0.15rem 0.35rem; }
+  .featuredAmountCard { min-height: 84px; padding: 0.6rem 0.5rem; }
+  .featuredAmountValue { font-size: 0.95rem; }
+  .featuredAmountImpact { font-size: 0.7rem; }
+  .recommendedTag { font-size: 0.52rem; padding: 0.12rem 0.3rem; }
   .trustStrip { gap: 0.5rem; }
   .trustStrip span,
-  .ctaReassurance p { font-size: 0.76rem; }
+  .ctaReassurance p { font-size: 0.74rem; }
   .atgGrid { grid-template-columns: 1fr; }
+  .sevaCard { padding: 0.85rem 1rem; }
+  .sevaIcon { font-size: 1.6rem; }
+  .sevaInfo strong { font-size: 0.88rem; }
+  .sevaAmt { font-size: 0.95rem; }
+  .header { margin-bottom: 2rem; }
+  .title { font-size: clamp(1.5rem, 5vw, 2rem); }
 }

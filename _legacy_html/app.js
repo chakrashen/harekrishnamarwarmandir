@@ -130,7 +130,7 @@ document.querySelectorAll('.faq-question').forEach(btn => {
 
 // ─── Donation Handler ───
 function initDonation(sevaName, amount) {
-  alert(`Thank you for choosing ${sevaName}!\n\nAmount: ₹${amount.toLocaleString()}\n\nPayment gateway integration coming soon.\nFor now, please donate via UPI or contact us at +91 91161 39371.`);
+  alert(`Thank you for choosing ${sevaName}!\n\nAmount: ₹${amount.toLocaleString()}\n\nPayment gateway integration coming soon.\nFor now, please donate via UPI or contact us at +91 99287 66773.`);
 }
 
 function initCustomDonation() {
@@ -141,7 +141,7 @@ function initCustomDonation() {
     return;
   }
   const symbol = { INR: '₹', USD: '$', GBP: '£', EUR: '€' }[currency.value] || '₹';
-  alert(`Thank you for your generous donation of ${symbol}${parseFloat(amount.value).toLocaleString()}!\n\nPayment gateway integration coming soon.\nFor now, please contact us at +91 91161 39371.`);
+  alert(`Thank you for your generous donation of ${symbol}${parseFloat(amount.value).toLocaleString()}!\n\nPayment gateway integration coming soon.\nFor now, please contact us at +91 99287 66773.`);
 }
 
 // ─── Contact Form Handler ───
@@ -163,7 +163,7 @@ function handleNewsletter(event) {
 
 // ─── Smooth scroll for same-page hash links ───
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
+  anchor.addEventListener('click', function (e) {
     const targetId = this.getAttribute('href');
     if (targetId === '#') return;
     const target = document.querySelector(targetId);

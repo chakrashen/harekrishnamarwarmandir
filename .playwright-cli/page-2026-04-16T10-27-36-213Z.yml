@@ -1,0 +1,423 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "harekrishna@hkmjodhpur.org" [ref=e6] [cursor=pointer]:
+          - /url: mailto:harekrishna@hkmjodhpur.org
+          - img [ref=e7]
+          - generic [ref=e10]: harekrishna@hkmjodhpur.org
+        - link "WhatsApp" [ref=e11] [cursor=pointer]:
+          - /url: https://wa.me/919928766773
+          - img [ref=e12]
+          - generic [ref=e14]: WhatsApp
+        - link "+91 99287 66773" [ref=e15] [cursor=pointer]:
+          - /url: tel:+919928766773
+          - img [ref=e16]
+          - generic [ref=e18]: +91 99287 66773
+      - generic [ref=e20]:
+        - img [ref=e21]
+        - generic [ref=e24]: Darshan Open · 4:30 - 13:00
+    - banner [ref=e25]:
+      - generic [ref=e26]:
+        - link "Hare Krishna Mandir home" [ref=e27] [cursor=pointer]:
+          - /url: /
+          - img "Hare Krishna Mandir Logo" [ref=e28]
+        - button "Open menu" [ref=e30] [cursor=pointer]:
+          - img [ref=e31]
+    - main [ref=e32]:
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - generic [ref=e42]: Bhakti • Seva • Sanskriti
+          - heading "Be Part of Krishna's Seva in Marwar" [level=1] [ref=e43]
+          - paragraph [ref=e44]: Every contribution builds devotion, feeds devotees, and serves dharma.
+        - generic [ref=e45]:
+          - link "Offer Your Seva" [ref=e46] [cursor=pointer]:
+            - /url: /donate
+            - img [ref=e47]
+            - text: Offer Your Seva
+          - link "Explore Mandir" [ref=e49] [cursor=pointer]:
+            - /url: /visit
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - img [ref=e52]
+            - generic [ref=e55]: 80G Tax Benefit
+          - generic [ref=e56]:
+            - img [ref=e57]
+            - generic [ref=e60]: Secure Payment
+          - generic [ref=e61]:
+            - img [ref=e62]
+            - generic [ref=e67]: 10,000+ Devotees
+        - generic [ref=e69]:
+          - generic [ref=e70]: Choose Your Seva
+          - generic [ref=e71]:
+            - link "₹501 Feeds devotees" [ref=e72] [cursor=pointer]:
+              - /url: /donate?amount=501
+              - generic [ref=e73]: ₹501
+              - generic [ref=e74]: Feeds devotees
+            - link "₹1101 1 Day Prasadam Seva Recommended" [ref=e75] [cursor=pointer]:
+              - /url: /donate?amount=1101
+              - generic [ref=e76]: ₹1101
+              - generic [ref=e77]: 1 Day Prasadam Seva
+              - generic [ref=e78]: Recommended
+            - link "₹2101 Temple Construction Support" [ref=e79] [cursor=pointer]:
+              - /url: /donate?amount=2101
+              - generic [ref=e80]: ₹2101
+              - generic [ref=e81]: Temple Construction Support
+      - generic [ref=e84]:
+        - generic [ref=e86]:
+          - img "Temple intro video thumbnail" [ref=e87]
+          - button [ref=e89] [cursor=pointer]:
+            - img [ref=e90]
+        - generic [ref=e92]:
+          - generic [ref=e93]: About Our Temple
+          - heading "Welcome to Hare Krishna Marwar Mandir" [level=2] [ref=e94]:
+            - text: Welcome to
+            - text: Hare Krishna Marwar Mandir
+          - paragraph [ref=e95]: In the royal city of Jodhpur, renowned for its rich heritage and timeless architecture, Hare Krishna Marwar Mandir is envisioned as a magnificent spiritual landmark — a sanctuary of devotion, culture, and divine harmony.
+          - paragraph [ref=e96]: Guided by the teachings of the Bhagavad Gita and Srimad Bhagavatam, we promote devotion, service, and spiritual growth through Annadana Seva, Gau Seva, youth empowerment, and cultural festivals.
+          - link "Explore Mandir" [ref=e97] [cursor=pointer]:
+            - /url: /visit
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e101]: Trust & Transparency
+          - paragraph [ref=e102]: Shraddha begins with clarity, care, and secure seva.
+        - generic [ref=e103]:
+          - generic [ref=e104]:
+            - img [ref=e105]
+            - generic [ref=e108]: 10,000+ Devotees Trust This Mission
+          - generic [ref=e109]:
+            - img [ref=e110]
+            - generic [ref=e112]: Serving since 2012
+          - generic [ref=e113]:
+            - img [ref=e114]
+            - generic [ref=e119]: 80G Tax Benefit Available
+          - generic [ref=e120]:
+            - img [ref=e121]
+            - generic [ref=e124]: Secure Payment via ICICI Bank
+        - generic [ref=e125]:
+          - link [ref=e126] [cursor=pointer]:
+            - /url: /seva/anna-daan
+            - article [ref=e127]:
+              - generic [ref=e128]:
+                - img "Anna Daan Seva" [ref=e129]
+                - generic [ref=e131]:
+                  - text: View Impact
+                  - img [ref=e132]
+              - generic [ref=e134]:
+                - heading "Anna Daan Seva" [level=3] [ref=e135]
+                - paragraph [ref=e136]: Daily prasadam offering with community participation.
+          - link [ref=e137] [cursor=pointer]:
+            - /url: /seva/gau-seva
+            - article [ref=e138]:
+              - generic [ref=e139]:
+                - img "Gau Seva" [ref=e140]
+                - generic [ref=e142]:
+                  - text: View Impact
+                  - img [ref=e143]
+              - generic [ref=e145]:
+                - heading "Gau Seva" [level=3] [ref=e146]
+                - paragraph [ref=e147]: Sacred cow care supported by devotees across Marwar.
+          - link [ref=e148] [cursor=pointer]:
+            - /url: /seva/mandir-nirman
+            - article [ref=e149]:
+              - generic [ref=e150]:
+                - img "Mandir Nirman" [ref=e151]
+                - generic [ref=e153]:
+                  - text: View Impact
+                  - img [ref=e154]
+              - generic [ref=e156]:
+                - heading "Mandir Nirman" [level=3] [ref=e157]
+                - paragraph [ref=e158]: A growing spiritual home built with collective seva.
+      - generic [ref=e161]:
+        - generic [ref=e162]:
+          - generic [ref=e163]: Offer Seva
+          - heading "Offer Your Seva for Mandir Completion" [level=2] [ref=e164]
+          - paragraph [ref=e165]: Offer your devotion through seva that nourishes hearts, supports dharma, and helps complete this sacred mandir.
+          - link "Offer Your Seva" [ref=e166] [cursor=pointer]:
+            - /url: /donate
+            - img [ref=e167]
+            - text: Offer Your Seva
+          - link "Explore Mandir" [ref=e169] [cursor=pointer]:
+            - /url: /visit
+          - paragraph [ref=e170]: Grand Opening March 2027 - Be part before completion.
+        - generic [ref=e171]:
+          - generic [ref=e172]: Choose Seva Amount
+          - generic [ref=e173]:
+            - link "₹501 Feeds devotees" [ref=e174] [cursor=pointer]:
+              - /url: /donate?amount=501
+              - generic [ref=e175]: ₹501
+              - generic [ref=e176]: Feeds devotees
+            - link "₹1101 1 Day Prasadam Seva Recommended" [ref=e177] [cursor=pointer]:
+              - /url: /donate?amount=1101
+              - generic [ref=e178]: ₹1101
+              - generic [ref=e179]: 1 Day Prasadam Seva
+              - generic [ref=e180]: Recommended
+            - link "₹2101 Temple Construction Support" [ref=e181] [cursor=pointer]:
+              - /url: /donate?amount=2101
+              - generic [ref=e182]: ₹2101
+              - generic [ref=e183]: Temple Construction Support
+          - paragraph [ref=e184]: Tap an amount to continue seva instantly.
+      - generic [ref=e187]:
+        - generic [ref=e188]:
+          - generic [ref=e189]: Sacred Seva
+          - heading "Offer Seva That Transforms Lives" [level=2] [ref=e190]
+          - generic [ref=e191]: ॐ
+          - paragraph [ref=e192]: Each seva is a doorway to devotion. Choose a path that deepens bhakti and brings blessings to many.
+        - generic [ref=e193]:
+          - link "Gau Seva Gau Seva Protect and nourish Gau Mata with love. Provide shelter, fodder, and care for sacred cows. Learn More & Offer View Impact" [ref=e194] [cursor=pointer]:
+            - /url: /seva/gau-seva
+            - generic [ref=e195]:
+              - img "Gau Seva" [ref=e197]
+              - generic [ref=e198]:
+                - heading "Gau Seva" [level=3] [ref=e199]
+                - paragraph [ref=e200]: Protect and nourish Gau Mata with love.
+                - paragraph [ref=e201]: Provide shelter, fodder, and care for sacred cows.
+                - generic [ref=e202]:
+                  - generic [ref=e203]:
+                    - img [ref=e204]
+                    - text: Learn More & Offer
+                  - generic [ref=e206]:
+                    - text: View Impact
+                    - img [ref=e207]
+          - link "Anna Daan Anna Daan Feed devotees with sanctified prasadam. Serve meals that nourish body and soul. Learn More & Offer View Impact" [ref=e209] [cursor=pointer]:
+            - /url: /seva/anna-daan
+            - generic [ref=e210]:
+              - img "Anna Daan" [ref=e212]
+              - generic [ref=e213]:
+                - heading "Anna Daan" [level=3] [ref=e214]
+                - paragraph [ref=e215]: Feed devotees with sanctified prasadam.
+                - paragraph [ref=e216]: Serve meals that nourish body and soul.
+                - generic [ref=e217]:
+                  - generic [ref=e218]:
+                    - img [ref=e219]
+                    - text: Learn More & Offer
+                  - generic [ref=e221]:
+                    - text: View Impact
+                    - img [ref=e222]
+          - link "Mandir Nirman Mandir Nirman Build a sacred home for Krishna. Complete the mandir for darshan and kirtan. Learn More & Offer View Impact" [ref=e224] [cursor=pointer]:
+            - /url: /seva/mandir-nirman
+            - generic [ref=e225]:
+              - img "Mandir Nirman" [ref=e227]
+              - generic [ref=e228]:
+                - heading "Mandir Nirman" [level=3] [ref=e229]
+                - paragraph [ref=e230]: Build a sacred home for Krishna.
+                - paragraph [ref=e231]: Complete the mandir for darshan and kirtan.
+                - generic [ref=e232]:
+                  - generic [ref=e233]:
+                    - img [ref=e234]
+                    - text: Learn More & Offer
+                  - generic [ref=e236]:
+                    - text: View Impact
+                    - img [ref=e237]
+      - generic [ref=e240]:
+        - generic [ref=e241]:
+          - generic [ref=e242]: Grand Opening March 2027
+          - heading "Be Part Before Completion" [level=2] [ref=e243]
+          - generic [ref=e244]: ॐ
+          - paragraph [ref=e245]: Grand Opening March 2027 - offer your seva today to help complete a 31,000 sq ft devotional landmark in the heart of Jodhpur.
+        - generic [ref=e246]:
+          - generic [ref=e247]:
+            - generic [ref=e248]: "00"
+            - generic [ref=e249]: Days
+          - generic [ref=e250]:
+            - generic [ref=e251]: "00"
+            - generic [ref=e252]: Hours
+          - generic [ref=e253]:
+            - generic [ref=e254]: "00"
+            - generic [ref=e255]: Mins
+          - generic [ref=e256]:
+            - generic [ref=e257]: "00"
+            - generic [ref=e258]: Secs
+        - generic [ref=e259]:
+          - generic [ref=e260]:
+            - generic [ref=e261]:
+              - heading "Construction Progress" [level=3] [ref=e262]
+              - paragraph [ref=e263]: Every ₹2,500 builds 1 sq ft of the Mandir
+            - generic [ref=e265]: 0%
+          - generic [ref=e267]:
+            - generic [ref=e268]:
+              - generic [ref=e269]: "0"
+              - generic [ref=e270]: Sq Ft Built
+            - generic [ref=e271]:
+              - generic [ref=e272]: "0"
+              - generic [ref=e273]: Sq Ft Goal
+            - generic [ref=e274]:
+              - generic [ref=e275]: "0"
+              - generic [ref=e276]: Sq Ft Remaining
+          - link "🪔 Offer Your Seva - ₹2,500 / Sq Ft" [ref=e278] [cursor=pointer]:
+            - /url: /donate
+      - generic [ref=e280]:
+        - generic [ref=e281]:
+          - img [ref=e282]
+          - text: Next Darshan
+        - generic [ref=e284]: "--:--:--"
+      - generic [ref=e287]:
+        - generic [ref=e288]:
+          - generic [ref=e289]: Testimonials
+          - heading "Voices of Devotion" [level=2] [ref=e290]
+          - generic [ref=e291]: ॐ
+        - generic [ref=e292]:
+          - iframe [ref=e294]:
+            - generic [active] [ref=f1e1]:
+              - generic "YouTube Video Player" [ref=f1e3]
+              - generic [ref=f1e5]:
+                - generic:
+                  - generic:
+                    - button "Play video" [ref=f1e10] [cursor=pointer]
+                    - button "Hide player controls" [ref=f1e12] [cursor=pointer]
+                    - generic [ref=f1e14]:
+                      - generic [ref=f1e19]:
+                        - generic [ref=f1e20]:
+                          - 'link "building journey of hare krishna marwar mandir jodhpur . #iskcon #krishna #temple #bhakti #trending" [ref=f1e21] [cursor=pointer]':
+                            - /url: https://www.youtube.com/watch?v=t1Qoh6UWhWc
+                          - link "Hare Krishna Marwar Mandir" [ref=f1e22] [cursor=pointer]:
+                            - /url: /channel/UCJUZniS-aMlYiUUyNWFJapA
+                            - generic [ref=f1e23]: Hare Krishna Marwar Mandir
+                        - generic [ref=f1e24]:
+                          - button [ref=f1e25] [cursor=pointer]
+                          - generic [ref=f1e27]:
+                            - generic: Hare Krishna Marwar Mandir
+                            - generic: 18 subscribers
+                      - generic [ref=f1e28]:
+                        - button "Share" [ref=f1e31] [cursor=pointer]:
+                          - generic [ref=f1e35]:
+                            - img
+                        - link "Watch on YouTube" [ref=f1e42] [cursor=pointer]:
+                          - /url: https://www.youtube.com/watch?v=t1Qoh6UWhWc
+                          - generic [ref=f1e45]:
+                            - text: Watch on
+                            - img [ref=f1e47]:
+                              - generic [ref=f1e49]:
+                                - img
+          - generic [ref=e295]:
+            - img [ref=e296]
+            - paragraph [ref=e299]: The experience at Hare Krishna Marwar Mandir is truly divine. The atmosphere, the kirtans, and the prasadam — everything fills your heart with devotion and peace.
+            - generic [ref=e300]:
+              - generic [ref=e301]: D
+              - generic [ref=e302]:
+                - generic [ref=e303]: Devoted Visitor
+                - generic [ref=e304]: Regular Devotee
+        - generic [ref=e305]:
+          - button [ref=e306] [cursor=pointer]:
+            - img [ref=e307]
+          - generic [ref=e309]:
+            - button [ref=e310] [cursor=pointer]
+            - button [ref=e311] [cursor=pointer]
+            - button [ref=e312] [cursor=pointer]
+          - button [ref=e313] [cursor=pointer]:
+            - img [ref=e314]
+      - generic [ref=e317]:
+        - generic [ref=e318]:
+          - generic [ref=e319]: Explore
+          - heading "Discover Our Temple" [level=2] [ref=e320]
+          - generic [ref=e321]: ॐ
+          - paragraph [ref=e322]: Become acquainted with the various services, immerse yourself in the transcendental environment.
+        - generic [ref=e323]:
+          - generic [ref=e325] [cursor=pointer]:
+            - img "Gau Shala" [ref=e326]
+            - generic [ref=e327]:
+              - heading "Gau Shala" [level=3] [ref=e328]
+              - paragraph [ref=e329]: Sacred cow shelter
+          - generic [ref=e331] [cursor=pointer]:
+            - img "Anna Daan Kitchen" [ref=e332]
+            - generic [ref=e333]:
+              - heading "Anna Daan Kitchen" [level=3] [ref=e334]
+              - paragraph [ref=e335]: Free meals daily
+          - generic [ref=e337] [cursor=pointer]:
+            - img "Bhagavad Gita Classes" [ref=e338]
+            - generic [ref=e339]:
+              - heading "Bhagavad Gita Classes" [level=3] [ref=e340]
+              - paragraph [ref=e341]: Weekly study groups
+          - generic [ref=e343] [cursor=pointer]:
+            - img "Youth Programs" [ref=e344]
+            - generic [ref=e345]:
+              - heading "Youth Programs" [level=3] [ref=e346]
+              - paragraph [ref=e347]: Secrets of Success
+          - generic [ref=e349] [cursor=pointer]:
+            - img "Deity Darshan" [ref=e350]
+            - generic [ref=e351]:
+              - heading "Deity Darshan" [level=3] [ref=e352]
+              - paragraph [ref=e353]: Divine experience
+          - generic [ref=e355] [cursor=pointer]:
+            - img "Temple Garden" [ref=e356]
+            - generic [ref=e357]:
+              - heading "Temple Garden" [level=3] [ref=e358]
+              - paragraph [ref=e359]: Peaceful sanctuary
+      - generic [ref=e362]:
+        - paragraph [ref=e363]: "\"तुम जो कुछ भी करते हो, जो खाते हो, जो यज्ञ करते हो, जो दान देते हो, और जो तप करते हो — वह सब मुझे अर्पण करो।\""
+        - paragraph [ref=e364]: — Bhagavad Gita
+      - generic [ref=e367]:
+        - generic [ref=e368]:
+          - img [ref=e369]
+          - heading "Stay Connected with the Temple" [level=3] [ref=e373]
+          - paragraph [ref=e374]: Get updates on festivals, events, darshan timings, and seva opportunities directly in your inbox.
+        - generic [ref=e376]:
+          - textbox "Enter your email" [ref=e377]
+          - button "Subscribe" [ref=e378] [cursor=pointer]:
+            - img [ref=e379]
+            - text: Subscribe
+    - contentinfo [ref=e382]:
+      - generic [ref=e383]:
+        - generic [ref=e384]:
+          - generic [ref=e385]:
+            - generic [ref=e386]:
+              - generic [ref=e387]: 🙏
+              - generic [ref=e388]:
+                - heading "Hare Krishna" [level=3] [ref=e389]
+                - generic [ref=e390]: Marwar Mandir
+            - paragraph [ref=e391]: A sacred sanctuary in Jodhpur dedicated to Lord Sri Krishna — promoting devotion, culture, cow protection, and community upliftment through timeless Vedic wisdom.
+          - generic [ref=e392]:
+            - heading "Quick Links" [level=4] [ref=e393]
+            - link "About Us" [ref=e394] [cursor=pointer]:
+              - /url: /about
+            - link "Events" [ref=e395] [cursor=pointer]:
+              - /url: /events
+            - link "Gallery" [ref=e396] [cursor=pointer]:
+              - /url: /gallery
+            - link "Donate" [ref=e397] [cursor=pointer]:
+              - /url: /donate
+            - link "Visit Us" [ref=e398] [cursor=pointer]:
+              - /url: /visit
+            - link "Contact" [ref=e399] [cursor=pointer]:
+              - /url: /contact
+          - generic [ref=e400]:
+            - heading "Seva Options" [level=4] [ref=e401]
+            - link "Anna Daan Seva" [ref=e402] [cursor=pointer]:
+              - /url: /seva/anna-daan
+            - link "Gau Seva" [ref=e403] [cursor=pointer]:
+              - /url: /seva/gau-seva
+            - link "Mandir Nirman Seva" [ref=e404] [cursor=pointer]:
+              - /url: /seva/mandir-nirman
+            - link "Monthly Giving" [ref=e405] [cursor=pointer]:
+              - /url: /donate#recurring
+            - generic [ref=e406]:
+              - heading "Bank Details" [level=5] [ref=e407]
+              - paragraph [ref=e408]: "Account Name: Hare Krishna Movement Jodhpur"
+              - paragraph [ref=e409]: "A/C: 729901000990"
+              - paragraph [ref=e410]: "IFSC: ICIC0007299"
+              - paragraph [ref=e411]: "Bank: ICICI Bank"
+          - generic [ref=e412]:
+            - heading "Contact" [level=4] [ref=e413]
+            - link "+91 99287 66773" [ref=e414] [cursor=pointer]:
+              - /url: tel:+919928766773
+              - img [ref=e415]
+              - text: +91 99287 66773
+            - link "harekrishna@hkmjodhpur.org" [ref=e417] [cursor=pointer]:
+              - /url: mailto:harekrishna@hkmjodhpur.org
+              - img [ref=e418]
+              - text: harekrishna@hkmjodhpur.org
+            - generic [ref=e421]:
+              - img [ref=e422]
+              - text: Jodhpur, Rajasthan, India
+            - img "Payment QR" [ref=e426]
+        - generic [ref=e427]:
+          - paragraph [ref=e428]: © 2026 Hare Krishna Marwar Mandir. All rights reserved.
+          - paragraph [ref=e429]:
+            - text: Made with
+            - img [ref=e430]
+            - text: for Lord Krishna
+    - link "Chat on WhatsApp" [ref=e433] [cursor=pointer]:
+      - /url: https://wa.me/919928766773
+      - img [ref=e434]
+  - button "Open Next.js Dev Tools" [ref=e441] [cursor=pointer]:
+    - img [ref=e442]

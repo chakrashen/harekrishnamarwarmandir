@@ -3,7 +3,6 @@ import InitialLoaderGate from './_components/InitialLoaderGate';
 import ScrollProgress from './_components/ScrollProgress';
 import SmoothScroll from './_components/SmoothScroll';
 import { Cinzel_Decorative, EB_Garamond, Inter, Cormorant_Garamond, Noto_Serif_Devanagari } from 'next/font/google';
-import { buildCsp } from '@/lib/csp';
 
 const cinzelDecorative = Cinzel_Decorative({
   subsets: ['latin'],
@@ -41,9 +40,6 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
   variable: '--font-devanagari',
 });
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
-const contentSecurityPolicy = buildCsp({ isDev: isDevelopment });
-
 export const metadata = {
   title: 'Hare Krishna Marwar Mandir | Temple & Seva — Jodhpur, Rajasthan',
   description: 'Hare Krishna Marwar Mandir, Jodhpur — A magnificent spiritual landmark. Donate for Gau Seva, Anna Daan, and Temple Construction. Join festivals, darshan, and spiritual events in the heart of Marwar.',
@@ -60,8 +56,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${cinzelDecorative.variable} ${ebGaramond.variable} ${inter.variable} ${cormorantGaramond.variable} ${notoSerifDevanagari.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta httpEquiv="Content-Security-Policy" content={contentSecurityPolicy} />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body>
         <ScrollProgress />

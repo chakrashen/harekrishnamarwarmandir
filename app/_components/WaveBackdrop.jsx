@@ -54,7 +54,7 @@ export default function WaveBackdrop({ className = '', variant = 'home' }) {
             <stop offset="100%" stopColor="var(--wave-olive)" />
           </linearGradient>
           <filter id="waveBlur" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="26" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="12" />
           </filter>
         </defs>
         <path
