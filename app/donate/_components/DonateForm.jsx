@@ -1,13 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Shield, CreditCard, ChevronRight, Lock } from 'lucide-react';
+import { Heart, Shield, CreditCard, ChevronRight, Lock, Gift } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import styles from './DonateForm.module.css';
 
 const sevaOptions = [
   { id: 'anna-daan', name: 'Anna Daan Seva', amount: 3400, unitPrice: 34, unitLabel: 'People', icon: '🍛', impact: 'Feed 100 People', desc: 'Sponsor a day of free prasadam for 100 devotees and the needy.', presets: [{q:100, label: '100 People'}, {q:200, label: '200 People'}, {q:500, label: '500 People'}, {q:1000, label: '1000 People'}] },
-  { id: 'mandir-nirman', name: 'Mandir Nirman Seva', amount: 2500, unitPrice: 2500, unitLabel: 'Sq Ft', icon: '🛕', impact: '1 Sq Ft of Mandir', desc: 'Build the temple brick by brick. Every sq ft counts.', presets: [{q:1, label: '1 Sq Ft'}, {q:5, label: '5 Sq Ft'}, {q:10, label: '10 Sq Ft'}, {q:21, label: '21 Sq Ft'}] },
+  { id: 'mandir-nirman', name: 'Mandir Nirman Seva', amount: 2500, unitPrice: 2500, unitLabel: 'Sq Ft', icon: '🛕', impact: '1 Sq Ft of Mandir', desc: 'Every sq ft counts. Donors receive a Krishna Gift set (Calendar, Mala, Prasadam & Book).', presets: [{q:1, label: '1 Sq Ft'}, {q:5, label: '5 Sq Ft'}, {q:10, label: '10 Sq Ft'}, {q:21, label: '21 Sq Ft'}] },
   { id: 'gau-seva', name: 'Gau Seva', amount: 2100, unitPrice: 2100, unitLabel: 'Days', icon: '🐄', impact: '1 Day', desc: 'Provide food, shelter, and medical care for a sacred cow.', presets: [{q:1, label: '1 Day'}, {q:7, label: '7 Days'}, {q:15, label: '15 Days'}, {q:30, label: '1 Month'}] },
 ];
 
@@ -307,6 +307,25 @@ export default function DonateForm() {
                       <span className={styles.sevaAmt}>Any Amount</span>
                     </button>
                   </div>
+
+                  <AnimatePresence>
+                    {selectedSeva?.id === 'mandir-nirman' && (
+                      <motion.div 
+                        className={styles.giftNotification}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                      >
+                        <Gift className={styles.giftIcon} size={20} />
+                        <div className={styles.giftText}>
+                          <span className={styles.giftTitle}>Special Krishna Gift Included!</span>
+                          <span className={styles.giftList}>
+                            You will receive: <span className={styles.giftHighlight}>Calendar, Jaap Mala, Prasadam & Gita Sar book</span>.
+                          </span>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   <div className={styles.quickSection}>
                     {selectedSeva ? (

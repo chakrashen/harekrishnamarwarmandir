@@ -217,6 +217,48 @@
   color: var(--saffron);
 }
 
+.giftNotification {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(230, 126, 34, 0.08));
+  border: 1px solid rgba(230, 126, 34, 0.2);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.giftIcon {
+  color: var(--saffron);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.giftText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.giftTitle {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.giftList {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.giftHighlight {
+  color: var(--saffron);
+  font-weight: 600;
+}
+
 /* Quick Amounts */
 .quickSection {
   margin-bottom: 1.5rem;

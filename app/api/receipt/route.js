@@ -132,6 +132,7 @@ export async function GET(request) {
     receiptUrl: resolvedDonation.receipt_url || null,
     receiptStatus: resolvedDonation.receipt_status || null,
     donationStatus: resolvedDonation.status || null,
+    sevaType: resolvedDonation.seva_type || null,
   });
   response.headers.set('Cache-Control', 'no-store, max-age=0');
   return response;

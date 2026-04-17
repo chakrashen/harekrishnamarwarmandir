@@ -169,6 +169,28 @@ export default function AboutContent() {
           </div>
         </div>
       </section>
+      
+      {/* Foundational Shlok */}
+      <section className={styles.shlokSection}>
+        <div className="container">
+          <motion.div 
+            className={styles.shlokCard}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className={styles.shlokSanskrit}>
+              &ldquo;यत् करोषि यद् अश्नासि यज् जुहोषि ददासि यत् ।<br />
+              यत् तपस्यसि कौन्तेय तत् कुरुष्व मदर्पणम् ॥&rdquo;
+            </p>
+            <p className={styles.shlokEnglish}>
+              &ldquo;Whatever you do, whatever you eat, whatever you offer or give away, and whatever austerities you perform—do that, O son of Kuntī, as an offering to Me.&rdquo;
+            </p>
+            <p className={styles.shlokRef}>— Bhagavad Gita 9.27</p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Impact */}
       <section className={`section-pad ${styles.impactSection}`}>

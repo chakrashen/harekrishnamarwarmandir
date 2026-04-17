@@ -11,6 +11,7 @@ export default function ThankYouContent() {
   const refNo = searchParams.get('ref');
   const [resolvedRefNo, setResolvedRefNo] = useState('');
   const [donationStatus, setDonationStatus] = useState('');
+  const [sevaType, setSevaType] = useState('');
   const [receiptUrl, setReceiptUrl] = useState('');
   const [receiptStatus, setReceiptStatus] = useState('');
   const [receiptError, setReceiptError] = useState('');
@@ -46,6 +47,7 @@ export default function ThankYouContent() {
         if (!isMounted) return;
         setResolvedRefNo(body.referenceNo || '');
         setDonationStatus(body.donationStatus || '');
+        setSevaType(body.sevaType || '');
         setReceiptUrl(body.receiptUrl || '');
         setReceiptStatus(body.receiptStatus || '');
       })
@@ -94,6 +96,7 @@ export default function ThankYouContent() {
           <div className={styles.verse}>
             <p>&ldquo;यत् करोषि यद् अश्नासि यज् जुहोषि ददासि यत् ।<br />
               यत् तपस्यसि कौन्तेय तत् कुरुष्व मदर्पणम् ॥&rdquo;</p>
+            <p>&ldquo;Whatever you do, whatever you eat, whatever you offer or give away, and whatever austerities you perform—do that, O son of Kuntī, as an offering to Me.&rdquo;</p>
             <span>— Bhagavad Gita 9.27</span>
           </div>
 
@@ -129,6 +132,18 @@ export default function ThankYouContent() {
                   Receipt generation failed. Please contact us with your reference number.
                 </p>
               )}
+            </div>
+          )}
+
+          {sevaType?.includes('Mandir Nirman') && (
+            <div className={styles.giftPanel}>
+              <div className={styles.giftIconWrapSmall}>
+                <Heart size={20} fill="var(--saffron)" color="var(--saffron)" />
+              </div>
+              <div className={styles.giftText}>
+                <strong>Blessed Gifts on the Way!</strong>
+                <p>Your "Krishna Gift" set (Calendar, Mala, Prasadam & Book) will reach your address soon.</p>
+              </div>
             </div>
           )}
 

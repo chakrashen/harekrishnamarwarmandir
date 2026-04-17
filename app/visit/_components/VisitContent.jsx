@@ -21,7 +21,7 @@ const faqs = [
   { q: 'Is there an entry fee to visit the temple?', a: 'No, Hare Krishna Marwar Mandir is open to all visitors free of charge. Everyone is welcome to come for darshan at any time during temple hours.' },
   { q: 'Is free prasadam available?', a: 'Yes! Free nutritious prasadam (blessed vegetarian food) is served daily after the Raj Bhog Aarti at 12:00 PM. All are welcome.' },
   { q: 'Can I volunteer at the temple?', a: 'Absolutely! We welcome volunteers for kitchen seva, cleaning, event management, and devotional programs. Contact us at +91 99287 66773 to join.' },
-  { q: 'How can I donate for a specific seva?', a: 'Visit our Donate page to choose from Anna Daan (₹4,500 for 100 meals), Mandir Nirman (₹2,100/sq ft), or Gau Seva (₹2,100/month/cow).' },
+  { q: 'How can I donate for a specific seva?', a: 'Visit our Donate page to choose from Anna Daan (₹3,400 for 100 meals), Mandir Nirman (₹2,500/sq ft), or Gau Seva (₹2,100/day). Note: Mandir Nirman donors receive a "Krishna Gift" set including a Calendar, Mala, Prasadam, and Book.' },
   { q: 'Is photography allowed inside the temple?', a: 'Yes, photography is allowed in most areas. However, please be respectful during aarti and darshan times. Flash photography is not permitted near the deities.' },
   { q: 'Are there accommodation facilities?', a: 'Guest house facilities are under construction and will be available after the Mandir opening in March 2027. For current accommodation, we can suggest nearby options.' },
 ];

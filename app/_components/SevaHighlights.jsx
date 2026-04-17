@@ -36,7 +36,7 @@ const sevaItems = [
     name: 'Mandir Nirman',
     image: mandirImage,
     impact: 'Build a sacred home for Krishna.',
-    description: 'Complete the mandir for darshan and kirtan.',
+    description: 'Complete the mandir for darshan. Donors receive a Krishna Gift set (Calendar, Mala, Prasadam & Book).',
     parallaxSpeed: 0.06,
   },
 ];

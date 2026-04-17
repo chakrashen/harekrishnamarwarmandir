@@ -193,6 +193,58 @@
   letter-spacing: 0.1em;
 }
 
+/* Shlok Section */
+.shlokSection {
+  background: #0c1a33;
+  padding: 5rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.shlokSection::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(230, 126, 34, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.shlokCard {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.shlokSanskrit {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  color: var(--saffron-light);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.shlokEnglish {
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 3vw, 1.25rem);
+  color: #fffaf0;
+  line-height: 1.7;
+  font-style: italic;
+  opacity: 0.95;
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+}
+
+.shlokRef {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.8;
+}
+
 /* Mission */
 .missionSection {
   background: var(--bg-secondary);

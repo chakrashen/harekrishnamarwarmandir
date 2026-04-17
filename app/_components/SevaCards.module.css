@@ -37,6 +37,26 @@
   display: block;
 }
 
+.giftBadge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--saffron);
+  color: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  z-index: 10;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
 .cardBody {
   padding: 1.5rem;
   text-align: center;

@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Heart, Landmark, HardHat, Award, ChevronRight, MessageSquareQuote, ShieldCheck } from 'lucide-react';
+import { Heart, Landmark, HardHat, Award, ChevronRight, MessageSquareQuote, ShieldCheck, Calendar, Sparkles, Utensils, BookOpen } from 'lucide-react';
 import Navbar from '@/app/_components/Navbar';
 import Footer from '@/app/_components/Footer';
 import FloatingButtons from '@/app/_components/FloatingButtons';
@@ -227,6 +227,47 @@ export default function MandirNirmanPage() {
                   </div>
                 ))}
               </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Gifts Section ── */}
+        <section className={styles.giftsSection}>
+          <div className="container">
+            <div className={styles.giftsHeader}>
+              <span className="section-label">Blessed Tokens</span>
+              <h2 className={styles.giftsTitle}>A Gift from Krishna to You</h2>
+              <p className={styles.giftsDesc}>
+                As a token of our heartfelt gratitude, every donor contributing to the Mandir Nirman
+                receives a specially blessed "Krishna Gift" set to bring the divine atmosphere of Jodhpur into your home.
+              </p>
+              <div className="section-divider" style={{ margin: '1.5rem auto' }} />
+            </div>
+
+            <div className={styles.giftsGrid}>
+              {[
+                { name: 'Krishna Gift Calendar', icon: Calendar, detail: 'Beautiful monthly darshans for your wall' },
+                { name: 'Sacred Jaap Mala', icon: Sparkles, detail: 'Blessed beads for your daily meditation' },
+                { name: 'Mahaprasadam', icon: Utensils, detail: 'Sanctified dry prasadam from the temple' },
+                { name: 'Gita Sar Book', icon: BookOpen, detail: 'The essence of Bhagavad Gita for daily wisdom' },
+              ].map((gift, i) => (
+                <motion.div
+                  key={gift.name}
+                  className={styles.giftCard}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
+                  <div className={styles.giftIconWrap}>
+                    <gift.icon size={32} />
+                  </div>
+                  <h3 className={gift.name === 'Krishna Gift Calendar' ? `${styles.giftName} ${styles.giftTitleAccentGold}` : styles.giftName}>
+                    {gift.name}
+                  </h3>
+                  <p className={styles.giftDetail}>{gift.detail}</p>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>

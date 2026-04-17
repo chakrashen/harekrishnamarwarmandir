@@ -2,12 +2,12 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Image from 'next/image';
-import { Heart } from 'lucide-react';
+import { Heart, Gift } from 'lucide-react';
 import styles from './SevaCards.module.css';
 
 const sevas = [
   { icon: '🍛', name: 'Anna Daan Seva', amount: '₹3,400', impact: 'Feed 100 People', desc: 'Sponsor a day of free prasadam for 100 devotees and the needy.', img: 'aan dan seva.png' },
-  { icon: '🛕', name: 'Mandir Nirman Seva', amount: '₹2,500', impact: '1 Sq Ft of Mandir', desc: 'Build the temple brick by brick. Every sq ft counts.', img: 'mandir-nirman-seva.png' },
+  { icon: '🛕', name: 'Mandir Nirman Seva', amount: '₹2,500', impact: '1 Sq Ft of Mandir', desc: 'Build the temple brick by brick. Donors receive a Krishna Gift set.', img: 'mandir-nirman-seva.png', hasGift: true },
   { icon: '🐄', name: 'Gau Seva', amount: '₹2,100', impact: '1 Day', desc: 'Provide food, shelter, and medical care for a sacred cow.', img: 'gau dan seva.png' },
 ];
 
@@ -61,6 +61,11 @@ export default function SevaCards() {
             >
               <div className={styles.cardImg}>
                 <SevaImage src={seva.img} alt={seva.name} />
+                {seva.hasGift && (
+                  <div className={styles.giftBadge}>
+                    <Gift size={12} /> Gift Included
+                  </div>
+                )}
               </div>
               <div className={styles.cardBody}>
                 <div className={styles.sevaIcon}>{seva.icon}</div>
