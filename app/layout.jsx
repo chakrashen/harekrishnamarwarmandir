@@ -56,7 +56,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${cinzelDecorative.variable} ${ebGaramond.variable} ${inter.variable} ${cormorantGaramond.variable} ${notoSerifDevanagari.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/gallery/logo.png" type="image/png" />
       </head>
       <body>
         <ScrollProgress />
