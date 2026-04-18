@@ -16,18 +16,17 @@
 .videoPlaceholder {
   aspect-ratio: 16/9;
   border-radius: var(--radius-xl);
-  background: linear-gradient(135deg, var(--bg-secondary), #ede0d0);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
-  gap: 1rem;
-  border: 1px solid var(--border-light);
+  background: #111;
   overflow: hidden;
   position: relative;
+  border: 1px solid var(--border-light);
+}
+
+/* ── Thumbnail cover ── */
+.thumbnailWrapper {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
 }
 
 .videoThumb {
@@ -42,11 +41,19 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(44, 44, 44, 0.12) 0%, rgba(44, 44, 44, 0.42) 100%);
+  pointer-events: none;
+}
+
+.playBtnContainer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 .playBtn {
-  position: relative;
-  z-index: 2;
   width: 72px;
   height: 72px;
   border-radius: 50%;
@@ -58,13 +65,24 @@
   cursor: pointer;
   transition: var(--transition-base);
   box-shadow: var(--shadow-md);
+  pointer-events: auto;
 }
 
-.playBtn:hover {
+.thumbnailWrapper:hover .playBtn {
   transform: scale(1.1);
   background: var(--saffron-light);
 }
 
+/* ── YouTube iframe ── */
+.videoIframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ── Text side ── */
 .heading {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   color: var(--text-primary);

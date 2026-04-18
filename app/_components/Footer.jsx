@@ -1,4 +1,4 @@
-import Image from 'next/image';
+
 import { Heart, Phone, Mail, MapPin } from 'lucide-react';
 import styles from './Footer.module.css';
 
@@ -45,13 +45,7 @@ export default function Footer() {
           <div className={styles.linksCol}>
             <h4 className={styles.colTitle}>Seva Options</h4>
             {sevaLinks.map(l => <a key={l.name} href={l.href} className={styles.link}>{l.name}</a>)}
-            <div className={styles.bankDetails}>
-              <h5 className={styles.bankTitle}>Bank Details</h5>
-              <p style={{ whiteSpace: 'nowrap', fontSize: '0.85rem' }}>Account Name: Hare Krishna Movement Jodhpur</p>
-              <p>A/C: 729901000990</p>
-              <p>IFSC: ICIC0007299</p>
-              <p>Bank: ICICI Bank</p>
-            </div>
+
           </div>
 
           <div className={styles.linksCol}>
@@ -59,9 +53,7 @@ export default function Footer() {
             <a href="tel:+919928766773" className={styles.contactLink}><Phone size={14} /> +91 99287 66773</a>
             <a href="mailto:harekrishna@hkmjodhpur.org" className={styles.contactLink}><Mail size={14} /> harekrishna@hkmjodhpur.org</a>
             <div className={styles.contactLink}><MapPin size={14} /> Jodhpur, Rajasthan, India</div>
-            <div style={{ marginTop: '1rem' }}>
-              <Image src="/6244790021147790970.jpg" alt="Payment QR" width={180} height={180} style={{ width: 'auto', height: 'auto' }} />
-            </div>
+
           </div>
         </div>
 
