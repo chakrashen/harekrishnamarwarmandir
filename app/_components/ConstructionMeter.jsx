@@ -71,7 +71,7 @@ export default function ConstructionMeter() {
   return (
     <section className={`section-pad dark-section`}>
       <div className="container">
-        <div className="section-header">
+        <div className="section-header" data-nosnippet>
           <span className="section-label">Grand Opening March 2027</span>
           <h2 className="section-title">Be Part Before Completion</h2>
           <div className="section-divider" />
@@ -80,7 +80,9 @@ export default function ConstructionMeter() {
           </p>
         </div>
 
-        <Countdown />
+        <div data-nosnippet>
+          <Countdown />
+        </div>
 
         <motion.div
           className={styles.meterCard}
