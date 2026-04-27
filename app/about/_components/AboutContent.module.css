@@ -632,6 +632,55 @@
 .newsLink:hover {
   color: var(--saffron-light);
   gap: 0.5rem;
+  text-decoration: underline;
+}
+
+.newsImagesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  width: 100%;
+}
+
+.newsImageWrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background: white;
+  border: 4px solid white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.newsImageWrap:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+}
+
+.newsImageItem {
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+@media (max-width: 768px) {
+  .newsImagesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .newsImagesGrid {
+    grid-template-columns: 1fr;
+  }
+  .newsImageWrap {
+    aspect-ratio: auto;
+    height: 300px;
+  }
 }
 
 /* Final CTA */

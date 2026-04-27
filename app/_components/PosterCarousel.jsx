@@ -6,7 +6,7 @@ import styles from './PosterCarousel.module.css';
 const slides = [
   {
     id: 'temple-vision',
-    image: '/mandir-nirman-seva.png',
+    image: '/home page backgrond image.png',
     headline: 'A Sacred Home for Krishna',
     subtext: 'Rising in Jodhpur. Opening March 2027.',
     href: '/donate?seva=mandir-nirman',

@@ -12,6 +12,12 @@ import imgNirman from '../../../public/Mandir Nirman seva impact.jpg';
 import imgAnna from '../../../public/Anna Daan Seva seva impact.png';
 import imgGau from '../../../public/Gau Seva seva impact.jpg';
 
+import news1 from '../../../public/about page/newspapper hkmm (1).jpg';
+import news2 from '../../../public/about page/newspapper hkmm (2).jpg';
+import news3 from '../../../public/about page/newspapper hkmm (3).jpg';
+import news4 from '../../../public/about page/newspapper hkmm (4).jpg';
+import news5 from '../../../public/about page/newspapper hkmm (5).jpg';
+
 const impactStories = [
   {
     icon: BookOpen,
@@ -214,6 +220,27 @@ export default function AboutContent() {
               Read the full article on Dainik Bhaskar →
             </a>
           </motion.div>
+
+          <div className={styles.newsImagesGrid}>
+            {[news1, news2, news3, news4, news5].map((img, i) => (
+              <motion.div
+                key={i}
+                className={styles.newsImageWrap}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Image
+                  src={img}
+                  alt={`Hare Krishna Marwar in the news ${i + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 20vw"
+                  className={styles.newsImageItem}
+                />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
