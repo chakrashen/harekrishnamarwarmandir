@@ -20,23 +20,35 @@ import mandirImage from '../../public/mandir-nirman-seva.png';
 
 const sevaItems = [
   {
-    name: 'Gau Seva',
-    image: gauImage,
-    impact: 'Protect and nourish Gau Mata with love.',
-    description: 'Provide shelter, fodder, and care for sacred cows.',
-    parallaxSpeed: 0.06,
-  },
-  {
     name: 'Anna Daan',
     image: annaImage,
     impact: 'Feed devotees with sanctified prasadam.',
-    description: 'Serve meals that nourish body and soul.',
+    description: 'This plate is empty until you fill it. Your offering feeds a soul and earns blessings.',
+    cta: 'Sponsor a Meal',
+    ctaPrice: '₹34/person',
+    donateLink: '/donate?seva=anna-daan',
+    microCta: null,
+  },
+  {
+    name: 'Gau Seva',
+    image: gauImage,
+    impact: 'Protect and nourish Gau Mata with love.',
+    description: 'She is our mother. Become her guardian — providing food, shelter, and care for a sacred cow.',
+    cta: 'Protect a Cow',
+    ctaPrice: '₹2,100/month',
+    donateLink: '/donate?seva=gau-seva',
+    microCta: { label: 'Feed a cow for a day — ₹51', link: '/donate?seva=gau-seva&amount=51' },
+    parallaxSpeed: 0.06,
   },
   {
     name: 'Mandir Nirman',
     image: mandirImage,
     impact: 'Build a sacred home for Krishna.',
-    description: 'Complete the mandir for darshan. Donors receive a Krishna Gift set (Calendar, Mala, Prasadam & Book).',
+    description: 'Your family name, etched in the foundation for as long as the temple stands. Donors receive a Krishna Gift set.',
+    cta: 'Claim Your Sq. Ft.',
+    ctaPrice: '₹2,500',
+    donateLink: '/donate?seva=mandir-nirman',
+    microCta: { label: 'Sponsor a brick — ₹101', link: '/donate?seva=mandir-nirman&amount=101' },
     parallaxSpeed: 0.06,
   },
 ];
@@ -114,7 +126,7 @@ export default function SevaHighlights() {
       <div className="container">
         <div className="section-header">
           <span className="section-label">Sacred Seva</span>
-          <h2 className="section-title">Offer Seva That Transforms Lives</h2>
+          <h2 className="section-title">Choose Your Seva — Every Offering Creates Daily Impact</h2>
           <div className="section-divider" />
           <p className="section-desc">
             Each seva is a doorway to devotion. Choose a path that deepens bhakti and brings blessings to many.
@@ -123,29 +135,48 @@ export default function SevaHighlights() {
 
         <div className={styles.grid}>
           {sevaItems.map((item) => (
-            <Link key={item.name} href={sevaRoutes[item.name]} className={styles.cardLink}>
-              <motion.div
-                className={styles.card}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: 'spring', stiffness: 220, damping: 20 }}
-              >
-                <SevaImage src={item.image} alt={item.name} parallaxSpeed={item.parallaxSpeed} />
-                <div className={styles.cardBody}>
-                  <h3 className={styles.cardTitle}>{item.name}</h3>
-                  <p className={styles.cardImpact}>{item.impact}</p>
-                  <p className={styles.cardDesc}>{item.description}</p>
-                  <div className={styles.cardFooter}>
-                    <span className={`btn btn-donate btn-sm ${styles.cardCta}`}>
-                      <Heart size={14} /> Learn More & Offer
-                    </span>
-                    <span className={styles.learnMore}>
-                      View Impact <ArrowRight size={14} />
-                    </span>
+            <div key={item.name} className={styles.cardWrapper}>
+              <Link href={sevaRoutes[item.name]} className={styles.cardLink}>
+                <motion.div
+                  className={styles.card}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+                >
+                  <SevaImage src={item.image} alt={item.name} parallaxSpeed={item.parallaxSpeed} />
+                  <div className={styles.cardBody}>
+                    <h3 className={styles.cardTitle}>{item.name}</h3>
+                    <p className={styles.cardImpact}>{item.impact}</p>
+                    <p className={styles.cardDesc}>{item.description}</p>
+                    <div className={styles.cardFooter}>
+                      <span
+                        role="link"
+                        tabIndex={0}
+                        className={`btn btn-donate btn-sm ${styles.cardCta}`}
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = item.donateLink; }}
+                        onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); window.location.href = item.donateLink; } }}
+                      >
+                        <Heart size={14} /> {item.cta} — {item.ctaPrice}
+                      </span>
+                      {item.microCta && (
+                        <span
+                          role="link"
+                          tabIndex={0}
+                          className={styles.microCta}
+                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = item.microCta.link; }}
+                          onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); window.location.href = item.microCta.link; } }}
+                        >
+                          {item.microCta.label}
+                        </span>
+                      )}
+                      <span className={styles.learnMore}>
+                        View Full Impact <ArrowRight size={14} />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            </Link>
+                </motion.div>
+              </Link>
+            </div>
           ))}
         </div>
       </div>

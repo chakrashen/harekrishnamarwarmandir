@@ -1,34 +1,77 @@
-# SUMMARY.md — Krishna Gift Integration & Thank You Update
+# SUMMARY.md — Hare Krishna Marwar Mandir Website
 
-**Date:** 2026-04-17
-**Task:** Integrate "Krishna Gift" details for Mandir Nirman (sq ft seva) donors including a post-donation notification.
+**Last Updated:** April 27, 2026
 
-## Accomplishments
-1.  **Mandir Nirman Page Section:**
-    -   Added "Blessed Tokens of Gratitude" section to `app/seva/mandir-nirman/page.jsx`.
-    -   Displays gift set: Calendar, Jaap Mala, Mahaprasadam, and Gita Sar Book.
-2.  **Donation Form Incentive:**
-    -   Added conditional gift banner in `DonateForm.jsx` for Mandir Nirman selections.
-3.  **Thank You Page Notification:**
-    -   Updated `api/receipt` to return `sevaType`.
-    -   Added a "Blessed Gifts on the Way!" notification panel in `ThankYouContent.jsx` specifically for Mandir Nirman donors.
-    -   Styled with premium saffron/gold gradients.
-4.  **Omni-channel Messaging:**
-    -   Updated `SevaCards.jsx`, `SevaHighlights.jsx`, and `VisitContent.jsx` (FAQ) with gift information.
+---
 
-## Files Modified
--   `app/api/receipt/route.js`
--   `app/thank-you/_components/ThankYouContent.jsx`
--   `app/thank-you/_components/ThankYouContent.module.css`
--   `app/seva/mandir-nirman/page.jsx`
--   `app/donate/_components/DonateForm.jsx`
--   `app/_components/SevaCards.jsx`
--   `app/_components/SevaHighlights.jsx`
--   `app/visit/_components/VisitContent.jsx`
+## Session 1: Quick Wins Sprint (Donation Conversion Audit)
 
-## Status
--   ✅ Full end-to-end gift incentive journey completed.
--   ✅ Mobile-first and high-premium design standards met.
--   ✅ Dynamic content detection on the Thank You page.
+Implemented 10 conversion-optimizing changes across 7 components:
 
-*Next steps for USER: Final review of the donor flow from home page selection to the final thank you message.*
+| Change | Status |
+|--------|--------|
+| Hero — headline rewrite, tangible CTAs, micro-commitment anchors | ✅ |
+| SevaHighlights — price-based CTAs (₹34, ₹2,100, ₹2,500) + micro-options | ✅ |
+| FloatingButtons — WhatsApp CTA restored with pre-filled message | ✅ |
+| AboutContent — Dainik Bhaskar news embed (Hindi + English) | ✅ |
+| DonateForm — Seva deep-linking via `?seva=` URL params | ✅ |
+| ConstructionMeter — "310+ families" social proof + momentum counter | ✅ |
+| DonationSpotlight — Dual-tier cards (primary + micro-commitment row) | ✅ |
+| Trust badge strip below hero | ✅ |
+| Monthly/one-time toggle on DonateForm | ✅ |
+| 80G registration number visible (AATCH7258QF20214) | ✅ |
+
+---
+
+## Session 2: Hero Section Redesign with Auto-Scrolling Poster Carousel
+
+Replaced the text-heavy hero with a visually-driven design.
+
+### Files Created
+- `app/_components/PosterCarousel.jsx` — Auto-scrolling carousel (4 slides, 4s interval)
+- `app/_components/PosterCarousel.module.css` — CSS crossfade, Ken Burns, dots, arrows
+- `app/_components/TrustBar.jsx` — Thin credential strip (80G, ICICI, Since 2012, 1.5L Meals)
+- `app/_components/TrustBar.module.css` — Warm background strip styling
+
+### Files Modified
+- `app/_components/Hero.jsx` — Refactored to: Carousel → Headline → CTAs → Micro-CTA → TrustBar
+- `app/_components/Hero.module.css` — Complete rewrite for new structure
+
+### Carousel Slides
+1. **Temple Vision** — "A Sacred Home for Krishna" → `/donate?seva=mandir-nirman`
+2. **Construction Progress** — "8,400 Sq. Ft. Already Built" → `/donate?seva=mandir-nirman`
+3. **Food Distribution** — "1.5 Lakh Meals Served" → `/donate?seva=anna-daan`
+4. **Cow Care** — "Serve the Sacred" → `/donate?seva=gau-seva`
+
+### Features
+- Auto-scrolls every 4 seconds, pauses on hover/touch
+- Mobile swipe gesture support (touch start/move/end)
+- Keyboard navigation (arrow keys)
+- Dot indicators with progress animation
+- Desktop arrow buttons (frosted glass, appear on hover)
+- Ken Burns zoom effect on active slide
+- Dark gradient overlay for WCAG AA contrast
+- Progressive enhancement (first slide loads eager, rest lazy)
+- Reduced motion support
+
+---
+
+## What's NOT Done Yet (Plan for Future Sessions)
+
+1. Monthly donation → toggle is UI-only; needs recurring payment API
+2. WhatsApp auto-responder → 5-day nurture sequence
+3. Google Search Console → Submit updated pages
+4. "Founding Circle" membership program
+5. Influencer landing pages
+6. A/B testing after traffic baseline
+
+---
+
+## Tech Stack
+- **Framework:** Next.js 16.2.3 (App Router, Turbopack)
+- **Animations:** Framer Motion + native CSS
+- **Styling:** CSS Modules
+- **Backend:** Supabase (donor database, already operational)
+- **Payments:** ICICI gateway integration
+- **Email:** Resend integration
+- **Environment:** `.env.local` for config

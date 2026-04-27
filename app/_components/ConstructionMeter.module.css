@@ -143,6 +143,61 @@
   letter-spacing: 0.1em;
 }
 
+.socialProof {
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin: 1.25rem 0 0;
+  line-height: 1.6;
+}
+
+.socialProof strong {
+  color: var(--saffron);
+}
+
+.weeklyBadge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  background: rgba(230, 126, 34, 0.1);
+  border: 1px solid rgba(230, 126, 34, 0.2);
+  border-radius: var(--radius-full);
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--saffron);
+  white-space: nowrap;
+}
+
+.emotionalHook {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-secondary);
+  margin: 0.75rem 0 0;
+  line-height: 1.6;
+}
+
+.microCtaLine {
+  text-align: center;
+  margin-top: 0.75rem;
+}
+
+.microCtaLink {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.microCtaLink:hover {
+  color: var(--saffron);
+}
+
 @media (max-width: 768px) {
   .meterCard { padding: 1.25rem; }
   .meterTop { flex-direction: column; align-items: flex-start; gap: 0.5rem; }

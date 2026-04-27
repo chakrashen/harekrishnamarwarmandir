@@ -28,6 +28,12 @@
   border-color: rgba(107, 142, 122, 0.28);
 }
 
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .cardLink {
   text-decoration: none;
   color: inherit;
@@ -85,10 +91,11 @@
 .cardFooter {
   margin-top: auto;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
   width: 100%;
-  gap: 1rem;
+  gap: 0.6rem;
+  padding-top: 0.5rem;
 }
 
 .learnMore {
@@ -109,12 +116,30 @@
 }
 
 .cardCta {
-  margin-top: auto;
   min-height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.microCta {
+  display: block;
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--saffron);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+  padding: 0.25rem 0;
+}
+
+.microCta:hover {
+  color: var(--saffron-light);
 }
 
 .cardCtaAlt {
@@ -149,9 +174,13 @@
     display: none;
   }
 
-  .card {
+  .cardWrapper {
     flex: 0 0 85vw;
     scroll-snap-align: center;
+  }
+
+  .card {
+    flex: 1;
   }
 
   .cardBody {
@@ -162,5 +191,10 @@
   
   .cardImageWrap {
     height: 180px;
+  }
+
+  .cardCta {
+    font-size: 0.8rem;
+    min-height: 44px;
   }
 }

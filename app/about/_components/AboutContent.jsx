@@ -169,7 +169,54 @@ export default function AboutContent() {
           </div>
         </div>
       </section>
-      
+
+      {/* Media Recognition */}
+      <section className={`section-pad ${styles.newsSection}`}>
+        <div className="container">
+          <div className="section-header">
+            <span className="section-label">In the News</span>
+            <h2 className="section-title">Recognized for Our Seva</h2>
+            <div className="section-divider" />
+            <p className="section-desc">Third-party recognition of the temple&apos;s impact on the community.</p>
+          </div>
+          <motion.div
+            className={styles.newsCard}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+          >
+            <div className={styles.newsSource}>
+              <span className={styles.newsLogo}>📰</span>
+              <div>
+                <strong className={styles.newsSourceName}>Dainik Bhaskar</strong>
+                <span className={styles.newsSourceDesc}>Rajasthan&apos;s Largest Hindi Daily</span>
+              </div>
+            </div>
+            <blockquote className={styles.newsQuote}>
+              <p className={styles.newsHeadlineHindi}>
+                &ldquo;हरे कृष्ण मारवाड़ मंदिर: अस्पतालों में कर रहे निशुल्क अन्नदान सेवा&rdquo;
+              </p>
+              <p className={styles.newsHeadlineEn}>
+                Hare Krishna Marwar Temple: Doing Free Food Distribution Service in Hospitals
+              </p>
+              <p className={styles.newsSummary}>
+                The temple has been silently serving patients and their families in Jodhpur&apos;s hospitals,
+                providing sanctified meals free of charge to those who need it most. This consistent
+                community service extends well beyond the temple&apos;s walls, reaching the most vulnerable.
+              </p>
+            </blockquote>
+            <a
+              href="https://www.bhaskar.com/local/rajasthan/jodhpur/news/hare-krishna-marwar-temple-is-doing-free-anna-dan-service-in-hospitals-135871815.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.newsLink}
+            >
+              Read the full article on Dainik Bhaskar →
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Foundational Shlok */}
       <section className={styles.shlokSection}>
         <div className="container">

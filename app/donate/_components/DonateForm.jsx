@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Shield, CreditCard, ChevronRight, Lock, Gift } from 'lucide-react';
+import { Heart, Shield, CreditCard, ChevronRight, Lock, Gift, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import styles from './DonateForm.module.css';
 
@@ -28,6 +28,8 @@ export default function DonateForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({});
+  const [isMonthly, setIsMonthly] = useState(false);
+  const [deepLinkedSeva, setDeepLinkedSeva] = useState(null);
 
   const [form, setForm] = useState({
     name: '',
@@ -49,6 +51,20 @@ export default function DonateForm() {
   const amount = customAmount ? Number(customAmount) : (selectedSeva ? (Number(inputQuantity) || 0) * selectedSeva.unitPrice : 0);
 
   useEffect(() => {
+    // Handle ?seva= deep-linking (e.g., ?seva=anna-daan)
+    const sevaParam = searchParams.get('seva');
+    if (sevaParam) {
+      const matchedSeva = sevaOptions.find(s => s.id === sevaParam);
+      if (matchedSeva) {
+        setSelectedSeva(matchedSeva);
+        setInputQuantity(String(matchedSeva.presets[0].q));
+        setCustomAmount('');
+        setDeepLinkedSeva(matchedSeva);
+        return; // Don't also process amount param
+      }
+    }
+
+    // Handle ?amount= deep-linking
     const amountParam = searchParams.get('amount');
     if (!amountParam) return;
     const parsed = Number(amountParam);
@@ -239,6 +255,7 @@ export default function DonateForm() {
             <span>Secure ICICI payment</span>
             <span>80G tax benefit</span>
             <span>Serving since 2012</span>
+            <span>Reg. No. AATCH7258QF20214</span>
           </div>
           <div className={styles.headerImpact}>
             <div className={styles.impactCard}>
@@ -307,6 +324,20 @@ export default function DonateForm() {
                       <span className={styles.sevaAmt}>Any Amount</span>
                     </button>
                   </div>
+
+                  {/* Deep-link confirmation banner */}
+                  <AnimatePresence>
+                    {deepLinkedSeva && selectedSeva?.id === deepLinkedSeva.id && (
+                      <motion.div
+                        className={styles.deepLinkBanner}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                      >
+                        <span>✅ You chose: <strong>{deepLinkedSeva.name}</strong></span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   <AnimatePresence>
                     {selectedSeva?.id === 'mandir-nirman' && (
@@ -411,6 +442,29 @@ export default function DonateForm() {
                   >
                     Continue to Payment <ChevronRight size={18} />
                   </button>
+
+                  {/* Monthly / One-time toggle */}
+                  <div className={styles.monthlyToggle}>
+                    <button
+                      type="button"
+                      className={`${styles.toggleBtn} ${!isMonthly ? styles.toggleActive : ''}`}
+                      onClick={() => setIsMonthly(false)}
+                    >
+                      One-time
+                    </button>
+                    <button
+                      type="button"
+                      className={`${styles.toggleBtn} ${isMonthly ? styles.toggleActive : ''}`}
+                      onClick={() => setIsMonthly(true)}
+                    >
+                      <RefreshCw size={14} /> Monthly
+                    </button>
+                  </div>
+                  {isMonthly && (
+                    <p className={styles.monthlyNote}>
+                      💛 You&apos;ll be charged ₹{amount.toLocaleString()}/month. Cancel anytime. Monthly givers become part of the <strong>Marwar Temple Guardians</strong> circle.
+                    </p>
+                  )}
                 </motion.div>
               )}
 
@@ -638,7 +692,7 @@ export default function DonateForm() {
 
                     <div className={styles.ctaReassurance}>
                       <p><Lock size={14} /> 100% Secure Payment via ICICI Bank</p>
-                      <p><Shield size={14} /> Eligible for 80G Tax Benefit</p>
+                      <p><Shield size={14} /> Eligible for 80G Tax Benefit (Reg. No. AATCH7258QF20214)</p>
                       <p><Heart size={14} /> Your donation helps serve meals today</p>
                     </div>
                   </form>

@@ -51,10 +51,6 @@
   width: fit-content;
 }
 
-.secondaryCta {
-  width: fit-content;
-}
-
 .reassure {
   font-family: var(--font-ui);
   font-size: 0.85rem;
@@ -63,6 +59,7 @@
   font-weight: 500;
 }
 
+/* Card container */
 .amountBlock {
   background: linear-gradient(180deg, #ffffff 0%, #fff7ea 100%);
   border-radius: var(--radius-xl);
@@ -81,6 +78,7 @@
   margin-bottom: 1.1rem;
 }
 
+/* Primary seva cards */
 .amountGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -88,17 +86,20 @@
 }
 
 .amountCard {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem 0.6rem;
+  gap: 0.3rem;
+  padding: 1.2rem 0.6rem;
   border-radius: 16px;
   border: 1px solid rgba(212, 175, 55, 0.25);
   color: var(--text-primary);
   font-family: var(--font-ui);
   background: #fffaf2;
-  min-height: 92px;
+  min-height: 120px;
+  text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -108,31 +109,107 @@
   box-shadow: 0 14px 22px rgba(212, 120, 30, 0.22);
 }
 
-.amountValue {
-  font-weight: 700;
-  font-size: 1.05rem;
+.amountEmoji {
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
-.amountTag {
-  margin-top: 0.3rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #6f4e00;
+.amountName {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.amountValue {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--saffron);
 }
 
 .amountImpact {
-  margin-top: 0.32rem;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 500;
   color: var(--text-secondary);
   text-align: center;
+}
+
+.amountTag {
+  position: absolute;
+  top: 0.3rem;
+  right: 50%;
+  transform: translateX(50%);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-light));
+  color: white;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .amountRecommended {
   border-color: #ff7a00;
   background: linear-gradient(180deg, #fff2d8 0%, #ffddae 100%);
   box-shadow: 0 12px 22px rgba(212, 130, 35, 0.3);
+}
+
+/* Micro-commitment row */
+.microLabel {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 1.25rem 0 0.6rem;
+}
+
+.microGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.microCard {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.microCard:hover {
+  border-color: var(--saffron);
+  background: rgba(230, 126, 34, 0.04);
+}
+
+.microEmoji {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.microName {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.microAmount {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--saffron);
+  white-space: nowrap;
 }
 
 .amountHelp {
@@ -150,10 +227,6 @@
   .cta {
     width: 100%;
   }
-
-  .secondaryCta {
-    width: 100%;
-  }
 }
 
 @media (max-width: 640px) {
@@ -167,15 +240,27 @@
   }
 
   .amountCard {
-    min-height: 80px;
-    padding: 0.75rem 0.4rem;
+    min-height: 100px;
+    padding: 0.9rem 0.4rem;
   }
 
   .amountValue {
     font-size: 0.95rem;
   }
 
+  .amountName {
+    font-size: 0.72rem;
+  }
+
   .amountImpact {
-    font-size: 0.65rem;
+    font-size: 0.62rem;
+  }
+
+  .microGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .microCard {
+    padding: 0.6rem 0.8rem;
   }
 }

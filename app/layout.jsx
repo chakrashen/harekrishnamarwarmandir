@@ -49,6 +49,9 @@ export const metadata = {
     description: 'A magnificent spiritual landmark dedicated to Lord Krishna. Donate for Gau Seva, Anna Daan, Temple Construction.',
     type: 'website',
   },
+  verification: {
+    google: 'uDy95pAF3Kan_TgqMoC3yLyHhJTkZAyKQBuUTQYPP6w',
+  },
 };
 
 export default function RootLayout({ children }) {
