@@ -41,11 +41,12 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
 });
 
 export const metadata = {
-  title: 'Hare Krishna Marwar Mandir | Temple & Seva — Jodhpur, Rajasthan',
+  title: 'HKM Jodhpur',
   description: 'Hare Krishna Marwar Mandir, Jodhpur — A magnificent spiritual landmark. Donate for Gau Seva, Anna Daan, and Temple Construction. Join festivals, darshan, and spiritual events in the heart of Marwar.',
   keywords: 'Hare Krishna Marwar, ISKCON Jodhpur, Temple Donation, Gau Seva, Anna Daan, Rajasthan Temple, Gupt Govardhan Dham',
   openGraph: {
-    title: 'Hare Krishna Marwar Mandir | Jodhpur, Rajasthan',
+    title: 'HKM Jodhpur',
+    siteName: 'HKM Jodhpur',
     description: 'A magnificent spiritual landmark dedicated to Lord Krishna. Donate for Gau Seva, Anna Daan, Temple Construction.',
     type: 'website',
   },
