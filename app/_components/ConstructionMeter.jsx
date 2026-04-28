@@ -13,25 +13,42 @@ const OPENING_DATE = new Date('2027-03-15');
 function Counter({ target, suffix = '' }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     if (!inView) return;
-    let start = 0;
-    const step = Math.max(1, Math.floor(target / 60));
-    const id = setInterval(() => {
-      start += step;
-      if (start >= target) { setCount(target); clearInterval(id); }
-      else setCount(start);
-    }, 20);
-    return () => clearInterval(id);
-  }, [inView, target]);
+    if (!hasAnimated) {
+      setCount(0);
+      setHasAnimated(true);
+      let start = 0;
+      const step = Math.max(1, Math.floor(target / 60));
+      const id = setInterval(() => {
+        start += step;
+        if (start >= target) { setCount(target); clearInterval(id); }
+        else setCount(start);
+      }, 20);
+      return () => clearInterval(id);
+    }
+  }, [inView, target, hasAnimated]);
 
   return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
 }
 
+function getInitialDiff() {
+  const now = new Date();
+  const ms = OPENING_DATE - now;
+  if (ms <= 0) return { d: 0, h: 0, m: 0, s: 0 };
+  return {
+    d: Math.floor(ms / 86400000),
+    h: Math.floor((ms % 86400000) / 3600000),
+    m: Math.floor((ms % 3600000) / 60000),
+    s: Math.floor((ms % 60000) / 1000),
+  };
+}
+
 function Countdown() {
-  const [diff, setDiff] = useState({ d: 0, h: 0, m: 0, s: 0 });
+  const [diff, setDiff] = useState(getInitialDiff());
 
   useEffect(() => {
     const tick = () => {
@@ -51,15 +68,15 @@ function Countdown() {
   }, []);
 
   return (
-    <div className={styles.countdown}>
+    <div className={styles.countdown} suppressHydrationWarning>
       {[
         { v: diff.d, l: 'Days' },
         { v: diff.h, l: 'Hours' },
         { v: diff.m, l: 'Mins' },
         { v: diff.s, l: 'Secs' },
       ].map((u) => (
-        <div key={u.l} className={styles.countUnit}>
-          <span className={styles.countNum}>{String(u.v).padStart(2, '0')}</span>
+        <div key={u.l} className={styles.countUnit} suppressHydrationWarning>
+          <span className={styles.countNum} suppressHydrationWarning>{String(u.v).padStart(2, '0')}</span>
           <span className={styles.countLabel}>{u.l}</span>
         </div>
       ))}

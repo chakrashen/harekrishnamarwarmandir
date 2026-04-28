@@ -1,9 +1,19 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Shield, CreditCard, ChevronRight, Lock, Gift, RefreshCw } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import styles from './DonateForm.module.css';
+
+function SearchParamsHandler({ setDeepLinkedData }) {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const sevaParam = searchParams.get('seva');
+    const amountParam = searchParams.get('amount');
+    setDeepLinkedData({ sevaParam, amountParam });
+  }, [searchParams, setDeepLinkedData]);
+  return null;
+}
 
 const sevaOptions = [
   { id: 'anna-daan', name: 'Anna Daan Seva', amount: 3400, unitPrice: 34, unitLabel: 'People', icon: '🍛', impact: 'Feed 100 People', desc: 'Sponsor a day of free prasadam for 100 devotees and the needy.', presets: [{q:100, label: '100 People'}, {q:200, label: '200 People'}, {q:500, label: '500 People'}, {q:1000, label: '1000 People'}] },
@@ -20,7 +30,7 @@ const featuredAmounts = [
 const otherAmounts = [5100, 11000, 21000, 51000];
 
 export default function DonateForm() {
-  const searchParams = useSearchParams();
+  const [deepLinkedData, setDeepLinkedData] = useState(null);
   const [step, setStep] = useState(1); // 1=details, 2=payment
   const [selectedSeva, setSelectedSeva] = useState(null);
   const [inputQuantity, setInputQuantity] = useState('1');
@@ -51,8 +61,10 @@ export default function DonateForm() {
   const amount = customAmount ? Number(customAmount) : (selectedSeva ? (Number(inputQuantity) || 0) * selectedSeva.unitPrice : 0);
 
   useEffect(() => {
+    if (!deepLinkedData) return;
+    const { sevaParam, amountParam } = deepLinkedData;
+
     // Handle ?seva= deep-linking (e.g., ?seva=anna-daan)
-    const sevaParam = searchParams.get('seva');
     if (sevaParam) {
       const matchedSeva = sevaOptions.find(s => s.id === sevaParam);
       if (matchedSeva) {
@@ -65,13 +77,12 @@ export default function DonateForm() {
     }
 
     // Handle ?amount= deep-linking
-    const amountParam = searchParams.get('amount');
     if (!amountParam) return;
     const parsed = Number(amountParam);
     if (!Number.isFinite(parsed) || parsed <= 0) return;
     setSelectedSeva(null);
     setCustomAmount(String(parsed));
-  }, [searchParams]);
+  }, [deepLinkedData]);
 
   const handleSevaSelect = (seva) => {
     setSelectedSeva(seva);
@@ -243,6 +254,9 @@ export default function DonateForm() {
 
   return (
     <section className={styles.section} aria-label="Donation Form Section">
+      <Suspense fallback={null}>
+        <SearchParamsHandler setDeepLinkedData={setDeepLinkedData} />
+      </Suspense>
       <div className="container">
         <div className={styles.header}>
           <span className="section-label">Support Hare Krishna Marwar Mandir</span>

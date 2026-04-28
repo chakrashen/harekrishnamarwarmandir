@@ -35,6 +35,17 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      { source: '/about.html', destination: '/about', permanent: true },
+      { source: '/donations.html', destination: '/donate', permanent: true },
+      { source: '/events.html', destination: '/events', permanent: true },
+      { source: '/gallery.html', destination: '/gallery', permanent: true },
+      { source: '/contact.html', destination: '/contact', permanent: true },
+      { source: '/visit.html', destination: '/visit', permanent: true },
+      { source: '/index.html', destination: '/', permanent: true }
+    ];
+  },
 };
 
 export default nextConfig;
