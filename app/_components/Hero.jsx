@@ -16,7 +16,7 @@ const stagger = {
 
 export default function Hero() {
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero} aria-label="Main Welcome Hero">
       {/* Full-width auto-scrolling poster carousel */}
       <PosterCarousel />
 

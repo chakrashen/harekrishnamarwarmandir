@@ -12,9 +12,9 @@ const sevaOptions = [
 ];
 
 const featuredAmounts = [
-  { amount: 501, impact: 'Feed 5 people' },
-  { amount: 1101, impact: 'Support a family', recommended: true },
-  { amount: 2101, impact: 'Make a bigger impact' },
+  { amount: 500, impact: 'Feed 5 people' },
+  { amount: 1100, impact: 'Support a family', recommended: true },
+  { amount: 2100, impact: 'Make a bigger impact' },
 ];
 
 const otherAmounts = [5100, 11000, 21000, 51000];
@@ -24,7 +24,7 @@ export default function DonateForm() {
   const [step, setStep] = useState(1); // 1=details, 2=payment
   const [selectedSeva, setSelectedSeva] = useState(null);
   const [inputQuantity, setInputQuantity] = useState('1');
-  const [customAmount, setCustomAmount] = useState('1101');
+  const [customAmount, setCustomAmount] = useState('1100');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({});
@@ -242,7 +242,7 @@ export default function DonateForm() {
   };
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} aria-label="Donation Form Section">
       <div className="container">
         <div className={styles.header}>
           <span className="section-label">Support Hare Krishna Marwar Mandir</span>
@@ -314,7 +314,7 @@ export default function DonateForm() {
                     
                     <button
                       className={`${styles.sevaCard} ${!selectedSeva ? styles.sevaSelected : ''}`}
-                      onClick={() => { setSelectedSeva(null); setCustomAmount('1101'); }}
+                      onClick={() => { setSelectedSeva(null); setCustomAmount('1100'); }}
                     >
                       <span className={styles.sevaIcon}>🙏</span>
                       <div className={styles.sevaInfo}>
@@ -425,7 +425,7 @@ export default function DonateForm() {
                         <span className={styles.currency}>₹</span>
                         <input
                           type="number"
-                          placeholder="Enter custom amount (optional)"
+                          placeholder="₹500 / ₹1,100 / ₹2,100 / Custom"
                           value={customAmount}
                           onChange={(e) => setCustomAmount(e.target.value)}
                           className={styles.customInput}

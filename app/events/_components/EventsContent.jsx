@@ -25,12 +25,41 @@ export default function EventsContent() {
 
   return (
     <>
-      <section className={styles.hero}>
+      {hasUpcomingEvents && upcomingEvents.map((event) => (
+        <script
+          key={event.title}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Event",
+              "name": event.title,
+              "startDate": event.date,
+              "location": {
+                "@type": "Place",
+                "name": "Hare Krishna Marwar Mandir",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Jodhpur",
+                  "addressRegion": "Rajasthan",
+                  "addressCountry": "IN"
+                }
+              },
+              "organizer": {
+                "@type": "Organization",
+                "name": "Hare Krishna Marwar Mandir",
+                "url": "https://harekrishnamarwar.org"
+              }
+            })
+          }}
+        />
+      ))}
+      <section className={styles.hero} aria-label="Events and Festivals Hero">
         <div className={styles.heroBg}>
           <WaveBackdrop variant="events" />
           <Image
             src={heroImg}
-            alt="Events at Hare Krishna Marwar Mandir"
+            alt="Devotees performing kirtan at Hare Krishna Mandir Jodhpur"
             fill
             placeholder="blur"
             priority
@@ -59,7 +88,7 @@ export default function EventsContent() {
       </section>
 
       {/* Upcoming */}
-      <section className="section-pad" id="upcoming-events">
+      <section className="section-pad" id="upcoming-events" aria-label="Upcoming Events Section">
         <div className="container">
           <div className="section-header">
             <span className="section-label">Upcoming</span>
@@ -69,7 +98,7 @@ export default function EventsContent() {
           <div className={styles.eventsGrid}>
             {hasUpcomingEvents ? (
               upcomingEvents.map((event, i) => (
-                <motion.div
+                <motion.article
                   key={event.title}
                   className={`card ${styles.eventCard}`}
                   initial={{ opacity: 0, y: 20 }}
@@ -80,7 +109,7 @@ export default function EventsContent() {
                   <div className={styles.eventImg}>
                     <Image
                       src={event.image}
-                      alt={event.title}
+                      alt={`Upcoming festival: ${event.title} at Hare Krishna Marwar Mandir Jodhpur`}
                       fill
                       className={styles.eventImage}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -95,7 +124,7 @@ export default function EventsContent() {
                     <h3 className={styles.eventTitle}>{event.title}</h3>
                     <p className={styles.eventDesc}>{event.description}</p>
                   </div>
-                </motion.div>
+                </motion.article>
               ))
             ) : (
               <div className={styles.emptyState}>No upcoming festivals in the next 30 days</div>
@@ -105,7 +134,7 @@ export default function EventsContent() {
       </section>
 
       {/* Programs */}
-      <section className={`section-pad ${styles.programsBg}`}>
+      <section className={`section-pad ${styles.programsBg}`} aria-label="Regular Weekly and Daily Programs">
         <div className="container">
           <div className="section-header">
             <span className="section-label">Weekly & Daily</span>
@@ -115,14 +144,14 @@ export default function EventsContent() {
           </div>
           <div className={styles.programsGrid}>
             {programs.map((p, i) => (
-              <motion.div key={p.title} className={styles.programCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ delay: i * 0.08 }}>
+              <motion.article key={p.title} className={styles.programCard} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ delay: i * 0.08 }}>
                 <div className={styles.programIcon} style={{ background: `${p.color}15`, color: p.color }}><p.icon size={24} /></div>
                 <div>
-                  <h3 className={styles.programTitle}>{p.title}</h3>
+                  <h3 className={styles.programTitle} lang={p.title.match(/[\u0900-\u097F]/) ? "hi" : "en"}>{p.title}</h3>
                   <span className={styles.programSchedule}>{p.schedule}</span>
                   <p className={styles.programDesc}>{p.desc}</p>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
         </div>

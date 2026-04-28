@@ -5,8 +5,9 @@ import BottomNav from '../_components/BottomNav';
 import AboutContent from './_components/AboutContent';
 
 export const metadata = {
-  title: 'About — Hare Krishna Marwar Mandir | Our Mission & History',
-  description: 'Learn about Hare Krishna Marwar Mandir, Jodhpur — our mission, history, values, and the vision of Srila Prabhupada that guides our service.',
+  title: "About Us | Hare Krishna Marwar Mandir Jodhpur",
+  description: "Learn about Hare Krishna Marwar Mandir in Jodhpur — our mission for Gau Seva, Anna Daan, and spreading Krishna consciousness in the Marwar region of Rajasthan.",
+  alternates: { canonical: "https://harekrishnamarwar.org/about" }
 };
 
 export default function AboutPage() {

@@ -13,10 +13,10 @@ const sevaRoutes = {
 };
 
 const trustItems = [
-  { icon: ShieldCheck, text: '10,000+ Devotees Trust This Mission' },
-  { icon: Flame, text: 'Serving since 2012' },
-  { icon: Flower2, text: '80G Tax Benefit Available' },
-  { icon: BadgeCheck, text: 'Secure Payment via ICICI Bank' },
+  { icon: Flame, text: '14+ Years Serving' },
+  { icon: Flower2, text: '1.5 Lakh+ Meals Served' },
+  { icon: ShieldCheck, text: '50+ Cows Protected' },
+  { icon: BadgeCheck, text: '80G Tax Benefit Available' },
 ];
 
 const proofItems = [
@@ -24,27 +24,30 @@ const proofItems = [
     title: 'Anna Daan Seva',
     desc: 'Daily prasadam offering with community participation.',
     img: '/gallery/gallery-anna-daan-serving.jpg',
+    alt: 'Volunteers distributing free prasadam during Anna Daan seva in Jodhpur',
   },
   {
     title: 'Gau Seva',
     desc: 'Sacred cow care supported by devotees across Marwar.',
     img: '/gallery/gallery-gau-seva-volunteer.jpg',
+    alt: 'Desi cows being cared for at Hare Krishna Marwar Mandir Gaushala Jodhpur',
   },
   {
     title: 'Mandir Nirman',
     desc: 'A growing spiritual home built with collective seva.',
     img: '/mandir-nirman-seva.png',
+    alt: 'Hare Krishna Marwar Mandir temple facade in Jodhpur Rajasthan',
   },
 ];
 
 export default function TrustSection() {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} aria-label="Trust and Impact Section">
       <div className="container">
         <ScrollReveal>
           <div className={styles.header}>
             <span className={styles.label}>Trust & Transparency</span>
-            <p className={styles.desc}>Shraddha begins with clarity, care, and secure seva.</p>
+            <h2 className={styles.desc}>Shraddha begins with clarity, care, and secure seva.</h2>
           </div>
         </ScrollReveal>
 
@@ -79,7 +82,7 @@ export default function TrustSection() {
                   <div className={styles.proofImageWrap}>
                     <Image
                       src={item.img}
-                      alt={item.title}
+                      alt={item.alt}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
                       className={styles.proofImage}

@@ -41,14 +41,28 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
 });
 
 export const metadata = {
-  title: 'HKM Jodhpur',
-  description: 'Hare Krishna Marwar Mandir, Jodhpur — A magnificent spiritual landmark. Donate for Gau Seva, Anna Daan, and Temple Construction. Join festivals, darshan, and spiritual events in the heart of Marwar.',
-  keywords: 'Hare Krishna Marwar, ISKCON Jodhpur, Temple Donation, Gau Seva, Anna Daan, Rajasthan Temple, Gupt Govardhan Dham',
+  metadataBase: new URL('https://harekrishnamarwar.org'),
+  title: 'Hare Krishna Marwar Mandir | Jodhpur | Gau Seva & Donations',
+  description: 'Support Gau Seva, Anna Daan, and Mandir Nirman at Hare Krishna Marwar Mandir, Jodhpur. Donate online with 80G tax benefit.',
+  keywords: [
+    'hare krishna marwar', 'donate for cow protection jodhpur', 
+    'gaushala jodhpur', 'anna daan jodhpur', 'hare krishna temple rajasthan', 
+    '80g donation india', 'gau seva donation'
+  ],
   openGraph: {
-    title: 'HKM Jodhpur',
-    siteName: 'HKM Jodhpur',
-    description: 'A magnificent spiritual landmark dedicated to Lord Krishna. Donate for Gau Seva, Anna Daan, Temple Construction.',
+    title: 'Hare Krishna Marwar Mandir | Jodhpur | Gau Seva & Donations',
+    siteName: 'Hare Krishna Marwar Mandir',
+    description: 'Support Gau Seva, Anna Daan, and Mandir Nirman at Hare Krishna Marwar Mandir, Jodhpur. Donate online with 80G tax benefit.',
     type: 'website',
+    locale: 'en_IN',
+    url: 'https://harekrishnamarwar.org',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Hare Krishna Marwar Mandir Jodhpur - Gau Seva and Donations' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+  alternates: {
+    canonical: 'https://harekrishnamarwar.org',
   },
   verification: {
     google: 'uDy95pAF3Kan_TgqMoC3yLyHhJTkZAyKQBuUTQYPP6w',

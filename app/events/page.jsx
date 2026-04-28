@@ -5,8 +5,9 @@ import BottomNav from '../_components/BottomNav';
 import EventsContent from './_components/EventsContent';
 
 export const metadata = {
-  title: 'Events & Programs — Hare Krishna Marwar Mandir',
-  description: 'Discover upcoming festivals, spiritual programs, and seva opportunities at Hare Krishna Marwar Mandir, Jodhpur.',
+  title: "Events & Festivals | Hare Krishna Marwar Mandir Jodhpur",
+  description: "Join us for daily darshan, kirtans, Janmashtami, Ekadashi, and other spiritual events at Hare Krishna Marwar Mandir, Jodhpur.",
+  alternates: { canonical: "https://harekrishnamarwar.org/events" }
 };
 
 export default function EventsPage() {

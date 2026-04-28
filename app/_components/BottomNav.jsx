@@ -25,8 +25,8 @@ export default function BottomNav() {
   return (
     <>
       {pathname !== '/donate' && (
-        <a href="/donate" className={styles.stickyDonate} aria-label="Offer your seva">
-          <Heart size={18} /> Offer Your Seva
+        <a href="/donate" className={styles.stickyDonate} aria-label="Donate Now">
+          <Heart size={18} /> Donate Now
         </a>
       )}
 

@@ -160,7 +160,7 @@ export default function Navbar() {
           <div className={styles.navActions}>
             <Link href="/donate" className={styles.ctaButton}>
               <Heart size={16} aria-hidden="true" />
-              <span>Offer Your Seva</span>
+              <span>Donate Now</span>
             </Link>
 
             {/* Hamburger / X button */}
@@ -226,7 +226,7 @@ export default function Navbar() {
               </div>
               <Link href="/donate" className={styles.mobileCtaButton} onClick={closeMenu}>
                 <Heart size={18} aria-hidden="true" />
-                <span>Offer Your Seva</span>
+                <span>Donate Now</span>
               </Link>
             </motion.div>
           </>
