@@ -131,7 +131,7 @@ export default function GalleryContent() {
       <AnimatePresence>
         {lightbox && (
           <motion.div className={styles.lightbox} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setLightbox(null)}>
-            <button className={styles.lightboxClose}><X size={28} /></button>
+            <button className={styles.lightboxClose} aria-label="Close image"><X size={28} /></button>
             <motion.div className={styles.lightboxContent} initial={{ scale: 0.8 }} animate={{ scale: 1 }} exit={{ scale: 0.8 }} onClick={e => e.stopPropagation()}>
               <GalleryImage src={lightbox.src} alt={lightbox.title} className={styles.lightboxImage} />
               <p className={styles.lightboxTitle}>{lightbox.title}</p>

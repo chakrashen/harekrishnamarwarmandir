@@ -42,7 +42,8 @@ export default function Welcome() {
                     className={styles.videoThumb}
                     fill
                     placeholder="blur"
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    quality={70}
                     priority={false}
                   />
                   <div className={styles.videoOverlay} />

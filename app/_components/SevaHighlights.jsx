@@ -136,7 +136,7 @@ export default function SevaHighlights() {
         <div className={styles.grid}>
           {sevaItems.map((item) => (
             <div key={item.name} className={styles.cardWrapper}>
-              <Link href={sevaRoutes[item.name]} className={styles.cardLink}>
+              <Link href={sevaRoutes[item.name]} className={styles.cardLink} aria-label={`Learn about ${item.name} seva`}>
                 <motion.div
                   className={styles.card}
                   whileHover={{ scale: 1.03 }}
@@ -153,6 +153,7 @@ export default function SevaHighlights() {
                         role="link"
                         tabIndex={0}
                         className={`btn btn-donate btn-sm ${styles.cardCta}`}
+                        aria-label={`Donate for ${item.name} — ${item.ctaPrice}`}
                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.location.href = item.donateLink; }}
                         onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); window.location.href = item.donateLink; } }}
                       >

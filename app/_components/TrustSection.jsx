@@ -85,6 +85,7 @@ export default function TrustSection() {
                       alt={item.alt}
                       fill
                       sizes="(max-width: 768px) 100vw, 33vw"
+                      quality={70}
                       className={styles.proofImage}
                     />
                     <div className={styles.proofOverlay}>

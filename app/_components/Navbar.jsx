@@ -137,8 +137,10 @@ export default function Navbar() {
             <Image
               src="/gallery/logo.png"
               alt="Hare Krishna Mandir Logo"
-              width={200}
-              height={64}
+              width={160}
+              height={88}
+              sizes="80px"
+              quality={75}
               className={styles.logoImage}
               priority
             />

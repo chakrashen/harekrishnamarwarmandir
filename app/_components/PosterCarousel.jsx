@@ -126,6 +126,7 @@ export default function PosterCarousel() {
               alt={slide.headline}
               fill
               sizes="100vw"
+              quality={60}
               priority={index === 0}
               loading={index === 0 ? 'eager' : 'lazy'}
               className={styles.slideImage}

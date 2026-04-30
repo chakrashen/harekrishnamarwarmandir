@@ -36,10 +36,10 @@ export default function Hero() {
             </motion.h1>
 
             <motion.div variants={fadeUp} className={styles.ctaRow}>
-              <a href="/donate?seva=mandir-nirman" className={`btn ${styles.primaryCta}`}>
+              <a href="/donate?seva=mandir-nirman" className={`btn ${styles.primaryCta}`} aria-label="Claim your square foot in the temple — Donate ₹2,500">
                 🛕 Claim Your Sq. Ft. — ₹2,500
               </a>
-              <a href="#seva-highlights" className={`btn btn-outline ${styles.secondaryCta}`}>
+              <a href="#seva-highlights" className={`btn btn-outline ${styles.secondaryCta}`} aria-label="Explore all seva options below">
                 Explore All Seva Options →
               </a>
             </motion.div>

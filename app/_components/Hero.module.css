@@ -30,7 +30,7 @@
 }
 
 .headlineAccent {
-  color: var(--saffron);
+  color: #c96a10;
   display: block;
   margin-top: 0.15em;
 }
@@ -59,6 +59,7 @@
   overflow: hidden;
   isolation: isolate;
   animation: ctaGlow 5.5s ease-in-out infinite;
+  will-change: filter;
   padding: 0.95rem 2.4rem;
   min-height: 50px;
   line-height: 1;
@@ -111,16 +112,14 @@
 
 @keyframes ctaGlow {
   0%, 100% {
-    box-shadow:
-      0 10px 24px rgba(255, 122, 0, 0.3),
-      0 4px 12px rgba(0, 0, 0, 0.12),
-      0 0 16px rgba(255, 174, 66, 0.25);
+    filter:
+      drop-shadow(0 10px 24px rgba(255, 122, 0, 0.3))
+      drop-shadow(0 0 16px rgba(255, 174, 66, 0.25));
   }
   50% {
-    box-shadow:
-      0 12px 28px rgba(255, 122, 0, 0.38),
-      0 6px 14px rgba(0, 0, 0, 0.15),
-      0 0 20px rgba(255, 174, 66, 0.35);
+    filter:
+      drop-shadow(0 12px 28px rgba(255, 122, 0, 0.38))
+      drop-shadow(0 0 20px rgba(255, 174, 66, 0.35));
   }
 }
 

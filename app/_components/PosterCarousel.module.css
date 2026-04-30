@@ -101,21 +101,35 @@
 .dot {
   position: relative;
   width: 32px;
-  height: 4px;
+  min-height: 44px;
+  min-width: 44px;
   border-radius: 2px;
   border: none;
-  background: rgba(255, 255, 255, 0.35);
+  background: transparent;
   cursor: pointer;
-  padding: 0;
+  padding: 20px 6px;
   overflow: hidden;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.35);
   transition: background 0.3s ease;
 }
 
-.dot:hover {
+.dot:hover::after {
   background: rgba(255, 255, 255, 0.55);
 }
 
-.dotActive {
+.dotActive::after {
   background: rgba(255, 255, 255, 0.3);
 }
 

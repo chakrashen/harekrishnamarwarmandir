@@ -1,5 +1,11 @@
+import dynamic from 'next/dynamic';
 import Navbar from './_components/Navbar';
 import Hero from './_components/Hero';
+import Footer from './_components/Footer';
+import FloatingButtons from './_components/FloatingButtons';
+import BottomNav from './_components/BottomNav';
+import SectionReveal from './_components/SectionReveal';
+
 import AartiTicker from './_components/AartiTicker';
 import Welcome from './_components/Welcome';
 import ConstructionMeter from './_components/ConstructionMeter';
@@ -10,11 +16,6 @@ import DonationSpotlight from './_components/DonationSpotlight';
 import ExploreTemple from './_components/ExploreTemple';
 import Testimonials from './_components/Testimonials';
 import Newsletter from './_components/Newsletter';
-import Footer from './_components/Footer';
-import FloatingButtons from './_components/FloatingButtons';
-import BottomNav from './_components/BottomNav';
-import SectionReveal from './_components/SectionReveal';
-
 export default function Home() {
   const ngoSchema = {
     "@context": "https://schema.org",

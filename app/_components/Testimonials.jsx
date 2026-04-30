@@ -58,13 +58,13 @@ export default function Testimonials() {
         </motion.div>
 
         <div className={styles.nav}>
-          <button onClick={prev} className={styles.navBtn}><ChevronLeft size={22} /></button>
+          <button onClick={prev} className={styles.navBtn} aria-label="Previous testimonial"><ChevronLeft size={22} /></button>
           <div className={styles.dots}>
             {testimonials.map((_, i) => (
-              <button key={i} className={`${styles.dot} ${i === idx ? styles.dotActive : ''}`} onClick={() => setIdx(i)} />
+              <button key={i} className={`${styles.dot} ${i === idx ? styles.dotActive : ''}`} onClick={() => setIdx(i)} aria-label={`Go to testimonial ${i + 1}`} />
             ))}
           </div>
-          <button onClick={next} className={styles.navBtn}><ChevronRight size={22} /></button>
+          <button onClick={next} className={styles.navBtn} aria-label="Next testimonial"><ChevronRight size={22} /></button>
         </div>
       </div>
     </section>

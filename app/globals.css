@@ -252,6 +252,10 @@ main {
   text-indent: 0.05em;
 }
 
+.dark-section .section-label {
+  color: #b35600;
+}
+
 .section-title {
   font-size: var(--h2-size);
   font-family: var(--font-heading);

@@ -26,7 +26,7 @@
   display: block;
   font-family: var(--font-heading);
   font-size: 2rem;
-  color: var(--saffron);
+  color: #c96a10;
   font-weight: 700;
   line-height: 1;
 }
@@ -79,7 +79,7 @@
 .meterPercent {
   font-family: var(--font-heading);
   font-size: 2.5rem;
-  color: var(--saffron);
+  color: #c96a10;
   font-weight: 900;
   line-height: 1;
 }

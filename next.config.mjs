@@ -5,7 +5,14 @@ const contentSecurityPolicy = buildCsp({ isDev });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    optimizeCss: true,
+  },
   images: {
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    qualities: [60, 70, 75, 100],
     remotePatterns: [
       {
         protocol: 'https',
@@ -30,6 +37,14 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value: contentSecurityPolicy,
+          },
+          {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload',
           },
         ],
       },
