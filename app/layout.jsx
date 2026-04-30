@@ -1,7 +1,8 @@
 import './globals.css';
+import dynamic from 'next/dynamic';
 import InitialLoaderGate from './_components/InitialLoaderGate';
 import ScrollProgress from './_components/ScrollProgress';
-import SmoothScroll from './_components/SmoothScroll';
+const SmoothScroll = dynamic(() => import('./_components/SmoothScroll'));
 import { Cinzel_Decorative, EB_Garamond, Inter, Cormorant_Garamond, Noto_Serif_Devanagari } from 'next/font/google';
 
 const cinzelDecorative = Cinzel_Decorative({
@@ -23,14 +24,14 @@ const ebGaramond = EB_Garamond({
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-inter',
 });
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['600', '700'],
   display: 'swap',
   variable: '--font-cormorant',
 });
