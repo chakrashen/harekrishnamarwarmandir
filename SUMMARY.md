@@ -18,6 +18,11 @@ Implemented comprehensive optimizations to reach Performance 90+ and Accessibili
     - Refactored `app/page.jsx` imports to reduce CSS chunk fragmentation and "Render-blocking requests" penalty.
     - Implemented precise `sizes` and `quality` attributes for all key images (Logo, Hero, Welcome, Trust).
     - Switched Hero CTA animation to GPU-composited `filter: drop-shadow()` to reduce main-thread work.
+    - Dynamically imported `SmoothScroll` (Lenis library) in `app/layout.jsx` to reduce initial JS payload.
+    - Optimized Hero image `sizes` attribute for mobile viewports (`max-width: 640px`).
+- **Font Optimization**:
+    - Deferred non-critical fonts (`Cinzel Decorative`, `EB Garamond`, `Noto Serif Devanagari`) in `layout.jsx` (`preload: false`).
+    - Trimmed preloaded font weights (`Inter`, `Cormorant Garamond`) to only include actively used weights, cutting critical font payload by ~60 KiB.
 - **Accessibility & Contrast**:
     - Increased all carousel dot touch targets to 44x44px minimum (WCAG).
     - Added descriptive `aria-label` attributes to all interactive elements (Hero CTAs, Testimonials, Gallery, Seva cards).
