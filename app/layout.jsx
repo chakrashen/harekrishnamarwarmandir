@@ -9,6 +9,7 @@ const cinzelDecorative = Cinzel_Decorative({
   weight: ['400', '700', '900'],
   display: 'swap',
   variable: '--font-cinzel',
+  preload: false,
 });
 
 const ebGaramond = EB_Garamond({
@@ -17,6 +18,7 @@ const ebGaramond = EB_Garamond({
   style: ['normal', 'italic'],
   display: 'swap',
   variable: '--font-eb-garamond',
+  preload: false,
 });
 
 const inter = Inter({
@@ -38,6 +40,7 @@ const notoSerifDevanagari = Noto_Serif_Devanagari({
   weight: ['400', '500', '600'],
   display: 'swap',
   variable: '--font-devanagari',
+  preload: false,
 });
 
 export const metadata = {

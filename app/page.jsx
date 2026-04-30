@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic';
+
 import Navbar from './_components/Navbar';
 import Hero from './_components/Hero';
 import Footer from './_components/Footer';
@@ -16,6 +16,7 @@ import DonationSpotlight from './_components/DonationSpotlight';
 import ExploreTemple from './_components/ExploreTemple';
 import Testimonials from './_components/Testimonials';
 import Newsletter from './_components/Newsletter';
+
 export default function Home() {
   const ngoSchema = {
     "@context": "https://schema.org",
