@@ -50,7 +50,7 @@ export default function Footer() {
 
           <div className={styles.linksCol}>
             <h4 className={styles.colTitle}>Contact</h4>
-            <a href="tel:+919928766773" className={styles.contactLink}><Phone size={14} /> +91 99287 66773</a>
+            <a href="tel:+919929945107" className={styles.contactLink}><Phone size={14} /> +91 99299 45107</a>
             <a href="mailto:harekrishna@hkmjodhpur.org" className={styles.contactLink}><Mail size={14} /> harekrishna@hkmjodhpur.org</a>
             <div className={styles.contactLink}><MapPin size={14} /> Jodhpur, Rajasthan, India</div>
 

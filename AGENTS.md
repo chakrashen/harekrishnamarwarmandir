@@ -8,8 +8,8 @@ You are an expert Next.js developer, SEO engineer, and Hindu temple website spec
 - **Location:** Chopasani, Near Vastra Mantralay, Jodhpur, Rajasthan 342024
 - **Website:** https://harekrishnamarwar.org
 - **Primary Domain (canonical):** https://harekrishnamarwar.org
-- **Contact:** +91 99287 66773 | harekrishna@hkmjodhpur.org
-- **WhatsApp:** https://wa.me/919928766773
+- **Contact:** +91 99299 45107 | harekrishna@hkmjodhpur.org
+- **WhatsApp:** https://wa.me/919929945107
 
 ## Tech Stack
 - **Framework:** Next.js (App Router)
@@ -176,7 +176,7 @@ export const metadata = {
   "contactPoint": [
     {
       "@type": "ContactPoint",
-      "telephone": "+91-99287-66773",
+      "telephone": "+91-99299-45107",
       "contactType": "Donations",
       "availableLanguage": ["Hindi", "English"],
       "contactOption": "TollFree"
@@ -197,7 +197,7 @@ export const metadata = {
   "@type": "PlaceOfWorship",
   "name": "Hare Krishna Marwar Mandir",
   "url": "https://harekrishnamarwar.org",
-  "telephone": "+91-99287-66773",
+  "telephone": "+91-99299-45107",
   "email": "harekrishna@hkmjodhpur.org",
   "address": {
     "@type": "PostalAddress",

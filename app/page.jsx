@@ -58,7 +58,7 @@ export default function Home() {
       "addressCountry": "IN"
     },
     "openingHours": "Mo-Su 05:00-21:00",
-    "telephone": "+919928766773"
+    "telephone": "+919929945107"
   };
 
   return (

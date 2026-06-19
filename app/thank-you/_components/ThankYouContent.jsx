@@ -150,7 +150,7 @@ export default function ThankYouContent() {
           <p className={styles.receipt}>
             A receipt will be sent to your email shortly. For any queries, contact us at{' '}
             <a href="mailto:harekrishna@hkmjodhpur.org">harekrishna@hkmjodhpur.org</a> or{' '}
-            <a href="tel:+919928766773">+91 99287 66773</a>.
+            <a href="tel:+919929945107">+91 99299 45107</a>.
           </p>
 
           <div className={styles.actions}>

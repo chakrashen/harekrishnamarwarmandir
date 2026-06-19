@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import styles from './FloatingButtons.module.css';
 
-const WHATSAPP_URL = 'https://wa.me/919928766773?text=Hare%20Krishna!%20I%20want%20to%20know%20about%20seva%20options.%20Please%20share%20a%20link%20to%20get%20started.';
+const WHATSAPP_URL = 'https://wa.me/919929945107?text=Hare%20Krishna!%20I%20want%20to%20know%20about%20seva%20options.%20Please%20share%20a%20link%20to%20get%20started.';
 
 export default function FloatingButtons() {
   const [showTooltip, setShowTooltip] = useState(false);

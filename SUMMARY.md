@@ -1,6 +1,27 @@
 # SUMMARY.md — Hare Krishna Marwar Mandir Website
 
-**Last Updated:** April 30, 2026
+**Last Updated:** June 19, 2026
+
+---
+
+## Session 4 (Interim): Phone Number Update
+
+Updated the primary contact and WhatsApp number from `+91 99287 66773` to `+91 99299 45107` across all pages, configurations, schemas, and rule documents.
+
+### What was built/fixed
+- **Phone Number Replacement**:
+  - Replaced old phone number `99287 66773` (and format variants like `9928766773`, `99287-66773`) with new number `99299 45107` (and respective format variants) everywhere.
+  - Files modified:
+    - [AGENTS.md](file:///d:/bprojects/harekrishnamainrepos/harekrishnamarwarmandir/AGENTS.md) (Identity, WhatsApp link, and schema rules)
+    - [app/page.jsx](file:///d:/bprojects/harekrishnamainrepos/harekrishnamarwarmandir/app/page.jsx) (Structured data telephone number)
+    - [app/visit/_components/VisitContent.jsx](file:///d:/bprojects/harekrishnamainrepos/harekrishnamarwarmandir/app/visit/_components/VisitContent.jsx) (Volunteer FAQ and help card info)
+    - [app/thank-you/_components/ThankYouContent.jsx](file:///d:/bprojects/harekrishnamainrepos/harekrishnamarwarmandir/app/thank-you/_components/ThankYouContent.jsx) (Contact info in thank you message)
+    - [app/_components/FloatingButtons.jsx](file:///d:/bprojects/harekrishnamainrepos/harekrishnamarwarmandir/app/_components/FloatingButtons.jsx) (WhatsApp sticky button link)
+    - [app/_components/Footer.jsx](file:///d:/bprojects/harekrishnamainrepos/harekrishnamarwarmandir/app/_components/Footer.jsx) (Footer contact details)
+    - [app/_components/Navbar.jsx](file:///d:/bprojects/harekrishnamainrepos/harekrishnamarwarmandir/app/_components/Navbar.jsx) (Header navigation WhatsApp link and telephone contact details)
+
+### Next session
+- **Session 5**: SEO: Add robots.js + sitemap.js + canonical tags.
 
 ---
 
