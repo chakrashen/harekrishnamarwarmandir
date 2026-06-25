@@ -1,6 +1,29 @@
 # SUMMARY.md — Hare Krishna Marwar Mandir Website
 
-**Last Updated:** June 19, 2026
+**Last Updated:** June 25, 2026
+
+---
+
+## Session 4 (Interim 2): Google Tag Integration — June 25, 2026
+
+### What was built
+- Modified [app/layout.jsx](file:///d:/bprojects/harekrishnamainrepos/harekrishnamarwarmandir/app/layout.jsx) to add Google Analytics (`gtag.js`) scripts using Next.js `Script` component with `strategy="afterInteractive"`.
+
+### What was fixed
+- Added Google Analytics Tracking ID `G-GZKH34DWK1`.
+
+### What broke / needs attention
+- None.
+
+### Next session
+- **Session 5**: SEO: Add robots.js + sitemap.js + canonical tags.
+
+### Current known issues
+- [ ] /donate page renders no body content for crawlers (client-side only JS) — fix SSR
+- [ ] Add JSON-LD structured data to all pages
+- [ ] Create robots.js and sitemap.js
+- [ ] Submit sitemap to Google Search Console
+- [ ] Add metadata (title + description) to every page route
 
 ---
 

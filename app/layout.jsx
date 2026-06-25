@@ -1,4 +1,5 @@
 import './globals.css';
+import Script from 'next/script';
 import dynamic from 'next/dynamic';
 import InitialLoaderGate from './_components/InitialLoaderGate';
 import ScrollProgress from './_components/ScrollProgress';
@@ -81,6 +82,19 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/gallery/logo.png" type="image/png" />
       </head>
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-GZKH34DWK1"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-GZKH34DWK1');
+          `}
+        </Script>
         <ScrollProgress />
         <SmoothScroll />
         <InitialLoaderGate>{children}</InitialLoaderGate>
