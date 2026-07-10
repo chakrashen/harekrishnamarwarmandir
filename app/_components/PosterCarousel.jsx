@@ -5,32 +5,11 @@ import styles from './PosterCarousel.module.css';
 
 const slides = [
   {
-    id: 'temple-vision',
-    image: '/home page backgrond image.png',
-    headline: 'A Sacred Home for Krishna',
-    subtext: 'Rising in Jodhpur. Opening March 2027.',
-    href: '/donate?seva=mandir-nirman',
-  },
-  {
     id: 'construction',
     image: '/Mandir Nirman seva impact.jpg',
     headline: '8,400 Sq. Ft. Already Built',
     subtext: '310 families have claimed their legacy. Join them.',
     href: '/donate?seva=mandir-nirman',
-  },
-  {
-    id: 'anna-daan',
-    image: '/aan dan seva.png',
-    headline: '1.5 Lakh Meals Served',
-    subtext: 'Every ₹34 feeds a hungry devotee today.',
-    href: '/donate?seva=anna-daan',
-  },
-  {
-    id: 'gau-seva',
-    image: '/gau dan seva.png',
-    headline: 'Serve the Sacred',
-    subtext: 'Protect Gau Mata. ₹2,100 cares for a cow for a month.',
-    href: '/donate?seva=gau-seva',
   },
 ];
 
@@ -62,7 +41,7 @@ export default function PosterCarousel() {
 
   // Auto-scroll timer
   useEffect(() => {
-    if (paused) return;
+    if (paused || slides.length <= 1) return;
     timerRef.current = setInterval(next, INTERVAL);
     return () => clearInterval(timerRef.current);
   }, [paused, next]);
@@ -141,31 +120,37 @@ export default function PosterCarousel() {
       </div>
 
       {/* Dot indicators */}
-      <div className={styles.dots} role="tablist" aria-label="Carousel navigation">
-        {slides.map((slide, index) => (
-          <button
-            key={slide.id}
-            className={`${styles.dot} ${index === current ? styles.dotActive : ''}`}
-            onClick={() => goTo(index)}
-            role="tab"
-            aria-selected={index === current}
-            aria-label={`Go to slide ${index + 1}: ${slide.headline}`}
-          >
-            {/* Progress fill for active dot */}
-            {index === current && !paused && (
-              <span className={styles.dotProgress} key={`progress-${current}`} />
-            )}
-          </button>
-        ))}
-      </div>
+      {slides.length > 1 && (
+        <div className={styles.dots} role="tablist" aria-label="Carousel navigation">
+          {slides.map((slide, index) => (
+            <button
+              key={slide.id}
+              className={`${styles.dot} ${index === current ? styles.dotActive : ''}`}
+              onClick={() => goTo(index)}
+              role="tab"
+              aria-selected={index === current}
+              aria-label={`Go to slide ${index + 1}: ${slide.headline}`}
+            >
+              {/* Progress fill for active dot */}
+              {index === current && !paused && (
+                <span className={styles.dotProgress} key={`progress-${current}`} />
+              )}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Arrow buttons (desktop only) */}
-      <button className={`${styles.arrow} ${styles.arrowPrev}`} onClick={prev} aria-label="Previous slide">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <button className={`${styles.arrow} ${styles.arrowNext}`} onClick={next} aria-label="Next slide">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
+      {slides.length > 1 && (
+        <>
+          <button className={`${styles.arrow} ${styles.arrowPrev}`} onClick={prev} aria-label="Previous slide">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button className={`${styles.arrow} ${styles.arrowNext}`} onClick={next} aria-label="Next slide">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </>
+      )}
     </div>
   );
 }

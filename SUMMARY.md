@@ -1,8 +1,27 @@
 # SUMMARY.md — Hare Krishna Marwar Mandir Website
 
-**Last Updated:** June 25, 2026
+**Last Updated:** July 10, 2026
 
 ---
+
+## Session 4 (Interim 3): Hero Carousel Simplification — July 10, 2026
+
+### What was built
+- Simplified the hero carousel in [app/_components/PosterCarousel.jsx](file:///d:/Bawra%20Projects/harekrishnamarwar.org/harekrishnamarwarmandir/app/_components/PosterCarousel.jsx) by removing slides 1, 3, and 4 (Temple Vision, Anna Daan, and Gau Seva).
+- Left only the Construction slide (Slide 2: "8,400 Sq. Ft. Already Built") as a static banner.
+- Updated the carousel logic to conditionally disable navigation arrows, dots indicators, and the auto-scroll timer when only one slide is present.
+
+### What was fixed
+- Removed image references and slide navigation for slides 1, 3, and 4 in the hero section as requested.
+
+### What broke / needs attention
+- None.
+
+### Next session
+- **Session 5**: SEO: Add robots.js + sitemap.js + canonical tags.
+
+---
+
 
 ## Session 4 (Interim 2): Google Tag Integration — June 25, 2026
 
